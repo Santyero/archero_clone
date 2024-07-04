@@ -26,9 +26,10 @@ namespace Game
         int projectileFramesDelay = 300;
 
         std::vector<Enemy> enemies = this->createEnemies();
+        // QUESTION : o projetil nao deveria ser do player?
         std::vector<Projectile> projectiles;
         projectiles.push_back(Projectile(
-            this->rendererPort, this->physicsEngine, Config::windowWidth / 2 - 25, Config::sceneHeight - 70
+            this->rendererPort, this->physicsEngine, player.getPositionXInMeters() + 50, player.getPositionYInMeters() + 50
         ));
 
         std::vector<VisualElement *> elements;
@@ -60,7 +61,7 @@ namespace Game
             else
             {
                 projectiles.push_back(Projectile(
-                    this->rendererPort, this->physicsEngine, Config::windowWidth / 2 - 25, Config::sceneHeight - 70));
+                    this->rendererPort, this->physicsEngine, player.getPositionXInMeters() + 20 , player.getPositionYInMeters() - 15));
                 projectileFramesDelay = 300;
             }
 
@@ -79,7 +80,7 @@ namespace Game
                 {
                     VisualElement *element = elements[i];
                     VisualElement *otherElement = elements[j];
-                    element->verifyCollision(otherElement);
+                    element->checkCollision(otherElement);
                 }
             }
 

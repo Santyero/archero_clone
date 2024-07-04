@@ -28,7 +28,7 @@ namespace Game
 		}
 
 		virtual void onCollision() = 0;
-		void verifyCollision(VisualElement *otherElement);
+		void checkCollision(VisualElement *otherElement);
 
 		float getPositionXInMeters()
 		{
