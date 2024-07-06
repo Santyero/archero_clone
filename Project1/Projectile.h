@@ -21,5 +21,6 @@ namespace Game {
 		void updatePosition();
 
 		void onCollision() override {}
+		void update() override {}
 	};
 }

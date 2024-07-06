@@ -27,7 +27,33 @@ namespace Game {
     }
 
     void Player::onCollision() {
-	    std::cout << "Player collision" << std::endl;
-        this->hexColor = "00000"; 
+	    //std::cout << "Player collision" << std::endl;
+        
+        
+        if (!this->isInvincible) {
+            this->isInvincible = true;
+            this->life -= 10;
+            this->hexColor = "808080";
+            this->temporaryInvincibilityTime = SDL_GetTicks();
+
+            if (this->life <= 0) {
+                this->hexColor = "00000";
+                std::cout << "Player died" << std::endl;
+            }
+            else {
+                std::cout << "Player life: " << this->life << std::endl;
+            }
+        }
+
     }
+
+    void Player::update() {
+        //std::cout << "Player update" << std::endl;
+        if (this->isInvincible && SDL_GetTicks() - this->temporaryInvincibilityTime > this->invincibilityTime) {
+            if (this->life > 0) {
+				this->hexColor = "ffff00";
+			}
+			this->isInvincible = false;
+		}
+	}
 }
