@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -165,6 +166,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h" />
+    <ClInclude Include="ElementsManager.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="RendererPort.h" />
