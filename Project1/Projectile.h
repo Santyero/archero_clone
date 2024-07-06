@@ -7,9 +7,10 @@
 namespace Game {
 	class Projectile: public VisualElement {
 	private:
-		float currentSpeedPoints = 1.0;
+		float currentSpeedPoints = 0.1;
 		PhysicsEngine* physicsEngine = nullptr;
-
+		
+		void updatePosition();
 	public:
 		Projectile(
 			RendererPort* rendererPort_,
@@ -18,8 +19,9 @@ namespace Game {
 			float positionYInMeters
 		);
 
-		void updatePosition();
 
-		void onCollision() override {}
+		void onCollision(VisualElement* otherElement) override;
+
+		void update() override;
 	};
 }

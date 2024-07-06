@@ -14,7 +14,8 @@ namespace Game {
         void attack() override;
 
         void verifyKeyboardCommands();
-        void onCollision() override;
+        void onCollision(VisualElement* otherElement) override;
+        void update() override {}
     };
 }
 

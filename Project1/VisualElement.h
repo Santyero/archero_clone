@@ -13,6 +13,7 @@ namespace Game
 		float widthInMeters;
 		float heightInMeters;
 		std::string hexColor;
+		bool deleted = false;
 
 	public:
 		VisualElement(RendererPort *adapter, const RenderDataDTO &renderDataDTOParam);
@@ -27,7 +28,8 @@ namespace Game
 					this->hexColor});
 		}
 
-		virtual void onCollision() = 0;
+		virtual void onCollision(VisualElement* otherElement) = 0;
+		virtual void update() = 0;
 		void checkCollision(VisualElement *otherElement);
 
 		float getPositionXInMeters()
@@ -38,6 +40,10 @@ namespace Game
 		float getPositionYInMeters()
 		{
 			return this->positionYInMeters;
+		}
+
+		bool isDeleted() {
+			return this->deleted;
 		}
 	};
 }

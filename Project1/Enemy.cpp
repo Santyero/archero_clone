@@ -32,7 +32,7 @@ void Enemy::randomizePosition()
 
 void Enemy::updateEnemy() {}
 
-void Enemy::onCollision()
+void Enemy::onCollision(VisualElement* otherElement)
 {
-	std::cout << "Enemy collision" << std::endl;
+	//std::cout << "Enemy collision" << std::endl;
 }
