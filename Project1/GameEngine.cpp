@@ -81,6 +81,7 @@ namespace Game
                     VisualElement *element = elements[i];
                     VisualElement *otherElement = elements[j];
                     element->checkCollision(otherElement);
+                    element->update();
                 }
             }
 

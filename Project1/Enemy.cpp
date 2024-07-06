@@ -28,11 +28,45 @@ void Enemy::randomizePosition()
     this->positionXInMeters = randomX;
     this->positionYInMeters = randomY;
 
+    int randomDirection = rand() % 4;
+    switch (randomDirection) {
+        case 0: direction = RIGHT; break;
+        case 1: direction = LEFT; break;
+        case 2: direction = UP; break;
+        case 3: direction = DOWN; break;
+    }
 }
 
 void Enemy::updateEnemy() {}
 
+
 void Enemy::onCollision()
 {
-	std::cout << "Enemy collision" << std::endl;
+    std::cout << "Enemy collision" << std::endl;
+    // Mudar a direção aleatoriamente em caso de colisão
+    int randomDirection = rand() % 4;
+    switch (randomDirection) {
+        case 0: direction = RIGHT; break;
+        case 1: direction = LEFT; break;
+        case 2: direction = UP; break;
+        case 3: direction = DOWN; break;
+    }
+}
+
+void Enemy::update()
+{
+    switch (direction) {
+        case RIGHT:
+            this->goRight();
+            break;
+        case LEFT:
+            this->goLeft();
+            break;
+        case UP:
+            this->goUp();
+            break;
+        case DOWN:
+            this->goDown();
+            break;
+    }
 }
