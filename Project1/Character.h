@@ -18,7 +18,7 @@ namespace Game {
         int currentHealth = 0;
         int currentAttackPoints = 0;
         int currentDefensePoints = 0;
-        int currentSpeedPoints = 1;
+        double currentSpeedPoints = 1;
         int currentSpeedAtackPoints = 0;
 
     protected:
