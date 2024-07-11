@@ -1,7 +1,7 @@
 #include <SDL.h>
 #include <stdlib.h>
 #include <iostream>
-#include <list> // Inclua a biblioteca de listas
+#include <list>
 #include "GameEngine.h"
 #include "Window.h"
 #include "Player.h"
