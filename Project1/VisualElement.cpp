@@ -29,7 +29,6 @@ void VisualElement::checkCollision(VisualElement* otherElement) {
         float minOverlapY = std::min(overlapTop, overlapBottom);
 
         // Descomente o código de resolução de colisão se necessário
-        /*
         if (minOverlapX < minOverlapY) {
             if (overlapLeft < overlapRight) {
                 this->positionXInMeters -= overlapLeft;
@@ -46,7 +45,7 @@ void VisualElement::checkCollision(VisualElement* otherElement) {
                 this->positionYInMeters += overlapBottom;
             }
         }
-        */
+        
         this->onCollision(otherElement);
     }
 }

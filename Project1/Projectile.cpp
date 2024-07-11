@@ -24,25 +24,22 @@ namespace Game {
 	}
 
 	void Projectile::update() {
-		// this->updatePosition();
+		this->updatePosition();
 	}
 
 	void Projectile::onCollision(VisualElement* otherElement) {
-		if (Enemy* enemy = dynamic_cast<Enemy*>(otherElement)) {
-			// Imprime informações específicas de Enemy
-			std::cout << "Enemy position: (" << enemy->getPositionXInMeters() << ", " << enemy->getPositionYInMeters() << ")" << std::endl;
+		if (dynamic_cast<Projectile*>(otherElement) || dynamic_cast<Player*>(otherElement)) {
+			return;
 		}
-		if (Player* player = dynamic_cast<Player*>(otherElement)) {
-			std::cout << "Player position: (" << player->getPositionXInMeters() << ", " << player->getPositionYInMeters() << ")" << std::endl;
+
+		if (Enemy* enemy = dynamic_cast<Enemy*>(otherElement)) {
+			std::cout << "Enemy position: (" << enemy->getPositionXInMeters() << ", " << enemy->getPositionYInMeters() << ")" << std::endl;
 		}
 		if (Obstacle* obstacle = dynamic_cast<Obstacle*>(otherElement)) {
 			std::cout << "Obstacle position: (" << obstacle->getPositionXInMeters() << ", " << obstacle->getPositionYInMeters() << ")" << std::endl;
 		}
-		if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
-			std::cout << "Projectile position: (" << projectile->getPositionXInMeters() << ", " << projectile->getPositionYInMeters() << ")" << std::endl;
-		}
+	
 
-		std::cout << "Projectile collision" << std::endl;
 		this->deleted = true;
 	}
 }

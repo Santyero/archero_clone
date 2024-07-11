@@ -1,14 +1,55 @@
 ﻿  Verificando fontes para dependências de módulo...
-  GameEngine.cpp
-C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'GameEngine.cpp')
-  
+  SDLTimeServiceAdapter.h
+  TimeServicePort.h
+  Compilando...
+  TimeServicePort.h
+  SDLTimeServiceAdapter.h
+  Obstacle.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  PhysicsEngine.cpp
+  Projectile.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
 C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
-  (compilando o arquivo fonte 'GameEngine.cpp')
-  
-C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(74,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(111,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(127,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(132,81): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(132,73): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Projectile.cpp(23,67): warning C4244: '-=': conversão de 'double' para 'float', possível perda de dados
+  Scene.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  Character.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Character.cpp(11,55): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Character.cpp(17,55): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Character.cpp(23,55): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Character.cpp(29,55): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
+  Enemy.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Enemy.cpp(24,19): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Enemy.cpp(25,19): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
+  Origem.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  Player.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  GameEngine.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(73,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(108,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(124,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(129,81): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\GameEngine.cpp(129,73): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+  SDLRendererAdapter.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\SDLRendererAdapter.cpp(47,22): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\SDLRendererAdapter.cpp(47,22): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\SDLRendererAdapter.cpp(48,22): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\SDLRendererAdapter.cpp(48,22): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\SDLRendererAdapter.cpp(49,22): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\SDLRendererAdapter.cpp(49,22): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\SDLRendererAdapter.cpp(50,22): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\SDLRendererAdapter.cpp(50,22): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+  Skill.cpp
+  VisualElement.cpp
+C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  Window.cpp
+  Gerando Código...
   Project1.vcxproj -> C:\Users\jonatas.oliveira\Projetos\Faculdade\ArcheroClone\x64\Debug\Project1.exe

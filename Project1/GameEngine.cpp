@@ -55,18 +55,17 @@ namespace Game
             this->timeServicePort->updateLastCurrentTimeInMilliseconds();
 
 
-            if (projectileFramesDelay > 0)
-            {
+            if (projectileFramesDelay > 0) {
                 projectileFramesDelay--;
             }
-            else
-            {
-                Projectile projectile = Projectile(
-                    this->rendererPort, this->physicsEngine, player.getPositionXInMeters() + 100, player.getPositionYInMeters() - 100
+            else {
+                Projectile* projectile = new Projectile(
+                    this->rendererPort, this->physicsEngine, player.getPositionXInMeters() + 25, player.getPositionYInMeters() - 20
                 );
-                elements.push_back(&projectile);
+                elements.push_back(projectile);
                 projectileFramesDelay = 300;
             }
+
 
             scene.renderElement();
             player.verifyKeyboardCommands();
@@ -75,25 +74,23 @@ namespace Game
             for (int i = 0; i < n; ++i) {
                 VisualElement* element = elements[i];
 
-                element->update();
-
                 // Verifica colisões com elementos subsequentes
                 for (int j = i + 1; j < n; ++j) {
                     VisualElement* otherElement = elements[j];
                     element->checkCollision(otherElement);
+                    otherElement->checkCollision(element);
                 }
 
                 // Renderiza o elemento se não estiver marcado para exclusão
                 if (!element->isDeleted()) {
+                    element->update();
                     element->renderElement();
                 }
-                else {
-                    // Se o elemento estiver marcado para exclusão, remove-o do vetor
-                    elements.erase(elements.begin() + i);
-                    --n;
-                    --i; // Decrementa o índice para compensar a remoção
-                }
             }
+
+            elements.erase(std::remove_if(elements.begin(), elements.end(),
+                [](VisualElement* element) { return element->isDeleted(); }),
+                elements.end());
 
 
             this->rendererPort->renderPresent();

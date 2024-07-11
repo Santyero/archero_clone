@@ -27,8 +27,11 @@ namespace Game {
     }
 
     void Player::onCollision(VisualElement* otherElement) {
-	    // std::cout << "Player collision" << std::endl;
-        this->hexColor = "00000"; 
+        if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
+            return;
+        }
+        if (Obstacle* obstacle = dynamic_cast<Obstacle*>(otherElement)) {
+        }
     }
 
 }
