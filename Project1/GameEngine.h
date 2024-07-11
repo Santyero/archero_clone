@@ -8,7 +8,7 @@
 #include "RendererPort.h"
 #include "PhysicsEngine.h"
 #include "Obstacle.h"
-#include <vector>
+#include <list>
 
 namespace Game {
 	class GameEngine
@@ -19,11 +19,11 @@ namespace Game {
 		TimeServicePort* timeServicePort = nullptr;
 		PhysicsEngine* physicsEngine = nullptr;
 
-		std::vector<Obstacle> createWall();
+		std::list<Obstacle> createWall();
 	public:
 		GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_);
 
-		std::vector<Enemy> createEnemies();
+		std::list<Enemy> createEnemies();
 		void startGame();
 	};
 }
