@@ -40,7 +40,7 @@ void Enemy::randomizePosition()
 void Enemy::updateEnemy() {}
 
 
-void Enemy::onCollision()
+void Enemy::onCollision(VisualElement* otherElement)
 {
     std::cout << "Enemy collision" << std::endl;
     // Mudar a dire��o aleatoriamente em caso de colis�o
