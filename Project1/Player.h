@@ -1,5 +1,7 @@
 #pragma once
 #include "Character.h"
+#include "Projectile.h"
+#include "Obstacle.h"
 #include "Skill.h"
 #include <vector>
 #include <iostream>
