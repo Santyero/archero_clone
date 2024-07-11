@@ -15,7 +15,7 @@ namespace Game {
         void attack() override;
         void randomizePosition();
         void updateEnemy();
-        void onCollision() override;
+        void onCollision(VisualElement* otherElement) override;
         void update() override;
 
     private:

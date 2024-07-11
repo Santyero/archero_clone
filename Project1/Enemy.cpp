@@ -43,7 +43,7 @@ void Enemy::updateEnemy() {}
 void Enemy::onCollision()
 {
     std::cout << "Enemy collision" << std::endl;
-    // Mudar a direção aleatoriamente em caso de colisão
+    // Mudar a direï¿½ï¿½o aleatoriamente em caso de colisï¿½o
     int randomDirection = rand() % 4;
     switch (randomDirection) {
         case 0: direction = RIGHT; break;

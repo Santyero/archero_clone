@@ -10,7 +10,7 @@ namespace Game
 																																	 Config::sceneHeight,
 																																	 "#9999FF"}) {}
 
-	void Scene::onCollision()
+	void Scene::onCollision(VisualElement* otherElement)
 	{
 		std::cout << "Scene collision" << std::endl;
 	}
