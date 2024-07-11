@@ -1,44 +1,77 @@
 ﻿  Verificando fontes para dependências de módulo...
-  Character.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Character.cpp')
-  
-C:\projetos\archero_clone\Project1\Character.cpp(11,55): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\Character.cpp(17,55): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\Character.cpp(23,55): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\Character.cpp(29,55): warning C4244: '=': conversão de 'double' para 'float', possível perda de dados
-  Enemy.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Enemy.cpp')
-  
-C:\projetos\archero_clone\Project1\Enemy.cpp(24,19): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\Enemy.cpp(25,19): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
   GameEngine.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
   (compilando o arquivo fonte 'GameEngine.cpp')
   
-C:\projetos\archero_clone\Project1\GameEngine.cpp(77,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(116,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-  Origem.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Origem.cpp')
+C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'GameEngine.cpp')
   
-  Player.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Player.cpp')
+C:\projetos\archero_clone\Project1\GameEngine.cpp(71,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(103,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(118,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76): warning C4244: 'argumento': conversão de '_Ty' para 'float', possível perda de dados
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76): warning C4244:         ]
+  (compilando o arquivo fonte 'GameEngine.cpp')
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  o contexto de instanciação do modelo (o mais antigo primeiro) é
+  	C:\projetos\archero_clone\Project1\GameEngine.cpp(123,30):
+  	consulte a referência à instanciação 'Game::Obstacle &std::list<Game::Obstacle,std::allocator<Game::Obstacle>>::emplace_back<Game::RendererPort*&,int,int>(Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(993,29):
+  	consulte a referência à instanciação 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<Game::RendererPort*&,int,int>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Obstacle,
+              _Alloc=std::allocator<Game::Obstacle>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(1018,44):
+  	consulte a referência à instanciação 'std::_List_node_emplace_op2<std::allocator<std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<Game::RendererPort*&,int,int>(_Alnode &,Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Obstacle,
+              _Alloc=std::allocator<Game::Obstacle>,
+              _Alnode=std::allocator<std::_List_node<Game::Obstacle,std::_Default_allocator_traits<std::allocator<Game::Obstacle>>::void_pointer>>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(585,25):
+  	consulte a referência à instanciação 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Game::RendererPort*&,int,int>(_Alloc &,_Objty *const ,Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
+          with
+          [
+              _Alloc=std::allocator<std::_List_node<Game::Obstacle,std::_Default_allocator_traits<std::allocator<Game::Obstacle>>::void_pointer>>,
+              _Ty=Game::Obstacle,
+              _Objty=Game::Obstacle
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xmemory(725,14):
+  	consulte a referência à instanciação '_Ty *std::construct_at<_Objty,Game::RendererPort*&,int,int,0x0>(_Ty *const ,Game::RendererPort *&,int &&,int &&) noexcept(<expr>)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Obstacle,
+              _Objty=Game::Obstacle
+          ]
   
-  Projectile.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Projectile.cpp')
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(242,90): warning C4244: 'argumento': conversão de '_Ty' para 'float', possível perda de dados
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(242,90): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(242,90): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(242,90): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(242,90): warning C4244:         ]
+  (compilando o arquivo fonte 'GameEngine.cpp')
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(242,90):
+  o contexto de instanciação do modelo (o mais antigo primeiro) é
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(585,25):
+  	consulte a referência à instanciação 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Game::RendererPort*&,int,int>(_Alloc &,_Objty *const ,Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
+          with
+          [
+              _Alloc=std::allocator<std::_List_node<Game::Obstacle,std::_Default_allocator_traits<std::allocator<Game::Obstacle>>::void_pointer>>,
+              _Ty=Game::Obstacle,
+              _Objty=Game::Obstacle
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xmemory(725,14):
+  	consulte a referência à instanciação '_Ty *std::construct_at<_Objty,Game::RendererPort*&,int,int,0x0>(_Ty *const ,Game::RendererPort *&,int &&,int &&) noexcept(false)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Obstacle,
+              _Objty=Game::Obstacle
+          ]
   
-C:\projetos\archero_clone\Project1\Projectile.cpp(20,67): warning C4244: '-=': conversão de 'double' para 'float', possível perda de dados
-  Scene.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Scene.cpp')
-  
-  VisualElement.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'VisualElement.cpp')
-  
-  Gerando Código...
   Project1.vcxproj -> C:\projetos\archero_clone\x64\Debug\Project1.exe
