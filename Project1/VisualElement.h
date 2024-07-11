@@ -15,6 +15,7 @@ namespace Game
 		float widthInMeters;
 		float heightInMeters;
 		std::string hexColor;
+		bool deleted = false;
 		Vector position;
 		Vector velocity;
 
@@ -31,7 +32,7 @@ namespace Game
 					this->hexColor});
 		}
 
-		virtual void onCollision() = 0;
+		virtual void onCollision(VisualElement* otherElement) = 0;
 		virtual void update() = 0;
 		void checkCollision(VisualElement *otherElement);
 
@@ -48,6 +49,10 @@ namespace Game
 		void physicsUpdate(float deltaTime)
 		{
 			this->position += this->velocity * deltaTime;
+		}
+		
+		bool isDeleted() {
+			return this->deleted;
 		}
 	};
 }

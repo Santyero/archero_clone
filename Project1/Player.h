@@ -1,5 +1,7 @@
 #pragma once
 #include "Character.h"
+#include "Projectile.h"
+#include "Obstacle.h"
 #include "Skill.h"
 #include <vector>
 #include <iostream>
@@ -18,8 +20,8 @@ namespace Game {
         void attack() override;
 
         void verifyKeyboardCommands();
-        void onCollision() override;
-        void update();
+        void onCollision(VisualElement* otherElement) override;
+        void update() override;
     };
 }
 

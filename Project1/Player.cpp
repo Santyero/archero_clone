@@ -26,7 +26,10 @@ namespace Game {
         }
     }
 
-    void Player::onCollision() {
+    void Player::onCollision(VisualElement* otherElement) {
+    	if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
+            return;
+        }
 	    //std::cout << "Player collision" << std::endl;
         
         

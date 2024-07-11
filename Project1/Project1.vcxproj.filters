@@ -108,6 +108,9 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>Arquivos de Origem\domain\entities</Filter>
     </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Arquivos de Origem\domain\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -159,6 +162,12 @@
       <Filter>Arquivos de Cabeçalho\domain\ports\output_ports</Filter>
     </ClInclude>
     <ClInclude Include="Projectile.h">
+      <Filter>Arquivos de Cabeçalho\domain\entitites</Filter>
+    </ClInclude>
+    <ClInclude Include="ElementsManager.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
       <Filter>Arquivos de Cabeçalho\domain\entitites</Filter>
     </ClInclude>
   </ItemGroup>
