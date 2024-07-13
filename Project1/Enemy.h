@@ -11,7 +11,7 @@ namespace Game {
     public:
         Enemy(RendererPort* adapter, PhysicsEngine* physicsEngine_);
         float life = 100;
-        double currentSpeedPoints = 1;
+        double currentSpeedPoints = 0.3;
         void attack() override;
         void randomizePosition();
         void updateEnemy();

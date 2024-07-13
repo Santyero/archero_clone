@@ -44,10 +44,10 @@ void SDLRendererAdapter::setRGBAColors(std::string_view hexColor) {
 void SDLRendererAdapter::renderElement  (const RenderDataDTO& renderDataDTO) {
     this->setRGBAColors(renderDataDTO.hexColor);
     SDL_Rect fillRect = {
-        renderDataDTO.positionXInMeters,
-        renderDataDTO.positionYInMeters,
-        renderDataDTO.widthInMeters,
-        renderDataDTO.heightInMeters
+        renderDataDTO.position.x,
+        renderDataDTO.position.y,
+        renderDataDTO.size.x,
+        renderDataDTO.size.y
     };
     SDL_SetRenderDrawColor(this->sdlRenderer, this->redColor, this->greenColor, this->blueColor, this->alphaColor);
     SDL_RenderFillRect(this->sdlRenderer, &fillRect);

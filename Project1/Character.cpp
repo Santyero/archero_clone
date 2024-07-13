@@ -8,25 +8,25 @@ Character::Character(
 ) : VisualElement(rendererPort_, renderDataDTOParam), physicsEngine(physicsEngine_) {}
 
 void Character::goDown() {
-    this->positionYInMeters = this->positionYInMeters + this->physicsEngine->calcDisplacement(
+    this->position.y = this->position.y + this->physicsEngine->calcDisplacement(
         this->currentSpeedPoints
     );
 }
 
 void Character::goUp() {
-    this->positionYInMeters = this->positionYInMeters - this->physicsEngine->calcDisplacement(
+    this->position.y = this->position.y - this->physicsEngine->calcDisplacement(
         this->currentSpeedPoints
     );
 }
 
 void Character::goRight() {
-    this->positionXInMeters = this->positionXInMeters + this->physicsEngine->calcDisplacement(
+    this->position.x = this->position.x + this->physicsEngine->calcDisplacement(
         this->currentSpeedPoints
     );
 }
 
 void Character::goLeft() {
-    this->positionXInMeters = this->positionXInMeters - this->physicsEngine->calcDisplacement(
+    this->position.x = this->position.x - this->physicsEngine->calcDisplacement(
         this->currentSpeedPoints
     );
 

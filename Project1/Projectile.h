@@ -14,9 +14,10 @@ namespace Game {
 	public:
 		Projectile(
 			RendererPort* rendererPort_,
-			PhysicsEngine* physicsEngine_, 
-			float positionXInMeters, 
-			float positionYInMeters
+			PhysicsEngine* physicsEngine_,
+			Vector position,
+			Vector size,
+			Vector velocity
 		);
 
 

@@ -10,12 +10,9 @@ namespace Game
 	{
 	protected:
 		RendererPort *rendererPort;
-		float positionXInMeters;
-		float positionYInMeters;
-		float widthInMeters;
-		float heightInMeters;
 		std::string hexColor;
 		bool deleted = false;
+		Vector size;
 		Vector position;
 		Vector velocity;
 
@@ -25,30 +22,51 @@ namespace Game
 		void renderElement()
 		{
 			this->rendererPort->renderElement(RenderDataDTO{
-					this->positionXInMeters,
-					this->positionYInMeters,
-					this->widthInMeters,
-					this->heightInMeters,
-					this->hexColor});
+					this->position,
+					this->size,
+					this->velocity,
+					this->hexColor
+			});
 		}
 
 		virtual void onCollision(VisualElement* otherElement) = 0;
 		virtual void update() = 0;
 		void checkCollision(VisualElement *otherElement);
 
-		float getPositionXInMeters()
+		Vector getPosition()
 		{
-			return this->positionXInMeters;
+			return this->position;
 		}
 
-		float getPositionYInMeters()
+		Vector getVelocity()
 		{
-			return this->positionYInMeters;
+			return this->velocity;
+		}
+
+		void setVelocity(Vector velocity)
+		{
+			this->velocity = velocity;
+		}
+
+		void setPosition(Vector position)
+		{
+			this->position = position;
+		}
+
+		void setSize(Vector size)
+		{
+			this->size = size;
+		}
+
+		void setHexColor(std::string hexColor)
+		{
+			this->hexColor = hexColor;
 		}
 
 		void physicsUpdate(float deltaTime)
 		{
-			this->position += this->velocity * deltaTime;
+			this->position.x += this->velocity.x * deltaTime;
+			this->position.y += this->velocity.y * deltaTime;
 		}
 		
 		bool isDeleted() {
