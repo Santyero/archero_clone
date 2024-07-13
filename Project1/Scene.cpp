@@ -3,12 +3,12 @@
 
 namespace Game
 {
-	Scene::Scene(RendererPort *adapter) : VisualElement(adapter, RenderDataDTO{
-																																	 Config::scenePositionX,
-																																	 Config::scenePositionY,
-																																	 Config::sceneWidth,
-																																	 Config::sceneHeight,
-																																	 "#9999FF"}) {}
+	Scene::Scene(RendererPort* adapter) : VisualElement(adapter, RenderDataDTO{
+		Config::scenePosition,
+		Config::sceneSize,
+		{0, 0},
+		"#9999FF"
+	}) {}
 
 	void Scene::onCollision(VisualElement* otherElement)
 	{

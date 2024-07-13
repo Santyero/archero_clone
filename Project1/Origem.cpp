@@ -11,7 +11,7 @@
 using namespace Game;
 
 int main(int argc, char* argv[]) {
-    Window window = Window(Config::windowWidth, Config::windowHeight);
+    Window window = Window(Config::windowSize.x, Config::windowSize.y);
     window.createWindow();
     SDLRendererAdapter* sdlRendererAdapter = new SDLRendererAdapter(window.getWindowRef());
     SDLTimeServiceAdapter* sdlTimeServiceAdapter = new SDLTimeServiceAdapter();

@@ -1,10 +1,11 @@
 #include "Obstacle.h"
 
 namespace Game {
+	Vector velocity = Vector(0, 0);
 	Obstacle::Obstacle(
-		RendererPort* rendererPort_, float positionXInMeters, float positionYInMeters
+		RendererPort* rendererPort_, Vector position, Vector size
 	) : VisualElement(
-		rendererPort_, RenderDataDTO{ positionXInMeters, positionYInMeters, 50, 50, "#ff0000" }
+		rendererPort_, RenderDataDTO{ position, size, velocity, "#ff0000" }
 	) {}
 
 	void Obstacle::onCollision(VisualElement* otherElement) {}

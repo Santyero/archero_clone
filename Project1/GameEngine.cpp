@@ -23,7 +23,7 @@ namespace Game
     {
         SDL_bool done = SDL_FALSE;
 
-        Player player = Player(this->rendererPort, this->physicsEngine, Config::windowWidth / 2 - 25, Config::sceneHeight - 110);
+        Player player = Player(this->rendererPort, this->physicsEngine, Config::windowSize.y / 2 - 25, Config::sceneSize.y - 110);
         Scene scene = Scene(this->rendererPort);
         int projectileFramesDelay = 300;
 
@@ -59,8 +59,15 @@ namespace Game
                 projectileFramesDelay--;
             }
             else {
+                Vector position = { player.getPosition().x + 25, player.getPosition().y - 20};
+                Vector size = { 10, 10 };
+                Vector velocity = { 0, -0.1 };
                 elements.emplace_back(new Projectile(
-                    this->rendererPort, this->physicsEngine, player.getPositionXInMeters() + 25, player.getPositionYInMeters() - 20
+                    this->rendererPort,
+                    this->physicsEngine,
+                    position,
+                    size,
+                    velocity
                 ));
                 projectileFramesDelay = 300;
             }
@@ -111,8 +118,8 @@ namespace Game
     }
 
     std::list<Obstacle> GameEngine::createWall() {
-        int obstacleColumnsQtde = Config::sceneHeight / 50;
-        int obstacleRowQtde = Config::sceneWidth / 50;
+        int obstacleColumnsQtde = Config::sceneSize.y / 50;
+        int obstacleRowQtde = Config::sceneSize.x / 50;
 
         std::list<Obstacle> obstacles;
         srand(time(nullptr));

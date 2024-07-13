@@ -7,21 +7,22 @@ namespace Game {
 	Projectile::Projectile(
 		RendererPort* rendererPort_,
 		PhysicsEngine* physicsEngine_,
-		float positionXInMeters,
-		float positionYInMeters
+		Vector position,
+		Vector size,
+		Vector velocity
 	) : VisualElement(
-		rendererPort_, RenderDataDTO{ 
-			positionXInMeters, 
-			positionYInMeters, 
-			10, 
-			20, 
-			"#ff0000" 
+		rendererPort_, RenderDataDTO{
+			position,
+			size,
+			velocity,
+			"#ff0000"
 		}
 	), physicsEngine(physicsEngine_) {}
 
 	void Projectile::updatePosition() {
-		this->positionYInMeters -= this->physicsEngine->calcDisplacement(this->currentSpeedPoints);
+		this->position.y -= this->physicsEngine->calcDisplacement(this->currentSpeedPoints);
 	}
+
 
 	void Projectile::update() {
 		this->updatePosition();
@@ -33,10 +34,10 @@ namespace Game {
 		}
 
 		if (Enemy* enemy = dynamic_cast<Enemy*>(otherElement)) {
-			std::cout << "Enemy position: (" << enemy->getPositionXInMeters() << ", " << enemy->getPositionYInMeters() << ")" << std::endl;
+			std::cout << "Enemy position: (" << enemy->getPosition().x << ", " << enemy->getPosition().y << ")" << std::endl;
 		}
 		if (Obstacle* obstacle = dynamic_cast<Obstacle*>(otherElement)) {
-			std::cout << "Obstacle position: (" << obstacle->getPositionXInMeters() << ", " << obstacle->getPositionYInMeters() << ")" << std::endl;
+			std::cout << "Obstacle position: (" << obstacle->getPosition().x << ", " << obstacle->getPosition().y << ")" << std::endl;
 		}
 	
 

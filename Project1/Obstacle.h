@@ -5,7 +5,7 @@ namespace Game {
 	class Obstacle : public VisualElement {
 	public:
 		Obstacle(
-			RendererPort* rendererPort_, float positionXInMeters, float positionYInMeters
+			RendererPort* rendererPort_, Vector position, Vector size
 		);
 
 		void onCollision(VisualElement* otherElement) override;
