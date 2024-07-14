@@ -1,16 +1,14 @@
 ﻿  Verificando fontes para dependências de módulo...
-  Obstacle.cpp
+  GameEngine.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Obstacle.cpp')
-  
-  Projectile.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Projectile.cpp')
+  (compilando o arquivo fonte 'GameEngine.cpp')
   
 C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
-  (compilando o arquivo fonte 'Projectile.cpp')
+  (compilando o arquivo fonte 'GameEngine.cpp')
   
-C:\projetos\archero_clone\Project1\Projectile.cpp(23,60): warning C4244: '-=': conversão de 'double' para 'float', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(63,41): warning C4305: 'argumento': truncamento de 'double' para 'const float'
+C:\projetos\archero_clone\Project1\GameEngine.cpp(77,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(109,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
   Origem.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
   (compilando o arquivo fonte 'Origem.cpp')
@@ -27,190 +25,13 @@ C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens in
 C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
   (compilando o arquivo fonte 'Player.cpp')
   
-  GameEngine.cpp
+  Projectile.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'GameEngine.cpp')
+  (compilando o arquivo fonte 'Projectile.cpp')
   
 C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
-  (compilando o arquivo fonte 'GameEngine.cpp')
+  (compilando o arquivo fonte 'Projectile.cpp')
   
-C:\projetos\archero_clone\Project1\GameEngine.cpp(64,41): warning C4305: 'argumento': truncamento de 'double' para 'const float'
-C:\projetos\archero_clone\Project1\GameEngine.cpp(78,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(110,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(121,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(122,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(125,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54): error C2665: 'Game::Obstacle::Obstacle': nenhuma função sobrecarregada pode converter todos os tipos de argumento
-  (compilando o arquivo fonte 'GameEngine.cpp')
-  C:\projetos\archero_clone\Project1\Obstacle.h(7,3):
-  poderia ser 'Game::Obstacle::Obstacle(Game::RendererPort *,Game::Vector,Game::Vector)'
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
-  	'Game::Obstacle::Obstacle(Game::RendererPort *,Game::Vector,Game::Vector)': não é possível converter um argumento 2 de '_Ty' em 'Game::Vector'
-          with
-          [
-              _Ty=int
-          ]
-  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  		'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector': nenhuma função sobrecarregada pode converter todos os tipos de argumento
-          with
-          [
-              T=float
-          ]
-  			C:\projetos\archero_clone\Project1\math-vector.h(306,1):
-  			poderia ser 'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector(const Mylib::Math::Vector<T,2,Mylib::Math::VectorStorage__<T,2>> &)'
-          with
-          [
-              T=float
-          ]
-  				C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  				'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector(const Mylib::Math::Vector<T,2,Mylib::Math::VectorStorage__<T,2>> &)': não é possível converter um argumento 1 de '_Ty' em 'const Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>> &'
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              _Ty=int
-          ]
-          and
-          [
-              T=float
-          ]
-  					C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  					Razão: não é possível converter de '_Ty' para 'const Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>'
-          with
-          [
-              _Ty=int
-          ]
-          and
-          [
-              T=float
-          ]
-  					C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  					Conversão requer um segundo operador de conversão definida pelo usuário ou construtor
-  			C:\projetos\archero_clone\Project1\math-vector.h(306,1):
-  			ou       'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector(Mylib::Math::Vector<T,2,Mylib::Math::VectorStorage__<T,2>> &&)'
-          with
-          [
-              T=float
-          ]
-  				C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  				'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector(Mylib::Math::Vector<T,2,Mylib::Math::VectorStorage__<T,2>> &&)': não é possível converter um argumento 1 de '_Ty' em 'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>> &&'
-          with
-          [
-              T=float
-          ]
-          and
-          [
-              _Ty=int
-          ]
-          and
-          [
-              T=float
-          ]
-  					C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  					Razão: não é possível converter de '_Ty' para 'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>'
-          with
-          [
-              _Ty=int
-          ]
-          and
-          [
-              T=float
-          ]
-  					C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  					Conversão requer um segundo operador de conversão definida pelo usuário ou construtor
-  			C:\projetos\archero_clone\Project1\math-vector.h(167,2):
-  			ou       'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector(const float,const float)', que herda 'Mylib::Math::VectorStorage__<T,2>::VectorStorage__(const float,const float) noexcept' pela classe base 'Mylib::Math::VectorStorage__<T,2>'
-          with
-          [
-              T=float
-          ]
-  				C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  				'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector': função não recebe 1 argumentos
-          with
-          [
-              T=float
-          ]
-  			C:\projetos\archero_clone\Project1\math-vector.h(165,2):
-  			ou       'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector(void) noexcept'
-          with
-          [
-              T=float
-          ]
-  				C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  				'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector': função não recebe 1 argumentos
-          with
-          [
-              T=float
-          ]
-  			C:\projetos\archero_clone\Project1\math-vector.h(170,2):
-  			ou       'Mylib::Math::Vector<float,2,Mylib::Math::VectorStorage__<T,2>>::Vector(const Mylib::Math::Vector<T,dim_other,Mylib::Math::VectorStorage__<T,dim>> &) noexcept'
-          with
-          [
-              T=float
-          ]
-  			C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
-  			ao tentar corresponder a lista de argumentos '(_Ty)'
-          with
-          [
-              _Ty=int
-          ]
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
-  ao tentar corresponder a lista de argumentos '(Game::RendererPort *, _Ty, _Ty)'
-          with
-          [
-              _Ty=int
-          ]
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
-  o contexto de instanciação do modelo (o mais antigo primeiro) é
-  	C:\projetos\archero_clone\Project1\GameEngine.cpp(130,30):
-  	consulte a referência à instanciação 'Game::Obstacle &std::list<Game::Obstacle,std::allocator<Game::Obstacle>>::emplace_back<Game::RendererPort*&,int,int>(Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(993,29):
-  	consulte a referência à instanciação 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<Game::RendererPort*&,int,int>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
-          with
-          [
-              _Ty=Game::Obstacle,
-              _Alloc=std::allocator<Game::Obstacle>
-          ]
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(1018,44):
-  	consulte a referência à instanciação 'std::_List_node_emplace_op2<std::allocator<std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<Game::RendererPort*&,int,int>(_Alnode &,Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
-          with
-          [
-              _Ty=Game::Obstacle,
-              _Alloc=std::allocator<Game::Obstacle>,
-              _Alnode=std::allocator<std::_List_node<Game::Obstacle,std::_Default_allocator_traits<std::allocator<Game::Obstacle>>::void_pointer>>
-          ]
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(585,25):
-  	consulte a referência à instanciação 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Game::RendererPort*&,int,int>(_Alloc &,_Objty *const ,Game::RendererPort *&,int &&,int &&)' do modelo que está sendo compilada
-          with
-          [
-              _Alloc=std::allocator<std::_List_node<Game::Obstacle,std::_Default_allocator_traits<std::allocator<Game::Obstacle>>::void_pointer>>,
-              _Ty=Game::Obstacle,
-              _Objty=Game::Obstacle
-          ]
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xmemory(725,14):
-  	consulte a referência à instanciação '_Ty *std::construct_at<_Objty,Game::RendererPort*&,int,int,0x0>(_Ty *const ,Game::RendererPort *&,int &&,int &&) noexcept(<expr>)' do modelo que está sendo compilada
-          with
-          [
-              _Ty=Game::Obstacle,
-              _Objty=Game::Obstacle
-          ]
-  
-  SDLRendererAdapter.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'SDLRendererAdapter.cpp')
-  
-C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(47,31): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
-C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(47,31): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(48,31): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
-C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(48,31): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(49,27): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
-C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(49,27): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(50,27): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
-C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(50,27): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
-  VisualElement.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'VisualElement.cpp')
-  
+C:\projetos\archero_clone\Project1\Projectile.cpp(23,60): warning C4244: '-=': conversão de 'double' para 'float', possível perda de dados
   Gerando Código...
+  Project1.vcxproj -> C:\projetos\archero_clone\x64\Debug\Project1.exe

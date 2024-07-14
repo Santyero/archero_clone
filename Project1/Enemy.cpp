@@ -8,12 +8,8 @@
 
 namespace Game
 {
-    Vector velocity = { 0, 0 };
-    Vector position = { 0, 0 };
-    Vector size = { 50, 50 };
-
     Enemy::Enemy(RendererPort* rendererPort_, PhysicsEngine* physicsEngine_) : Character(
-        rendererPort_, physicsEngine_, RenderDataDTO{ position, size, velocity, "#ff9933" }
+        rendererPort_, physicsEngine_, RenderDataDTO{ {0,0}, {50,50}, {1,1}, "#ff9933"}
     ) {
         this->randomizePosition();
     }

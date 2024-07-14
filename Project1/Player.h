@@ -9,7 +9,7 @@
 namespace Game {
     class Player : public Character {
     public:
-        Player(RendererPort* adapter, PhysicsEngine* physicsEngine_, float positionX, float positionY);
+        Player(RendererPort* adapter, PhysicsEngine* physicsEngine_, Vector position, Vector size);
 
         std::vector<Skill*> activeSkills;
         float life = 100;

@@ -2,14 +2,11 @@
 #include "Player.h"
 
 using namespace Game;
-Vector velocity = { 0, 0 };
-Vector position = { 0, 0 };
-Vector size = { 50, 50 };
 
 
 Player::Player(
-    RendererPort* rendererPort_, PhysicsEngine* physicsEngine_, float positionXInMeters, float positionYInMeters
-) : Character(rendererPort_, physicsEngine_, RenderDataDTO{ position, size, velocity, "#ffff00" }) {}
+    RendererPort* rendererPort_, PhysicsEngine* physicsEngine_, Vector position, Vector size
+) : Character(rendererPort_, physicsEngine_, RenderDataDTO{ position, size, {1,1}, "#00ff00" }) {}
 
 void Player::attack() {
 }
