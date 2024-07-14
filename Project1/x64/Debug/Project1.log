@@ -9,29 +9,7 @@ C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'iniciali
 C:\projetos\archero_clone\Project1\GameEngine.cpp(63,41): warning C4305: 'argumento': truncamento de 'double' para 'const float'
 C:\projetos\archero_clone\Project1\GameEngine.cpp(77,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
 C:\projetos\archero_clone\Project1\GameEngine.cpp(109,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-  Origem.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Origem.cpp')
-  
-C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
-  (compilando o arquivo fonte 'Origem.cpp')
-  
-C:\projetos\archero_clone\Project1\Origem.cpp(14,68): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\Origem.cpp(14,46): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
-  Player.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Player.cpp')
-  
-C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
-  (compilando o arquivo fonte 'Player.cpp')
-  
-  Projectile.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Projectile.cpp')
-  
-C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
-  (compilando o arquivo fonte 'Projectile.cpp')
-  
-C:\projetos\archero_clone\Project1\Projectile.cpp(23,60): warning C4244: '-=': conversão de 'double' para 'float', possível perda de dados
-  Gerando Código...
+C:\projetos\archero_clone\Project1\GameEngine.cpp(120,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(121,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(124,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
   Project1.vcxproj -> C:\projetos\archero_clone\x64\Debug\Project1.exe

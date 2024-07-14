@@ -27,7 +27,7 @@ namespace Game
         int projectileFramesDelay = 300;
 
         std::list<Enemy> enemies = this->createEnemies();
-        // std::list<Obstacle> obstacles = this->createWall();
+        std::list<Obstacle> obstacles = this->createWall();
         // QUESTION : o projetil nao deveria ser do player?
 
         std::list<VisualElement*> elements;
@@ -35,9 +35,9 @@ namespace Game
         for (Enemy& enemy : enemies) {
             elements.emplace_back(&enemy);
         }
-        /*for (Obstacle& obstacle : obstacles) {
+        for (Obstacle& obstacle : obstacles) {
             elements.emplace_back(&obstacle);
-        }*/
+        }
 
         this->timeServicePort->updateLastCurrentTimeInMilliseconds();
         this->timeServicePort->updateLastElapsedTimeInMilliseconds();
@@ -116,24 +116,23 @@ namespace Game
         return enemies;
     }
 
-    //std::list<Obstacle> GameEngine::createWall() {
-    //    std::list<Obstacle> obstacles;
+    std::list<Obstacle> GameEngine::createWall() {
+        int obstacleColumnsQtde = Config::sceneSize.y / 50;
+        int obstacleRowQtde = Config::sceneSize.x / 50;
 
-    //    Vector wallSize = { 50, 200 }; // Tamanho de cada parede, por exemplo, 50x200
+        std::list<Obstacle> obstacles;
+        srand(time(nullptr));
 
-    //    // Parede no canto superior esquerdo
-    //    obstacles.emplace_back(Vector{ 0, 0 }, wallSize);
+        for (int i = 0; i < obstacleColumnsQtde; ++i) {
+            for (int j = 0; j < obstacleRowQtde; ++j) {
+                if (j == 0 || i == 0 || i == obstacleColumnsQtde - 1 || j == obstacleRowQtde - 1) {
+                    obstacles.emplace_back(Obstacle(this->rendererPort, {float(50 * j), float(50 * i)}, {50, 50}));
+                    obstacles.back().renderElement();
+                }
+            }
+        }
 
-    //    // Parede no canto superior direito
-    //    obstacles.emplace_back(Vector{ Config::sceneSize.x - wallSize.x, 0 }, wallSize);
-
-    //    // Parede no canto inferior esquerdo
-    //    obstacles.emplace_back(Vector{ 0, Config::sceneSize.y - wallSize.y }, wallSize);
-
-    //    // Parede no canto inferior direito
-    //    obstacles.emplace_back(Vector{ Config::sceneSize.x - wallSize.x, Config::sceneSize.y - wallSize.y }, wallSize);
-
-    //    return obstacles;
-    //}
+        return obstacles;
+    }
 
 }
