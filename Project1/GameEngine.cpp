@@ -9,7 +9,6 @@
 #include "Scene.h"
 #include "Projectile.h"
 #include "config.h"
-#include "Obstacle.h"
 
 namespace Game
 {
@@ -23,12 +22,12 @@ namespace Game
     {
         SDL_bool done = SDL_FALSE;
 
-        Player player = Player(this->rendererPort, this->physicsEngine, Config::windowSize.y / 2 - 25, Config::sceneSize.y - 110);
+        Player player = Player(this->rendererPort, this->physicsEngine, { Config::windowSize.x / 2 - 25, Config::sceneSize.y - 110 }, {50,50});
         Scene scene = Scene(this->rendererPort);
         int projectileFramesDelay = 300;
 
         std::list<Enemy> enemies = this->createEnemies();
-        std::list<Obstacle> obstacles = this->createWall();
+        // std::list<Obstacle> obstacles = this->createWall();
         // QUESTION : o projetil nao deveria ser do player?
 
         std::list<VisualElement*> elements;
@@ -36,9 +35,9 @@ namespace Game
         for (Enemy& enemy : enemies) {
             elements.emplace_back(&enemy);
         }
-        for (Obstacle& obstacle : obstacles) {
+        /*for (Obstacle& obstacle : obstacles) {
             elements.emplace_back(&obstacle);
-        }
+        }*/
 
         this->timeServicePort->updateLastCurrentTimeInMilliseconds();
         this->timeServicePort->updateLastElapsedTimeInMilliseconds();
@@ -117,23 +116,24 @@ namespace Game
         return enemies;
     }
 
-    std::list<Obstacle> GameEngine::createWall() {
-        int obstacleColumnsQtde = Config::sceneSize.y / 50;
-        int obstacleRowQtde = Config::sceneSize.x / 50;
+    //std::list<Obstacle> GameEngine::createWall() {
+    //    std::list<Obstacle> obstacles;
 
-        std::list<Obstacle> obstacles;
-        srand(time(nullptr));
+    //    Vector wallSize = { 50, 200 }; // Tamanho de cada parede, por exemplo, 50x200
 
-        for (int i = 0; i < obstacleColumnsQtde; ++i) {
-            for (int j = 0; j < obstacleRowQtde; ++j) {
-                if (j == 0 || i == 0 || i == obstacleColumnsQtde - 1 || j == obstacleRowQtde - 1) {
-                    obstacles.emplace_back(this->rendererPort, 50 * j, 50 * i);
-                    obstacles.back().renderElement();
-                }
-            }
-        }
+    //    // Parede no canto superior esquerdo
+    //    obstacles.emplace_back(Vector{ 0, 0 }, wallSize);
 
-        return obstacles;
-    }
+    //    // Parede no canto superior direito
+    //    obstacles.emplace_back(Vector{ Config::sceneSize.x - wallSize.x, 0 }, wallSize);
+
+    //    // Parede no canto inferior esquerdo
+    //    obstacles.emplace_back(Vector{ 0, Config::sceneSize.y - wallSize.y }, wallSize);
+
+    //    // Parede no canto inferior direito
+    //    obstacles.emplace_back(Vector{ Config::sceneSize.x - wallSize.x, Config::sceneSize.y - wallSize.y }, wallSize);
+
+    //    return obstacles;
+    //}
 
 }
