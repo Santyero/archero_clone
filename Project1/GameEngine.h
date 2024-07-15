@@ -26,11 +26,12 @@ namespace Game {
 		std::list <Obstacle> obstacles;
 		Player* player = nullptr;
 
-		std::list<Obstacle> createWall();
+		
 	public:
 		GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_);
 
-		std::list<Enemy> createEnemies();
+		void createWall();
+		void createEnemies();
 
 		void startGame();
 		void loadElements();

@@ -106,4 +106,23 @@ namespace Game
             break;
         }
     }
+
+    void Enemy::renderProjects() {
+        if (this->projectileFramesDelay > 0) {
+            this->projectileFramesDelay--;
+        }
+        else {
+            Vector projectilePosition = { this->position.x + 25, this->position.y - 20 };
+            Vector size = { 10, 10 };
+            Vector velocity = { 0, -0.1 };
+            this->projectiles.emplace_back(Projectile(
+                this->rendererPort,
+                this->physicsEngine,
+                projectilePosition,
+                size,
+                velocity
+            ));
+            projectileFramesDelay = 300;
+        }
+    }
 }

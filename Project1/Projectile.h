@@ -7,7 +7,6 @@
 namespace Game {
 	class Projectile: public VisualElement {
 	private:
-		float currentSpeedPoints = 0.1;
 		PhysicsEngine* physicsEngine = nullptr;
 		
 		void updatePosition();
@@ -20,6 +19,7 @@ namespace Game {
 			Vector velocity
 		);
 
+		float currentSpeedPoints = 0.1;
 
 		void onCollision(VisualElement* otherElement) override;
 		void checkCollision(VisualElement* otherElement) override;
