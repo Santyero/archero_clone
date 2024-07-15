@@ -31,11 +31,16 @@ namespace Game
 
 		virtual void onCollision(VisualElement* otherElement) = 0;
 		virtual void update() = 0;
-		void checkCollision(VisualElement *otherElement);
+		virtual void checkCollision(VisualElement *otherElement) = 0;
 
 		Vector getPosition()
 		{
 			return this->position;
+		}
+
+		Vector getSize()
+		{
+			return this->size;
 		}
 
 		Vector getVelocity()

@@ -14,8 +14,8 @@ namespace Game {
         double currentSpeedPoints = 0.3;
         void attack() override;
         void randomizePosition();
-        void updateEnemy();
         void onCollision(VisualElement* otherElement) override;
+        void checkCollision(VisualElement* otherElement) override;
         void update() override;
 
     private:

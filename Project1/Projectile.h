@@ -22,6 +22,7 @@ namespace Game {
 
 
 		void onCollision(VisualElement* otherElement) override;
+		void checkCollision(VisualElement* otherElement) override;
 
 		void update() override;
 	};

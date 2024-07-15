@@ -9,3 +9,16 @@ dia 10/07:
 
 dia 12/07:
   Corecao de estrutura com posicoes baseados em vetores ao inves de atributo ( recomendacao eduardo)
+
+dia 14 e 13 de julho:
+  Continuacao da correcao de estrutua 
+   * correcao de tamanhos
+   * correcao da aprersentacao de paredes 
+   * correcao do tamanho dos inimigos
+
+dia 14 de julho:
+   * Correcao no fluxo de informacoes
+   * mudancao de projeteis para o player
+   * organizado codigo
+   * melhoria collisao 
+   - Problema na exusao do sistema com as novas mudancas

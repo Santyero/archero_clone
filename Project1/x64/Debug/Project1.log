@@ -1,15 +1,260 @@
 ﻿  Verificando fontes para dependências de módulo...
+  Projectile.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Projectile.cpp')
+  
+C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'Projectile.cpp')
+  
+C:\projetos\archero_clone\Project1\Projectile.cpp(23,60): warning C4244: '-=': conversão de 'double' para 'float', possível perda de dados
+  Origem.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Origem.cpp')
+  
+C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'Origem.cpp')
+  
+C:\projetos\archero_clone\Project1\Origem.cpp(14,68): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\Origem.cpp(14,46): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
+  Player.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Player.cpp')
+  
+C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'Player.cpp')
+  
+C:\projetos\archero_clone\Project1\Player.cpp(120,33): warning C4305: 'argumento': truncamento de 'double' para 'const float'
   GameEngine.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54): error C2665: 'Game::Projectile::Projectile': nenhuma função sobrecarregada pode converter todos os tipos de argumento
+  (compilando o arquivo fonte 'Player.cpp')
+  C:\projetos\archero_clone\Project1\Projectile.h(28,2):
+  poderia ser 'Game::Projectile::Projectile(Game::Projectile &&)'
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  	'Game::Projectile::Projectile(Game::Projectile &&)': não é possível converter um argumento 1 de '_Ty' em 'Game::Projectile &&'
+          with
+          [
+              _Ty=Game::Projectile *
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Razão: não é possível converter de '_Ty' para 'Game::Projectile'
+          with
+          [
+              _Ty=Game::Projectile *
+          ]
+  C:\projetos\archero_clone\Project1\Projectile.h(28,2):
+  ou       'Game::Projectile::Projectile(const Game::Projectile &)'
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  	'Game::Projectile::Projectile(const Game::Projectile &)': não é possível converter um argumento 1 de '_Ty' em 'const Game::Projectile &'
+          with
+          [
+              _Ty=Game::Projectile *
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Razão: não é possível converter de '_Ty' para 'const Game::Projectile'
+          with
+          [
+              _Ty=Game::Projectile *
+          ]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  ao tentar corresponder a lista de argumentos '(_Ty)'
+          with
+          [
+              _Ty=Game::Projectile *
+          ]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  o contexto de instanciação do modelo (o mais antigo primeiro) é
+  	C:\projetos\archero_clone\Project1\Player.cpp(121,26):
+  	consulte a referência à instanciação 'Game::Projectile &std::list<Game::Projectile,std::allocator<Game::Projectile>>::emplace_back<Game::Projectile*>(Game::Projectile *&&)' do modelo que está sendo compilada
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(993,29):
+  	consulte a referência à instanciação 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<Game::Projectile*>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,Game::Projectile *&&)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Projectile,
+              _Alloc=std::allocator<Game::Projectile>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(1018,44):
+  	consulte a referência à instanciação 'std::_List_node_emplace_op2<std::allocator<std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<Game::Projectile*>(_Alnode &,Game::Projectile *&&)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Projectile,
+              _Alloc=std::allocator<Game::Projectile>,
+              _Alnode=std::allocator<std::_List_node<Game::Projectile,std::_Default_allocator_traits<std::allocator<Game::Projectile>>::void_pointer>>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(585,25):
+  	consulte a referência à instanciação 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Game::Projectile*>(_Alloc &,_Objty *const ,Game::Projectile *&&)' do modelo que está sendo compilada
+          with
+          [
+              _Alloc=std::allocator<std::_List_node<Game::Projectile,std::_Default_allocator_traits<std::allocator<Game::Projectile>>::void_pointer>>,
+              _Ty=Game::Projectile,
+              _Objty=Game::Projectile
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xmemory(725,14):
+  	consulte a referência à instanciação '_Ty *std::construct_at<_Objty,Game::Projectile*,0x0>(_Ty *const ,Game::Projectile *&&) noexcept(<expr>)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Projectile,
+              _Objty=Game::Projectile
+          ]
+  
 C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
   (compilando o arquivo fonte 'GameEngine.cpp')
   
 C:\projetos\archero_clone\Project1\Projectile.h(10,30): warning C4305: 'inicializando': truncamento de 'double' para 'float'
   (compilando o arquivo fonte 'GameEngine.cpp')
   
-C:\projetos\archero_clone\Project1\GameEngine.cpp(63,41): warning C4305: 'argumento': truncamento de 'double' para 'const float'
-C:\projetos\archero_clone\Project1\GameEngine.cpp(77,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(109,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(120,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(121,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(124,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-  Project1.vcxproj -> C:\projetos\archero_clone\x64\Debug\Project1.exe
+C:\projetos\archero_clone\Project1\GameEngine.cpp(74,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(85,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(86,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(89,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(124,15): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54): error C2665: 'Game::Enemy::Enemy': nenhuma função sobrecarregada pode converter todos os tipos de argumento
+  (compilando o arquivo fonte 'GameEngine.cpp')
+  C:\projetos\archero_clone\Project1\Enemy.h(23,5):
+  poderia ser 'Game::Enemy::Enemy(Game::Enemy &&)'
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  	'Game::Enemy::Enemy(Game::Enemy &&)': não é possível converter um argumento 1 de '_Ty' em 'Game::Enemy &&'
+          with
+          [
+              _Ty=std::list<Game::Enemy,std::allocator<Game::Enemy>>
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Razão: não é possível converter de '_Ty' para 'Game::Enemy'
+          with
+          [
+              _Ty=std::list<Game::Enemy,std::allocator<Game::Enemy>>
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Nenhum operador de conversão definida pelo usuário disponível que possa realizar esta conversão, ou o operador não pode ser chamado
+  C:\projetos\archero_clone\Project1\Enemy.h(23,5):
+  ou       'Game::Enemy::Enemy(const Game::Enemy &)'
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  	'Game::Enemy::Enemy(const Game::Enemy &)': não é possível converter um argumento 1 de '_Ty' em 'const Game::Enemy &'
+          with
+          [
+              _Ty=std::list<Game::Enemy,std::allocator<Game::Enemy>>
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Razão: não é possível converter de '_Ty' para 'const Game::Enemy'
+          with
+          [
+              _Ty=std::list<Game::Enemy,std::allocator<Game::Enemy>>
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Nenhum operador de conversão definida pelo usuário disponível que possa realizar esta conversão, ou o operador não pode ser chamado
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  ao tentar corresponder a lista de argumentos '(_Ty)'
+          with
+          [
+              _Ty=std::list<Game::Enemy,std::allocator<Game::Enemy>>
+          ]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  o contexto de instanciação do modelo (o mais antigo primeiro) é
+  	C:\projetos\archero_clone\Project1\GameEngine.cpp(28,22):
+  	consulte a referência à instanciação 'Game::Enemy &std::list<Game::Enemy,std::allocator<Game::Enemy>>::emplace_back<std::list<Game::Enemy,std::allocator<Game::Enemy>>>(std::list<Game::Enemy,std::allocator<Game::Enemy>> &&)' do modelo que está sendo compilada
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(993,29):
+  	consulte a referência à instanciação 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<std::list<_Ty,_Alloc>>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,std::list<_Ty,_Alloc> &&)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Enemy,
+              _Alloc=std::allocator<Game::Enemy>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(1018,44):
+  	consulte a referência à instanciação 'std::_List_node_emplace_op2<std::allocator<std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<std::list<_Ty,_Alloc>>(_Alnode &,std::list<_Ty,_Alloc> &&)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Enemy,
+              _Alloc=std::allocator<Game::Enemy>,
+              _Alnode=std::allocator<std::_List_node<Game::Enemy,std::_Default_allocator_traits<std::allocator<Game::Enemy>>::void_pointer>>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(585,25):
+  	consulte a referência à instanciação 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::list<_Ty,std::allocator<_Ty>>>(_Alloc &,_Objty *const ,std::list<_Ty,std::allocator<_Ty>> &&)' do modelo que está sendo compilada
+          with
+          [
+              _Alloc=std::allocator<std::_List_node<Game::Enemy,std::_Default_allocator_traits<std::allocator<Game::Enemy>>::void_pointer>>,
+              _Ty=Game::Enemy,
+              _Objty=Game::Enemy
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xmemory(725,14):
+  	consulte a referência à instanciação '_Ty *std::construct_at<_Objty,std::list<_Ty,std::allocator<_Ty>>,0x0>(_Ty *const ,std::list<_Ty,std::allocator<_Ty>> &&) noexcept(<expr>)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Enemy,
+              _Objty=Game::Enemy
+          ]
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54): error C2665: 'Game::Obstacle::Obstacle': nenhuma função sobrecarregada pode converter todos os tipos de argumento
+  (compilando o arquivo fonte 'GameEngine.cpp')
+  C:\projetos\archero_clone\Project1\Obstacle.h(15,2):
+  poderia ser 'Game::Obstacle::Obstacle(Game::Obstacle &&)'
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  	'Game::Obstacle::Obstacle(Game::Obstacle &&)': não é possível converter um argumento 1 de '_Ty' em 'Game::Obstacle &&'
+          with
+          [
+              _Ty=std::list<Game::Obstacle,std::allocator<Game::Obstacle>>
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Razão: não é possível converter de '_Ty' para 'Game::Obstacle'
+          with
+          [
+              _Ty=std::list<Game::Obstacle,std::allocator<Game::Obstacle>>
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Nenhum operador de conversão definida pelo usuário disponível que possa realizar esta conversão, ou o operador não pode ser chamado
+  C:\projetos\archero_clone\Project1\Obstacle.h(15,2):
+  ou       'Game::Obstacle::Obstacle(const Game::Obstacle &)'
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  	'Game::Obstacle::Obstacle(const Game::Obstacle &)': não é possível converter um argumento 1 de '_Ty' em 'const Game::Obstacle &'
+          with
+          [
+              _Ty=std::list<Game::Obstacle,std::allocator<Game::Obstacle>>
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Razão: não é possível converter de '_Ty' para 'const Game::Obstacle'
+          with
+          [
+              _Ty=std::list<Game::Obstacle,std::allocator<Game::Obstacle>>
+          ]
+  		C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,76):
+  		Nenhum operador de conversão definida pelo usuário disponível que possa realizar esta conversão, ou o operador não pode ser chamado
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  ao tentar corresponder a lista de argumentos '(_Ty)'
+          with
+          [
+              _Ty=std::list<Game::Obstacle,std::allocator<Game::Obstacle>>
+          ]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(241,54):
+  o contexto de instanciação do modelo (o mais antigo primeiro) é
+  	C:\projetos\archero_clone\Project1\GameEngine.cpp(29,24):
+  	consulte a referência à instanciação 'Game::Obstacle &std::list<Game::Obstacle,std::allocator<Game::Obstacle>>::emplace_back<std::list<Game::Obstacle,std::allocator<Game::Obstacle>>>(std::list<Game::Obstacle,std::allocator<Game::Obstacle>> &&)' do modelo que está sendo compilada
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(993,29):
+  	consulte a referência à instanciação 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<std::list<_Ty,_Alloc>>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,std::list<_Ty,_Alloc> &&)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Obstacle,
+              _Alloc=std::allocator<Game::Obstacle>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(1018,44):
+  	consulte a referência à instanciação 'std::_List_node_emplace_op2<std::allocator<std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<std::list<_Ty,_Alloc>>(_Alnode &,std::list<_Ty,_Alloc> &&)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Obstacle,
+              _Alloc=std::allocator<Game::Obstacle>,
+              _Alnode=std::allocator<std::_List_node<Game::Obstacle,std::_Default_allocator_traits<std::allocator<Game::Obstacle>>::void_pointer>>
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\list(585,25):
+  	consulte a referência à instanciação 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::list<_Ty,std::allocator<_Ty>>>(_Alloc &,_Objty *const ,std::list<_Ty,std::allocator<_Ty>> &&)' do modelo que está sendo compilada
+          with
+          [
+              _Alloc=std::allocator<std::_List_node<Game::Obstacle,std::_Default_allocator_traits<std::allocator<Game::Obstacle>>::void_pointer>>,
+              _Ty=Game::Obstacle,
+              _Objty=Game::Obstacle
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xmemory(725,14):
+  	consulte a referência à instanciação '_Ty *std::construct_at<_Objty,std::list<_Ty,std::allocator<_Ty>>,0x0>(_Ty *const ,std::list<_Ty,std::allocator<_Ty>> &&) noexcept(<expr>)' do modelo que está sendo compilada
+          with
+          [
+              _Ty=Game::Obstacle,
+              _Objty=Game::Obstacle
+          ]
+  
+  Gerando Código...

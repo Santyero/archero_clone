@@ -15,29 +15,27 @@ namespace Game
 
     GameEngine::GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_) : window(window_), rendererPort(rendererPort_), timeServicePort(timeServicePort_)
     {
-        this->physicsEngine = new PhysicsEngine(this->timeServicePort);
+        this->physicsEngine = new PhysicsEngine(this->timeServicePort);  
     }
 
     void GameEngine::startGame()
     {
         SDL_bool done = SDL_FALSE;
 
-        Player player = Player(this->rendererPort, this->physicsEngine, { Config::windowSize.x / 2 - 25, Config::sceneSize.y - 110 }, {50,50});
+        this->player = new Game::Player(this->rendererPort, this->physicsEngine, { Config::windowSize.x / 2 - 25, Config::sceneSize.y - 110 }, { 50,50 });
         Scene scene = Scene(this->rendererPort);
-        int projectileFramesDelay = 300;
+           
+        this->enemies.emplace_back(this->createEnemies());
+        this->obstacles.emplace_back(this->createWall());
 
-        std::list<Enemy> enemies = this->createEnemies();
-        std::list<Obstacle> obstacles = this->createWall();
-        // QUESTION : o projetil nao deveria ser do player?
-
-        std::list<VisualElement*> elements;
+        /*std::list<VisualElement*> elements;
         elements.emplace_back(&player);
         for (Enemy& enemy : enemies) {
             elements.emplace_back(&enemy);
         }
         for (Obstacle& obstacle : obstacles) {
             elements.emplace_back(&obstacle);
-        }
+        }*/
 
         this->timeServicePort->updateLastCurrentTimeInMilliseconds();
         this->timeServicePort->updateLastElapsedTimeInMilliseconds();
@@ -54,45 +52,12 @@ namespace Game
             }
             this->timeServicePort->updateLastCurrentTimeInMilliseconds();
 
-            if (projectileFramesDelay > 0) {
-                projectileFramesDelay--;
-            }
-            else {
-                Vector position = { player.getPosition().x + 25, player.getPosition().y - 20};
-                Vector size = { 10, 10 };
-                Vector velocity = { 0, -0.1 };
-                elements.emplace_back(new Projectile(
-                    this->rendererPort,
-                    this->physicsEngine,
-                    position,
-                    size,
-                    velocity
-                ));
-                projectileFramesDelay = 300;
-            }
-
+            // this->player.renderProjects();
             scene.renderElement();
-            player.verifyKeyboardCommands();
 
-            int n = elements.size();
-            for (auto it1 = elements.begin(); it1 != elements.end(); ++it1) {
-                VisualElement* element = *it1;
+            this->player->verifyKeyboardCommands();
 
-                // Verifica colisões com elementos subsequentes
-                for (auto it2 = std::next(it1); it2 != elements.end(); ++it2) {
-                    VisualElement* otherElement = *it2;
-                    element->checkCollision(otherElement);
-                    otherElement->checkCollision(element);
-                }
-
-                // Renderiza o elemento se não estiver marcado para exclusão
-                if (!element->isDeleted()) {
-                    element->update();
-                    element->renderElement();
-                }
-            }
-
-            elements.remove_if([](VisualElement* element) { return element->isDeleted(); });
+            this->updateCollisions();
 
             this->rendererPort->renderPresent();
             this->timeServicePort->updateLastElapsedTimeInMilliseconds();
@@ -133,6 +98,47 @@ namespace Game
         }
 
         return obstacles;
+    }
+
+    void GameEngine::loadElements()
+    {
+		this->player->update();
+        this->enemies.begin()->update();
+        this->obstacles.begin()->update();
+        this->player->projectiles.begin()->update();
+	}
+
+    void GameEngine::updateCollisions() {
+        std::list<VisualElement*> elements;
+        elements.push_back(this->player);
+        for (Enemy& enemy : this->enemies) {
+            elements.push_back(&enemy);
+        }
+        for (Obstacle& obstacle : this->obstacles) {
+            elements.push_back(&obstacle);
+        }
+        for (Projectile& projectile : this->player->projectiles) {
+            elements.push_back(&projectile);
+        }
+
+        int n = elements.size();
+        for (auto it1 = elements.begin(); it1 != elements.end(); ++it1) {
+            VisualElement* element = *it1;
+
+            // Verifica colisões com elementos subsequentes
+            for (auto it2 = std::next(it1); it2 != elements.end(); ++it2) {
+                VisualElement* otherElement = *it2;
+                element->checkCollision(otherElement);
+                otherElement->checkCollision(element);
+            }
+
+            // Renderiza o elemento se não estiver marcado para exclusão
+            if (!element->isDeleted()) {
+                element->update();
+                element->renderElement();
+            }
+        }
+        elements.remove_if([](VisualElement* element) { return element->isDeleted(); });
     }
 
 }
