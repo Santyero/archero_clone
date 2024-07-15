@@ -23,7 +23,6 @@ namespace Game {
 		this->position.y -= this->physicsEngine->calcDisplacement(this->currentSpeedPoints);
 	}
 
-
 	void Projectile::update() {
 		this->updatePosition();
 	}

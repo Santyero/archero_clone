@@ -22,3 +22,6 @@ dia 14 de julho:
    * organizado codigo
    * melhoria collisao 
    - Problema na exusao do sistema com as novas mudancas
+
+dia 15 de julho:
+   * Correcao da criacao de player, parede e projeteis, permitindo funcionamento do sistema comoanteriormente, entretanto com a nova estrutura

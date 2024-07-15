@@ -115,13 +115,13 @@ void Player::renderProjects() {
         this->projectileFramesDelay--;
     }
     else {
-        Vector position = { position.x + 25,position.y - 20 };
+        Vector projectilePosition = { this->position.x + 25, this->position.y - 20 };
         Vector size = { 10, 10 };
         Vector velocity = { 0, -0.1 };
-        this->projectiles.emplace_back(new Projectile(
+        this->projectiles.emplace_back(Projectile(
             this->rendererPort,
             this->physicsEngine,
-            position,
+            projectilePosition,
             size,
             velocity
         ));
