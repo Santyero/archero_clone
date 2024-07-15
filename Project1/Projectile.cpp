@@ -43,4 +43,18 @@ namespace Game {
 
 		this->deleted = true;
 	}
+
+	void Projectile::checkCollision(VisualElement* otherElement) {
+		Vector otherElementPosition = otherElement->getPosition();
+		Vector otherElementSize = otherElement->getSize();
+
+		if (this->position.x < otherElementPosition.x + otherElementSize.x &&
+			this->position.x + this->size.x > otherElementPosition.x &&
+			this->position.y < otherElementPosition.y + otherElementSize.y &&
+			this->size.y + this->position.y > otherElementPosition.y) {
+
+			this->onCollision(otherElement);
+		}
+	}
+
 }

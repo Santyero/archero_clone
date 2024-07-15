@@ -7,6 +7,8 @@ namespace Game {
 	public:
 		Scene(RendererPort* adapter);
 		void onCollision(VisualElement* otherElement) override;
+		void checkCollision(VisualElement* otherElement) override;
 		void update() override {}
+
 	};
 }

@@ -10,7 +10,11 @@
 #include "Obstacle.h"
 #include <list>
 
+class Player;
+
 namespace Game {
+	class Player;
+
 	class GameEngine
 	{
 	private:
@@ -18,13 +22,19 @@ namespace Game {
 		RendererPort* rendererPort = nullptr;
 		TimeServicePort* timeServicePort = nullptr;
 		PhysicsEngine* physicsEngine = nullptr;
+		std::list <Enemy> enemies;
+		std::list <Obstacle> obstacles;
+		Player* player = nullptr;
 
 		std::list<Obstacle> createWall();
 	public:
 		GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_);
 
 		std::list<Enemy> createEnemies();
+
 		void startGame();
+		void loadElements();
+		void updateCollisions();
 	};
 }
 
