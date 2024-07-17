@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Obstacle.h"
+#include "config.h"
 
 namespace Game {
 	Projectile::Projectile(
@@ -9,7 +10,8 @@ namespace Game {
 		PhysicsEngine* physicsEngine_,
 		Vector position,
 		Vector size,
-		Vector velocity
+		Vector velocity,
+		float damage
 	) : VisualElement(
 		rendererPort_, RenderDataDTO{
 			position,
@@ -17,14 +19,23 @@ namespace Game {
 			velocity,
 			"#ff0000"
 		}
-	), physicsEngine(physicsEngine_) {}
+	), physicsEngine(physicsEngine_) {
+		this->damage = damage;
+	}
 
 	void Projectile::updatePosition() {
-		this->position.y -= this->physicsEngine->calcDisplacement(this->currentSpeedPoints);
+		if (this->position.y > Config::scenePosition.y + Config::sceneSize.y or this->position.y < Config::scenePosition.y - Config::sceneSize.y) {
+			this->destroy();
+		}
+		this->position.y -= this->physicsEngine->calcDisplacement(this->velocity.x);
 	}
 
 	void Projectile::update() {
 		this->updatePosition();
+	}
+
+	void Projectile::destroy() {
+		this->deleted = true;
 	}
 
 	void Projectile::onCollision(VisualElement* otherElement) {
@@ -33,10 +44,10 @@ namespace Game {
 		}
 
 		if (Enemy* enemy = dynamic_cast<Enemy*>(otherElement)) {
-			std::cout << "Enemy position: (" << enemy->getPosition().x << ", " << enemy->getPosition().y << ")" << std::endl;
+			//std::cout << "Enemy position: (" << enemy->getPosition().x << ", " << enemy->getPosition().y << ")" << std::endl;
 		}
 		if (Obstacle* obstacle = dynamic_cast<Obstacle*>(otherElement)) {
-			std::cout << "Obstacle position: (" << obstacle->getPosition().x << ", " << obstacle->getPosition().y << ")" << std::endl;
+			//std::cout << "Obstacle position: (" << obstacle->getPosition().x << ", " << obstacle->getPosition().y << ")" << std::endl;
 		}
 	
 

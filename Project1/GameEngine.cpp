@@ -28,8 +28,8 @@ namespace Game
         this->createEnemies();
         this->createWall();
 
-        this->timeServicePort->updateLastCurrentTimeInMilliseconds();
-        this->timeServicePort->updateLastElapsedTimeInMilliseconds();
+        this->timeServicePort->updateLastCurrentTimeInSeconds();
+        this->timeServicePort->updateLastElapsedTimeInSeconds();
 
         while (!done)
         {
@@ -41,9 +41,8 @@ namespace Game
                     done = SDL_TRUE;
                 }
             }
-            this->timeServicePort->updateLastCurrentTimeInMilliseconds();
+            this->timeServicePort->updateLastCurrentTimeInSeconds();
             
-            this->player->renderProjects();
             scene.renderElement();
 
             this->player->verifyKeyboardCommands();
@@ -51,7 +50,9 @@ namespace Game
             this->updateCollisions();
 
             this->rendererPort->renderPresent();
-            this->timeServicePort->updateLastElapsedTimeInMilliseconds();
+            this->timeServicePort->updateLastElapsedTimeInSeconds();
+            this->player->projectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
+            this->enemies.remove_if([](Enemy& enemy) { return enemy.isDeleted(); });
         }
 
         this->rendererPort->destroy();
@@ -90,7 +91,7 @@ namespace Game
 		this->player->update();
         this->enemies.begin()->update();
         this->obstacles.begin()->update();
-        //this->player->projectiles.begin()->update();
+        this->player->projectiles.begin()->update();
 	}
 
     void GameEngine::updateCollisions() {

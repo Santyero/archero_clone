@@ -7,7 +7,10 @@ using namespace Game;
 
 Player::Player(
     RendererPort* rendererPort_, PhysicsEngine* physicsEngine_, Vector position, Vector size
-) : Character(rendererPort_, physicsEngine_, RenderDataDTO{ position, size, {1,1}, "#00ff00" }) {}
+) : Character(rendererPort_, physicsEngine_, RenderDataDTO{ position, size, {1,1}, "#00ff00" }) {
+    this->setMaxHealth(100);
+    this->setLife(100);
+}
 
 void Player::attack() {
 }
@@ -26,9 +29,15 @@ void Player::verifyKeyboardCommands() {
     if (currentKeyStates[SDL_SCANCODE_RIGHT]) {
         this->goRight();
     }
+    if (not currentKeyStates[SDL_SCANCODE_RIGHT] and not currentKeyStates[SDL_SCANCODE_DOWN] and not currentKeyStates[SDL_SCANCODE_LEFT] and not currentKeyStates[SDL_SCANCODE_RIGHT]) {
+        this->spawnProjects();
+    }
 }
 
 void Player::checkCollision(VisualElement* otherElement) {
+    if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
+        return;
+    }
 
     Vector otherElementPosition = otherElement->getPosition();
     Vector otherElementSize = otherElement->getSize();
@@ -68,11 +77,11 @@ void Player::checkCollision(VisualElement* otherElement) {
 }
 
 void Player::onCollision(VisualElement* otherElement) {
-    if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
-        return;
-    }
 
     if (Enemy* enemy = dynamic_cast<Enemy*>(otherElement)) {
+        if (this->isInvincible) {
+			return;
+		}
         this->takeDamage(10);
         return;
 	}
@@ -83,47 +92,48 @@ void Player::onCollision(VisualElement* otherElement) {
 
 }
 
-void Player::takeDamage(float damage) {
-    if (this->isInvincible) {
-		return;
-	}
-	this->life -= damage;
-    if (this->life <= 0) {
-		// this->deleted = true;
-        this->hexColor = "00000";
+void Player::onTakeDamage() {
+    if (this->getLife() <= 0) {
+		this->hexColor = "000000";
         std::cout << "Player died" << std::endl;
+        return;
 	}
-    else {
-        this->isInvincible = true;
-        this->temporaryInvincibilityTime = SDL_GetTicks();
-        this->hexColor = "ff0000";
-    }
-}   
+	this->isInvincible = true;
+	this->temporaryInvincibilityTime = SDL_GetTicks();
+	this->hexColor = "ff0000";
+}
+
 
 void Player::update() {
-    //std::cout << "Player update" << std::endl;
     if (this->isInvincible && SDL_GetTicks() - this->temporaryInvincibilityTime > this->invincibilityTime) {
-        if (this->life > 0) {
+        if (this->getLife() > 0) {
 			this->hexColor = "ffff00";
 		}
 		this->isInvincible = false;
 	}
 }
 
-void Player::renderProjects() {
+void Player::spawnProjects() {
     if (this->projectileFramesDelay > 0) {
         this->projectileFramesDelay--;
     }
     else {
+        // fazer assim depois, mas fazer no Game Object
+        //VisualElement* inimigo;
+       // Vector projectVelocity2 = inimigo->getPosition() - this->position;
+       // projectVelocity2.set_length(0.5); // seta a velocidade do projetil
+
+
         Vector projectilePosition = { this->position.x + 25, this->position.y - 20 };
-        Vector size = { 10, 10 };
-        Vector velocity = { 0, -0.1 };
+        Vector projectileSize = { 10, 10 };
+        Vector projectileVelocity = { 0.5, 0.5 };
         this->projectiles.emplace_back(Projectile(
             this->rendererPort,
             this->physicsEngine,
             projectilePosition,
-            size,
-            velocity
+            projectileSize,
+            projectileVelocity,
+            10
         ));
         projectileFramesDelay = 300;
     }
