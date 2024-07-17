@@ -16,14 +16,15 @@ namespace Game {
 			PhysicsEngine* physicsEngine_,
 			Vector position,
 			Vector size,
-			Vector velocity
+			Vector velocity,
+			float damage
 		);
 
-		float currentSpeedPoints = 0.1;
+		float damage = 10;
 
 		void onCollision(VisualElement* otherElement) override;
 		void checkCollision(VisualElement* otherElement) override;
-
+		void destroy();
 		void update() override;
 	};
 }

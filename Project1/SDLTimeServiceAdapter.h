@@ -6,8 +6,8 @@
 namespace Game {
     class SDLTimeServiceAdapter : public TimeServicePort {
     private:
-        float lastElapsedTimeInMilliseconds = 0.0;
-        float lastCurrentTimeInMilliseconds = 0.0;
+        int lastElapsedTimeInSeconds = 0;
+        int lastCurrentTimeInSeconds = 0;
     public:
         SDLTimeServiceAdapter() {
             // Inicialize a SDL se necessário
@@ -17,24 +17,24 @@ namespace Game {
             }
         }
 
-        virtual float getCurrentTimeInMilliseconds() override {
-            return static_cast<float>(SDL_GetTicks());
+        virtual int getCurrentTimeInSeconds() override {
+            return static_cast<int>(SDL_GetTicks());
         }
 
-        virtual float getLastElapsedTimeInMilliseconds() override{
-            return this->lastElapsedTimeInMilliseconds;
+        virtual int getLastElapsedTimeInSeconds() override{
+            return this->lastElapsedTimeInSeconds;
         }
 
-        virtual void updateLastElapsedTimeInMilliseconds() override {
-            this->lastElapsedTimeInMilliseconds = this->lastCurrentTimeInMilliseconds;
+        virtual void updateLastElapsedTimeInSeconds() override {
+            this->lastElapsedTimeInSeconds = this->lastCurrentTimeInSeconds;
         }
 
-        virtual float getLastCurrentTimeInMilliseconds() override {
-            return this->lastCurrentTimeInMilliseconds;
+        virtual int getLastCurrentTimeInSeconds() override {
+            return this->lastCurrentTimeInSeconds;
         }
 
-        virtual void updateLastCurrentTimeInMilliseconds() override {
-            this->lastCurrentTimeInMilliseconds = this->getCurrentTimeInMilliseconds();
+        virtual void updateLastCurrentTimeInSeconds() override {
+            this->lastCurrentTimeInSeconds = this->getCurrentTimeInSeconds();
         }
     };
 }

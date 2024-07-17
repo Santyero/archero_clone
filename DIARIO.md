@@ -25,3 +25,8 @@ dia 14 de julho:
 
 dia 15 de julho:
    * Correcao da criacao de player, parede e projeteis, permitindo funcionamento do sistema comoanteriormente, entretanto com a nova estrutura
+
+dia 16 de julho: 
+   * Movimentacao aleatoria e pausada do inimigo
+   * Adicao de morte do inimigo
+   * melhoria na renderizacao dos projeteis

@@ -9,9 +9,11 @@
 namespace Game
 {
     Enemy::Enemy(RendererPort* rendererPort_, PhysicsEngine* physicsEngine_) : Character(
-        rendererPort_, physicsEngine_, RenderDataDTO{ {0,0}, {50,50}, {1,1}, "#ff9933"}
+        rendererPort_, physicsEngine_, RenderDataDTO{ {0,0}, {50,50}, {0.1,0.1}, "#ff9933"}
     ) {
         this->randomizePosition();
+        this->moveDuration = 1000 + rand() % 2000;
+        this->shootDuration = 500 + rand() % 1000;
     }
 
     void Enemy::attack()
@@ -27,30 +29,63 @@ namespace Game
         std::cout << "randomX" << randomX << std::endl;
         this->position = { randomX, randomY };
 
-        int randomDirection = rand() % 4;
+        this->changeDirection();
+    }
+
+    void Enemy::changeDirection() {
+        int randomDirection = rand() % 8;
         switch (randomDirection) {
         case 0: direction = RIGHT; break;
         case 1: direction = LEFT; break;
         case 2: direction = UP; break;
         case 3: direction = DOWN; break;
+        case 4: direction = UP_RIGHT; break;
+        case 5: direction = UP_LEFT; break;
+        case 6: direction = DOWN_RIGHT; break;
+        case 7: direction = DOWN_LEFT; break;
         }
     }
 
     void Enemy::onCollision(VisualElement* otherElement)
     {
         std::cout << "Enemy collision" << std::endl;
-        // Mudar a dire��o aleatoriamente em caso de colis�o
-        int randomDirection = rand() % 4;
-        switch (randomDirection) {
-        case 0: direction = RIGHT; break;
-        case 1: direction = LEFT; break;
-        case 2: direction = UP; break;
-        case 3: direction = DOWN; break;
+        if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
+            std::cout << "Enemy take damage" << projectile->damage << std::endl;
+			this->takeDamage(projectile->damage);
+            return;
+		}
+
+        Vector otherElementPosition = otherElement->getPosition();
+        Vector otherElementSize = otherElement->getSize();
+
+        float overlapLeft = (this->position.x + this->size.y) - otherElementPosition.x;
+        float overlapRight = (otherElementPosition.x + otherElementSize.y) - this->position.x;
+        float overlapTop = (this->position.y + this->size.x) - otherElementPosition.y;
+        float overlapBottom = (otherElementPosition.y + otherElementSize.x) - this->position.y;
+
+        float minOverlapX = std::min(overlapLeft, overlapRight);
+        float minOverlapY = std::min(overlapTop, overlapBottom);
+
+        if (minOverlapX < minOverlapY) {
+            if (overlapLeft < overlapRight) {
+                this->position.x -= overlapLeft;
+            }
+            else {
+                this->position.x += overlapRight;
+            }
         }
+        else {
+            if (overlapTop < overlapBottom) {
+                this->position.y -= overlapTop;
+            }
+            else {
+                this->position.y += overlapBottom;
+            }
+        }
+        changeDirection();
     }
 
     void Enemy::checkCollision(VisualElement* otherElement) {
-
 
         Vector otherElementPosition = otherElement->getPosition();
         Vector otherElementSize = otherElement->getSize();
@@ -60,52 +95,68 @@ namespace Game
             this->position.y < otherElementPosition.y + otherElementSize.y &&
             this->size.y + this->position.y > otherElementPosition.y) {
 
-            float overlapLeft = (this->position.x + this->size.y) - otherElementPosition.x;
-            float overlapRight = (otherElementPosition.x + otherElementSize.y) - this->position.x;
-            float overlapTop = (this->position.y + this->size.x) - otherElementPosition.y;
-            float overlapBottom = (otherElementPosition.y + otherElementSize.x) - this->position.y;
-
-            float minOverlapX = std::min(overlapLeft, overlapRight);
-            float minOverlapY = std::min(overlapTop, overlapBottom);
-
-            if (minOverlapX < minOverlapY) {
-                if (overlapLeft < overlapRight) {
-                    this->position.x -= overlapLeft;
-                }
-                else {
-                    this->position.x += overlapRight;
-                }
-            }
-            else {
-                if (overlapTop < overlapBottom) {
-                    this->position.y -= overlapTop;
-                }
-                else {
-                    this->position.y += overlapBottom;
-                }
-            }
-
             this->onCollision(otherElement);
         }
     }
 
     void Enemy::update()
     {
-        switch (direction) {
-        case RIGHT:
-            this->goRight();
-            break;
-        case LEFT:
-            this->goLeft();
-            break;
-        case UP:
-            this->goUp();
-            break;
-        case DOWN:
-            this->goDown();
-            break;
+        Uint32 currentTime = SDL_GetTicks();
+        if (currentState == MOVING) {
+            if (currentTime - moveStartTime > moveDuration) {
+                currentState = SHOOTING;
+                shootStartTime = currentTime;
+                return;
+            }
+            switch (direction) {
+            case RIGHT:
+                this->goRight();
+                break;
+            case LEFT:
+                this->goLeft();
+                break;
+            case UP:
+                this->goUp();
+                break;
+            case DOWN:
+                this->goDown();
+                break;
+            case UP_RIGHT:
+                this->goUp();
+                this->goRight();
+                break;
+            case UP_LEFT:
+                this->goUp();
+                this->goLeft();
+                break;
+            case DOWN_RIGHT:
+                this->goDown();
+                this->goRight();
+                break;
+            case DOWN_LEFT:
+                this->goDown();
+                this->goLeft();
+                break;
+            }
         }
+        else if (currentState == SHOOTING) {
+            if (currentTime - shootStartTime > shootDuration) {
+				currentState = MOVING;
+				moveStartTime = currentTime;
+				return;
+			}
+			//this->renderProjects();
+		}
+
     }
+
+    void Enemy::onTakeDamage() {
+        std::cout << "Enemy take damage" << this->getLife() << std::endl;
+        if (this->getLife() <= 0) {
+            this->hexColor = "#000000";
+            this->destroy();
+        }
+	}
 
     void Enemy::renderProjects() {
         if (this->projectileFramesDelay > 0) {
@@ -120,7 +171,8 @@ namespace Game
                 this->physicsEngine,
                 projectilePosition,
                 size,
-                velocity
+                velocity,
+                10
             ));
             projectileFramesDelay = 300;
         }

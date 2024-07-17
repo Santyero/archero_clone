@@ -8,6 +8,7 @@ namespace Game
         this->position = renderDataDTO.position;
 
         this->size = renderDataDTO.size;
+        this->velocity = renderDataDTO.velocity;
         this->hexColor = renderDataDTO.hexColor;
     }
 

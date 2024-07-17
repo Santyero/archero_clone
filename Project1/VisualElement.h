@@ -70,12 +70,15 @@ namespace Game
 
 		void physicsUpdate(float deltaTime)
 		{
-			this->position.x += this->velocity.x * deltaTime;
-			this->position.y += this->velocity.y * deltaTime;
+			this->position += this->velocity * deltaTime;
 		}
 		
 		bool isDeleted() {
 			return this->deleted;
+		}
+
+		void destroy() {
+			this->deleted = true;
 		}
 	};
 }

@@ -3,11 +3,11 @@
 namespace Game {
 	class TimeServicePort {
 	public:
-		virtual float getCurrentTimeInMilliseconds() = 0;
-		virtual void updateLastElapsedTimeInMilliseconds() = 0;
-		virtual float getLastElapsedTimeInMilliseconds() = 0;
-		virtual void updateLastCurrentTimeInMilliseconds() = 0;
-		virtual float getLastCurrentTimeInMilliseconds() = 0;
+		virtual int getCurrentTimeInSeconds() = 0;
+		virtual void updateLastElapsedTimeInSeconds() = 0;
+		virtual int getLastElapsedTimeInSeconds() = 0;
+		virtual void updateLastCurrentTimeInSeconds() = 0;
+		virtual int getLastCurrentTimeInSeconds() = 0;
 		virtual ~TimeServicePort() {}
 	};
 }

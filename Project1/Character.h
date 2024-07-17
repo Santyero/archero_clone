@@ -15,6 +15,7 @@ namespace Game {
         int baseSpeedPoints = 0;
         int baseSpeedAtackPoints = 0;
 
+        float life = 100;
         int currentHealth = 0;
         int currentAttackPoints = 0;
         int currentDefensePoints = 0;
@@ -33,6 +34,20 @@ namespace Game {
         void goUp();
         void goRight();
         void goLeft();
+
+
+        virtual void onTakeDamage() = 0;
+        void setMaxHealth(int maxHealth);
+        void setBaseAttackPoints(int baseAttackPoints);
+        void setBaseDefensePoints(int baseDefensePoints);
+        void setBaseSpeedPoints(int baseSpeedPoints);
+        void setBaseSpeedAtackPoints(int baseSpeedAtackPoints);
+        void setLife(float life);
+        void setAttackPoints(int attackPoints);
+
+        void takeDamage(float damage);
+
+        float getLife();
     };
 }
 
