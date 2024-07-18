@@ -15,7 +15,7 @@ C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inici
   
 C:\projetos\archero_clone\Project1\Enemy.cpp(12,76): warning C4305: 'argumento': truncamento de 'double' para 'const float'
 C:\projetos\archero_clone\Project1\Enemy.cpp(12,72): warning C4305: 'argumento': truncamento de 'double' para 'const float'
-C:\projetos\archero_clone\Project1\Enemy.cpp(168,37): warning C4305: 'argumento': truncamento de 'double' para 'const float'
+C:\projetos\archero_clone\Project1\Enemy.cpp(155,37): warning C4305: 'argumento': truncamento de 'double' para 'const float'
   GameEngine.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
   (compilando o arquivo fonte 'GameEngine.cpp')
@@ -55,6 +55,18 @@ C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens in
 C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
   (compilando o arquivo fonte 'Projectile.cpp')
   
+  SDLRendererAdapter.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'SDLRendererAdapter.cpp')
+  
+C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(47,31): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(47,31): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(48,31): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(48,31): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(49,27): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(49,27): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(50,27): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\SDLRendererAdapter.cpp(50,27): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
   Scene.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
   (compilando o arquivo fonte 'Scene.cpp')

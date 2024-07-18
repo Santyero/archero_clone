@@ -34,48 +34,6 @@ void Player::verifyKeyboardCommands() {
     }
 }
 
-void Player::checkCollision(VisualElement* otherElement) {
-    if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
-        return;
-    }
-
-    Vector otherElementPosition = otherElement->getPosition();
-    Vector otherElementSize = otherElement->getSize();
-
-    if (this->position.x < otherElementPosition.x + otherElementSize.x &&
-        this->position.x + this->size.x > otherElementPosition.x &&
-        this->position.y < otherElementPosition.y + otherElementSize.y &&
-        this->size.y + this->position.y > otherElementPosition.y) {
-
-        float overlapLeft = (this->position.x + this->size.y) - otherElementPosition.x;
-        float overlapRight = (otherElementPosition.x + otherElementSize.y) - this->position.x;
-        float overlapTop = (this->position.y + this->size.x) - otherElementPosition.y;
-        float overlapBottom = (otherElementPosition.y + otherElementSize.x) - this->position.y;
-
-        float minOverlapX = std::min(overlapLeft, overlapRight);
-        float minOverlapY = std::min(overlapTop, overlapBottom);
-
-        if (minOverlapX < minOverlapY) {
-            if (overlapLeft < overlapRight) {
-                this->position.x -= overlapLeft;
-            }
-            else {
-                this->position.x += overlapRight;
-            }
-        }
-        else {
-            if (overlapTop < overlapBottom) {
-                this->position.y -= overlapTop;
-            }
-            else {
-                this->position.y += overlapBottom;
-            }
-        }
-
-        this->onCollision(otherElement);
-    }
-}
-
 void Player::onCollision(VisualElement* otherElement) {
 
     if (Enemy* enemy = dynamic_cast<Enemy*>(otherElement)) {

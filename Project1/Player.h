@@ -25,7 +25,6 @@ namespace Game {
 
         void verifyKeyboardCommands();
         void onCollision(VisualElement* otherElement) override;
-        void checkCollision(VisualElement* otherElement) override;
         void update() override;
         void onTakeDamage() override;
         void spawnProjects();

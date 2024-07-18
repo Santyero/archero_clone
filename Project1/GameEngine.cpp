@@ -43,7 +43,7 @@ namespace Game
             }
             this->timeServicePort->updateLastCurrentTimeInSeconds();
             
-            scene.renderElement();
+            scene.spawnElement();
 
             this->player->verifyKeyboardCommands();
 
@@ -66,7 +66,7 @@ namespace Game
         for (int i = 0; i < enemiesCount; ++i)
         {
             this->enemies.emplace_back(this->rendererPort, this->physicsEngine);
-            this->enemies.back().renderElement();
+            this->enemies.back().spawnElement();
         }
     }
 
@@ -80,7 +80,7 @@ namespace Game
             for (int j = 0; j < obstacleRowQtde; ++j) {
                 if (j == 0 || i == 0 || i == obstacleColumnsQtde - 1 || j == obstacleRowQtde - 1) {
                     this->obstacles.emplace_back(Obstacle(this->rendererPort, {float(50 * j), float(50 * i)}, {50, 50}));
-                    this->obstacles.back().renderElement();
+                    this->obstacles.back().spawnElement();
                 }
             }
         }
@@ -121,7 +121,7 @@ namespace Game
             // Renderiza o elemento se não estiver marcado para exclusão
             if (!element->isDeleted()) {
                 element->update();
-                element->renderElement();
+                element->spawnElement();
             }
         }
         elements.remove_if([](VisualElement* element) { return element->isDeleted(); });
