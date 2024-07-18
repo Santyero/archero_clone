@@ -11,6 +11,6 @@ namespace Game {
 		std::vector<Projectile> projectiles;
 	public:
 
-		void renderElements();
+		void spawnElements();
 	};
 }

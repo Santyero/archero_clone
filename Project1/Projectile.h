@@ -23,8 +23,6 @@ namespace Game {
 		float damage = 10;
 
 		void onCollision(VisualElement* otherElement) override;
-		void checkCollision(VisualElement* otherElement) override;
-		void destroy();
 		void update() override;
 	};
 }

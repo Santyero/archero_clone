@@ -22,7 +22,6 @@ namespace Game {
         void attack() override;
         void randomizePosition();
         void onCollision(VisualElement* otherElement) override;
-        void checkCollision(VisualElement* otherElement) override;
         void update() override;
         void renderProjects();
         void changeDirection();
