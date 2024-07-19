@@ -15,13 +15,12 @@ namespace Game
 		Vector size;
 		Vector position;
 		Vector velocity;
-
 	public:
 		VisualElement(RendererPort *adapter, const RenderDataDTO &renderDataDTOParam);
 
-		void spawnElement()
+		void renderElement()
 		{
-			this->rendererPort->spawnElement(RenderDataDTO{
+			this->rendererPort->renderElement(RenderDataDTO{
 					this->position,
 					this->size,
 					this->velocity,
@@ -31,7 +30,7 @@ namespace Game
 
 		virtual void onCollision(VisualElement* otherElement) = 0;
 		virtual void update() = 0;
-		void checkCollision(VisualElement* otherElement) {
+		bool checkCollision(VisualElement* otherElement) {
 
 			Vector otherElementPosition = otherElement->getPosition();
 			Vector otherElementSize = otherElement->getSize();
@@ -40,34 +39,41 @@ namespace Game
 				this->position.x + this->size.x > otherElementPosition.x &&
 				this->position.y < otherElementPosition.y + otherElementSize.y &&
 				this->size.y + this->position.y > otherElementPosition.y) {
+				return true;
+			}
+			return false;
+		}
 
-				float overlapLeft = (this->position.x + this->size.y) - otherElementPosition.x;
-				float overlapRight = (otherElementPosition.x + otherElementSize.y) - this->position.x;
-				float overlapTop = (this->position.y + this->size.x) - otherElementPosition.y;
-				float overlapBottom = (otherElementPosition.y + otherElementSize.x) - this->position.y;
+		void preventTranposition(VisualElement* otherElement) {
+			Vector otherElementPosition = otherElement->getPosition();
+			Vector otherElementSize = otherElement->getSize();
 
-				float minOverlapX = std::min(overlapLeft, overlapRight);
-				float minOverlapY = std::min(overlapTop, overlapBottom);
+			float overlapLeft = (this->position.x + this->size.y) - otherElementPosition.x;
+			float overlapRight = (otherElementPosition.x + otherElementSize.y) - this->position.x;
+			float overlapTop = (this->position.y + this->size.x) - otherElementPosition.y;
+			float overlapBottom = (otherElementPosition.y + otherElementSize.x) - this->position.y;
 
-				if (minOverlapX < minOverlapY) {
-					if (overlapLeft < overlapRight) {
-						this->position.x -= overlapLeft;
-					}
-					else {
-						this->position.x += overlapRight;
-					}
+			float minOverlapX = std::min(overlapLeft, overlapRight);
+			float minOverlapY = std::min(overlapTop, overlapBottom);
+
+			if (minOverlapX < minOverlapY) {
+				if (overlapLeft < overlapRight) {
+					this->position.x -= overlapLeft;
 				}
 				else {
-					if (overlapTop < overlapBottom) {
-						this->position.y -= overlapTop;
-					}
-					else {
-						this->position.y += overlapBottom;
-					}
+					this->position.x += overlapRight;
 				}
-
-				this->onCollision(otherElement);
 			}
+			else {
+				if (overlapTop < overlapBottom) {
+					this->position.y -= overlapTop;
+				}
+				else {
+					this->position.y += overlapBottom;
+				}
+			}
+
+			this->onCollision(otherElement);
 		}
 
 		Vector getPosition()

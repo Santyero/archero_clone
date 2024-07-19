@@ -9,7 +9,7 @@
 namespace Game
 {
     Enemy::Enemy(RendererPort* rendererPort_, PhysicsEngine* physicsEngine_) : Character(
-        rendererPort_, physicsEngine_, RenderDataDTO{ {0,0}, {50,50}, {0.1,0.1}, "#ff9933"}
+        rendererPort_, physicsEngine_, RenderDataDTO{ {0,0}, {50,50}, {0,0}, "#ff9933"}
     ) {
         this->randomizePosition();
         this->moveDuration = 1000 + rand() % 2000;
@@ -35,14 +35,14 @@ namespace Game
     void Enemy::changeDirection() {
         int randomDirection = rand() % 8;
         switch (randomDirection) {
-        case 0: direction = RIGHT; break;
-        case 1: direction = LEFT; break;
-        case 2: direction = UP; break;
-        case 3: direction = DOWN; break;
-        case 4: direction = UP_RIGHT; break;
-        case 5: direction = UP_LEFT; break;
-        case 6: direction = DOWN_RIGHT; break;
-        case 7: direction = DOWN_LEFT; break;
+            case 0: direction = RIGHT; break;
+            case 1: direction = LEFT; break;
+            case 2: direction = UP; break;
+            case 3: direction = DOWN; break;
+            case 4: direction = UP_RIGHT; break;
+            case 5: direction = UP_LEFT; break;
+            case 6: direction = DOWN_RIGHT; break;
+            case 7: direction = DOWN_LEFT; break;
         }
     }
 

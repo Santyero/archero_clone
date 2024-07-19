@@ -18,7 +18,7 @@ namespace Game {
 	public:
 		SDLRendererAdapter(SDL_Window* sdlWindow);
 
-		virtual void spawnElement(const RenderDataDTO& renderDataDTO) override;
+		virtual void renderElement(const RenderDataDTO& renderDataDTO) override;
 
 		virtual void renderPresent() override {
 			SDL_RenderPresent(this->sdlRenderer);

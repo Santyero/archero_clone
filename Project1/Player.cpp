@@ -7,7 +7,7 @@ using namespace Game;
 
 Player::Player(
     RendererPort* rendererPort_, PhysicsEngine* physicsEngine_, Vector position, Vector size
-) : Character(rendererPort_, physicsEngine_, RenderDataDTO{ position, size, {1,1}, "#00ff00" }) {
+) : Character(rendererPort_, physicsEngine_, RenderDataDTO{ position, size, {0, 0}, "#00ff00" }) {
     this->setMaxHealth(100);
     this->setLife(100);
 }
@@ -29,8 +29,9 @@ void Player::verifyKeyboardCommands() {
     if (currentKeyStates[SDL_SCANCODE_RIGHT]) {
         this->goRight();
     }
-    if (not currentKeyStates[SDL_SCANCODE_RIGHT] and not currentKeyStates[SDL_SCANCODE_DOWN] and not currentKeyStates[SDL_SCANCODE_LEFT] and not currentKeyStates[SDL_SCANCODE_RIGHT]) {
-        this->spawnProjects();
+    if (not currentKeyStates[SDL_SCANCODE_UP] and not currentKeyStates[SDL_SCANCODE_RIGHT] and not currentKeyStates[SDL_SCANCODE_DOWN] and not currentKeyStates[SDL_SCANCODE_LEFT] and not currentKeyStates[SDL_SCANCODE_RIGHT]) {
+        //this->spawnProjects();
+        this->velocity = { 0, 0 };
     }
 }
 
