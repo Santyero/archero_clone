@@ -24,6 +24,7 @@ namespace Game {
 		PhysicsEngine* physicsEngine = nullptr;
 		std::list <Enemy> enemies;
 		std::list <Obstacle> obstacles;
+		std::list <Projectile> projectiles;
 		Player* player = nullptr;
 
 		
@@ -36,6 +37,20 @@ namespace Game {
 		void startGame();
 		void loadElements();
 		void updateCollisions();
+		VisualElement* findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elements);
+		void spawnProjectiles(VisualElement* element, std::list <VisualElement*> elementsToFocus);
+
+
+		template <typename T>
+		std::list<VisualElement*> convertListToVisualElements(const std::list<T>& elements) {
+			static_assert(std::is_base_of<VisualElement, T>::value, "T must be derived from VisualElement");
+
+			std::list<VisualElement*> visualElements;
+			for (const auto& element : elements) {
+				visualElements.push_back(const_cast<VisualElement*>(static_cast<const VisualElement*>(&element)));
+			}
+			return visualElements;
+		}
 	};
 }
 

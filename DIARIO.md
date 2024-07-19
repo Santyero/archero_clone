@@ -30,3 +30,8 @@ dia 16 de julho:
    * Movimentacao aleatoria e pausada do inimigo
    * Adicao de morte do inimigo
    * melhoria na renderizacao dos projeteis
+
+dia 17 e 18 de julho:
+   * Remocao momentanea de tiro do aliado apenas quando esta parado
+   * Adicao de projeteis a classe game a pedido do professor
+   * projeteis iniciam no inimigo mais proximo

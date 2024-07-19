@@ -8,27 +8,19 @@ Character::Character(
 ) : VisualElement(rendererPort_, renderDataDTOParam), physicsEngine(physicsEngine_) {}
 
 void Character::goDown() {
-    this->position.y = this->position.y + this->physicsEngine->calcDisplacement(
-        this->velocity.x
-    );
+	this->velocity.y = 0.1;
 }
 
 void Character::goUp() {
-    this->position.y = this->position.y - this->physicsEngine->calcDisplacement(
-        this->velocity.x
-    );
+	this->velocity.y = -0.1;
 }
 
 void Character::goRight() {
-    this->position.x = this->position.x + this->physicsEngine->calcDisplacement(
-        this->velocity.y
-    );
+	this->velocity.x = 0.1;
 }
 
 void Character::goLeft() {
-    this->position.x = this->position.x - this->physicsEngine->calcDisplacement(
-         this->velocity.y
-    );
+   this->velocity.x = -0.1;
 
 }
 
