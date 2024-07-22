@@ -111,29 +111,24 @@ namespace Game
 
     void GameEngine::loadElements()
     {
-		this->player->update();
-        this->player->physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
-        this->player->renderElement();
+        std::list<VisualElement*> elements;
 
-        for (Enemy& enemy : this->enemies) {
-			enemy.update();
-			enemy.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
-			enemy.renderElement();
-		}
-        for (Obstacle& obstacle : this->obstacles) {
-           obstacle.update();
-           obstacle.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
-           obstacle.renderElement();
-        }
-        for (Projectile& projectile : this->playerProjectiles) {
-            projectile.update();
-            projectile.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
-            projectile.renderElement();
-        }
-        for (Projectile& projectile : this->enemyProjectiles) {
-            projectile.update();
-            projectile.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
-            projectile.renderElement();
+        elements.push_back(this->player);
+
+        std::list<VisualElement*> visualEnemies = convertListToVisualElements(this->enemies);
+        std::list<VisualElement*> visualObstacles = convertListToVisualElements(this->obstacles);
+        std::list<VisualElement*> visualPlayerProjectiles = convertListToVisualElements(this->playerProjectiles);
+        std::list<VisualElement*> visualEnemyProjectiles = convertListToVisualElements(this->enemyProjectiles);
+
+        elements.insert(elements.end(), visualEnemies.begin(), visualEnemies.end());
+        elements.insert(elements.end(), visualObstacles.begin(), visualObstacles.end());
+        elements.insert(elements.end(), visualPlayerProjectiles.begin(), visualPlayerProjectiles.end());
+        elements.insert(elements.end(), visualEnemyProjectiles.begin(), visualEnemyProjectiles.end());
+
+        for (VisualElement* element : elements) {
+            element->update();
+            element->physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
+            element->renderElement();
         }
 	}
 
