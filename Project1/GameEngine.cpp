@@ -10,6 +10,7 @@
 #include "Projectile.h"
 #include "config.h"
 
+
 namespace Game
 {
 
@@ -25,7 +26,7 @@ namespace Game
         this->player = new Game::Player(this->rendererPort, this->physicsEngine, { Config::windowSize.x / 2 - 25, Config::sceneSize.y - 110 }, { 50,50 });
         Scene scene = Scene(this->rendererPort);
         int projectileSpawnCounter = 0;
-        int projectileSpawnInterval = 50;
+        int projectileSpawnInterval = 200;
            
         this->createEnemies();
         this->createWall();
@@ -71,7 +72,8 @@ namespace Game
 
     void GameEngine::createEnemies()
     {
-        int enemiesCount = 1 + (rand() / 8);
+        //int enemiesCount = 1 + (rand() / 8);
+        int enemiesCount = 1;
 
         srand(time(nullptr));
         for (int i = 0; i < enemiesCount; ++i)
@@ -107,15 +109,15 @@ namespace Game
 
     void GameEngine::updateCollisions() {
         std::list<VisualElement*> elements;
+        for (Projectile& projectile : this->projectiles) {
+            elements.push_back(&projectile);
+        }
         elements.push_back(this->player);
         for (Enemy& enemy : this->enemies) {
             elements.push_back(&enemy);
         }
         for (Obstacle& obstacle : this->obstacles) {
             elements.push_back(&obstacle);
-        }
-        for (Projectile& projectile : this->projectiles) {
-            elements.push_back(&projectile);
         }
 
         int n = elements.size();
@@ -144,45 +146,97 @@ namespace Game
 
     void GameEngine::spawnProjectiles(VisualElement* selectedElement, std::list <VisualElement*> elementsToFocus) {
         std::cout << "spawnProjectiles" << std::endl;
-        VisualElement* inimigo = this->findNextElement(selectedElement, elementsToFocus);
-        if (inimigo == nullptr) return;
-        Vector projectVelocity = inimigo->getPosition() - selectedElement->getPosition();
-        projectVelocity.set_length(0.5); // seta a velocidade do projetil
+        VisualElement* targetEnemy = this->findNextElement(selectedElement, elementsToFocus);
+        if (targetEnemy == nullptr) return;
 
+        Vector playerPosition = selectedElement->getPosition();
+        Vector enemyPosition = targetEnemy->getPosition();
+        Vector playerSize = selectedElement->getSize();
+        float playerSizeX = playerSize.x;
+        float playerSizeY = playerSize.y;
 
-        Vector projectilePosition = { selectedElement->getPosition().x + 25, selectedElement->getPosition().y - 20 };
+        std::cout << "playerPosition: " << playerPosition.x << " " << playerPosition.y << std::endl;
+        std::cout << "enemyPosition: " << enemyPosition.x << " " << enemyPosition.y << std::endl;
+
+        // Calcula a direção do projétil
+        Vector direction = enemyPosition - playerPosition;
+        direction.set_length(0.5); // Define a velocidade do projétil
+
+        // Define a posição inicial do projétil
+        Vector projectilePosition;
+
+        if (enemyPosition.x > playerPosition.x && std::abs(enemyPosition.y - playerPosition.y) <= playerSizeY / 2) {
+            // Direita
+            projectilePosition = { playerPosition.x + playerSizeX + 1, playerPosition.y + playerSizeY / 2 };
+        }
+        else if (enemyPosition.x < playerPosition.x && std::abs(enemyPosition.y - playerPosition.y) <= playerSizeY / 2) {
+            // Esquerda
+            projectilePosition = { playerPosition.x - playerSizeX / 2 - 1, playerPosition.y + playerSizeY / 2 };
+        }
+        else if (enemyPosition.y > playerPosition.y && std::abs(enemyPosition.x - playerPosition.x) <= playerSizeX / 2) {
+            // Abaixo
+            projectilePosition = { playerPosition.x + playerSizeX / 2, playerPosition.y + playerSizeY + 1 };
+        }
+        else if (enemyPosition.y < playerPosition.y && std::abs(enemyPosition.x - playerPosition.x) <= playerSizeX / 2) {
+            // Acima
+            projectilePosition = { playerPosition.x + playerSizeX / 2, playerPosition.y - playerSizeY / 2 - 1 };
+        }
+        else if (enemyPosition.x > playerPosition.x && enemyPosition.y > playerPosition.y) {
+            // Diagonal Inferior Direita
+            projectilePosition = { playerPosition.x + playerSizeX + 1, playerPosition.y + playerSizeY + 1 };
+        }
+        else if (enemyPosition.x < playerPosition.x && enemyPosition.y > playerPosition.y) {
+            // Diagonal Inferior Esquerda
+            projectilePosition = { playerPosition.x - playerSizeX / 2 - 1, playerPosition.y + playerSizeY + 1 };
+        }
+        else if (enemyPosition.x > playerPosition.x && enemyPosition.y < playerPosition.y) {
+            // Diagonal Superior Direita
+            projectilePosition = { playerPosition.x + playerSizeX + 1, playerPosition.y - playerSizeY / 2 - 1 };
+        }
+        else if (enemyPosition.x < playerPosition.x && enemyPosition.y < playerPosition.y) {
+            // Diagonal Superior Esquerda
+            projectilePosition = { playerPosition.x - playerSizeX / 2 - 1, playerPosition.y - playerSizeY / 2 - 1 };
+        }
+        else {
+            // Caso não se encaixe em nenhuma das condições acima, crie no centro do jogador
+            projectilePosition = { playerPosition.x + playerSizeX / 2, playerPosition.y + playerSizeY / 2 };
+        }
+
         Vector projectileSize = { 10, 10 };
         this->projectiles.emplace_back(Projectile(
             this->rendererPort,
             this->physicsEngine,
             projectilePosition,
             projectileSize,
-            projectVelocity,
+            direction,
             10
         ));
-        this->projectiles.back().renderElement();
+        std::cout << "projectilePosition: " << projectilePosition.x << " " << projectilePosition.y << std::endl;
     }
 
-    VisualElement* GameEngine::findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elements)
+
+    VisualElement* GameEngine::findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elementsToFind)
     {
-        if (elements.empty() || !selectedElement) {
+        if (elementsToFind.empty() || !selectedElement) {
             return nullptr;
         }
 
         VisualElement* closestElement = nullptr;
         float minDistance = std::numeric_limits<float>::max();
         auto selectedPosition = selectedElement->getPosition();
-        for (auto& element : elements) {
 
-            auto elementPosition = element->getPosition();
+        for (auto& elementToVerify : elementsToFind) {
+            auto elementPosition = elementToVerify->getPosition();
             float distance = std::sqrt(std::pow(elementPosition.x - selectedPosition.x, 2) +
                 std::pow(elementPosition.y - selectedPosition.y, 2));
 
             if (distance < minDistance) {
                 minDistance = distance;
-                return element;
+                closestElement = elementToVerify;
             }
         }
+
+        return closestElement;
             
 	}
 
