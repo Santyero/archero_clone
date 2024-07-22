@@ -6,12 +6,13 @@
 #include <ctime>
 #include "config.h"
 
+
 namespace Game
 {
     Enemy::Enemy(RendererPort* rendererPort_, PhysicsEngine* physicsEngine_) : Character(
-        rendererPort_, physicsEngine_, RenderDataDTO{ {0,0}, {50,50}, {0,0}, "#ff9933"}
+        rendererPort_, physicsEngine_, RenderDataDTO{ this->randomizePosition(), {50,50}, {0,0}, "#ff9933"}
     ) {
-        this->randomizePosition();
+        //this->randomizePosition();
         this->moveDuration = 1000 + rand() % 2000;
         this->shootDuration = 500 + rand() % 1000;
     }
@@ -21,15 +22,34 @@ namespace Game
         std::cout << "Player attack" << std::endl;
     }
 
-    void Enemy::randomizePosition()
+    Vector Enemy::randomizePosition()
     {
-        float randomX = Config::scenePosition.x + (rand() % int(Config::scenePosition.x - 50));
-        float randomY = Config::scenePosition.y + (rand() % int(Config::scenePosition.y - 50));
-        std::cout << "randomY" << randomY << std::endl;
-        std::cout << "randomX" << randomX << std::endl;
+        float sceneWidth = Config::sceneSize.x; // Suponha que essas variáveis existem em Config
+        float sceneHeight = Config::sceneSize.y;
+
+        // Define margens para evitar que a posição seja nas bordas vermelhas
+        float marginX = 50.0f; // Ajuste conforme necessário para a largura da borda
+        float marginY = 50.0f; // Ajuste conforme necessário para a altura da borda
+        float marginBottom = sceneHeight / 2; // Ajuste conforme necessário para a margem inferior
+
+
+        // Calcule os limites máximos para a posição aleatória dentro da área azul
+        float minX = marginX;
+        float maxX = sceneWidth - marginX;
+        float minY = marginY;
+        float maxY = sceneHeight - marginBottom;
+
+        // Gere valores aleatórios dentro do intervalo definido
+        float randomX = minX + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (maxX - minX)));
+        float randomY = minY + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (maxY - minY)));
+
+        std::cout << "randomX: " << randomX << std::endl;
+        std::cout << "randomY: " << randomY << std::endl;
+
         this->position = { randomX, randomY };
 
         this->changeDirection();
+        return { randomX, randomY };
     }
 
     void Enemy::changeDirection() {
