@@ -17,6 +17,13 @@ void Player::attack() {
 
 void Player::verifyKeyboardCommands() {
     const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+    if (not currentKeyStates[SDL_SCANCODE_UP] and not currentKeyStates[SDL_SCANCODE_RIGHT] and not currentKeyStates[SDL_SCANCODE_DOWN] and not currentKeyStates[SDL_SCANCODE_LEFT] and not currentKeyStates[SDL_SCANCODE_RIGHT]) {
+        this->stop();
+        this->currentState = SHOOTING;
+    }
+    else {
+        this->currentState = MOVING;
+    }
     if (currentKeyStates[SDL_SCANCODE_UP]) {
         this->goUp();
     }
@@ -29,10 +36,6 @@ void Player::verifyKeyboardCommands() {
     if (currentKeyStates[SDL_SCANCODE_RIGHT]) {
         this->goRight();
     }
-    if (not currentKeyStates[SDL_SCANCODE_UP] and not currentKeyStates[SDL_SCANCODE_RIGHT] and not currentKeyStates[SDL_SCANCODE_DOWN] and not currentKeyStates[SDL_SCANCODE_LEFT] and not currentKeyStates[SDL_SCANCODE_RIGHT]) {
-        //this->spawnProjects();
-        this->velocity = { 0, 0 };
-    }
 }
 
 void Player::onCollision(VisualElement* otherElement) {
@@ -44,6 +47,14 @@ void Player::onCollision(VisualElement* otherElement) {
         this->takeDamage(10);
         return;
 	}
+
+    if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
+        if (this->isInvincible) {
+            return;
+        }
+        this->takeDamage(projectile->damage);
+        return;
+    }
 
     if (Obstacle* obstacle = dynamic_cast<Obstacle*>(otherElement)) {
         return;
@@ -72,29 +83,4 @@ void Player::update() {
 	}
 }
 
-//void Player::spawnProjects() {
-//    if (this->projectileFramesDelay > 0) {
-//        this->projectileFramesDelay--;
-//    }
-//    else {
-//        // fazer assim depois, mas fazer no Game Object
-//        //VisualElement* inimigo;
-//       // Vector projectVelocity2 = inimigo->getPosition() - this->position;
-//       // projectVelocity2.set_length(0.5); // seta a velocidade do projetil
-//
-//
-//        Vector projectilePosition = { this->position.x + 25, this->position.y - 20 };
-//        Vector projectileSize = { 10, 10 };
-//        Vector projectileVelocity = { 0.5, 0.5 };
-//        this->projectiles.emplace_back(Projectile(
-//            this->rendererPort,
-//            this->physicsEngine,
-//            projectilePosition,
-//            projectileSize,
-//            projectileVelocity,
-//            10
-//        ));
-//        projectileFramesDelay = 300;
-//    }
-//}
 

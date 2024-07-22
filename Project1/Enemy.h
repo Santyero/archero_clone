@@ -10,7 +10,6 @@
 
 
 namespace Game {
-    enum State { MOVING, SHOOTING };
     class Enemy : public Character {
 
     public:
@@ -23,7 +22,6 @@ namespace Game {
         Vector randomizePosition();
         void onCollision(VisualElement* otherElement) override;
         void update() override;
-        void renderProjects();
         void changeDirection();
 
         void onTakeDamage() override;
@@ -31,7 +29,6 @@ namespace Game {
 
     private:
         enum Direction { RIGHT, LEFT, UP, DOWN, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT } direction;
-        State currentState = MOVING;
         Uint32 moveStartTime = 0;
         Uint32 shootStartTime = 0;
 

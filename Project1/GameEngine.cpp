@@ -55,10 +55,21 @@ namespace Game
             this->rendererPort->renderPresent();
             this->timeServicePort->updateLastElapsedTimeInSeconds();
             this->enemies.remove_if([](Enemy& enemy) { return enemy.isDeleted(); });
-            this->projectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
+            this->playerProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
+            this->enemyProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
             if (projectileSpawnCounter >= projectileSpawnInterval) {
                 std::list<VisualElement*> visualEnemies = convertListToVisualElements(this->enemies);
-                this->spawnProjectiles(this->player, visualEnemies);
+                if (this->player->getState() == State::SHOOTING)
+                {
+                    this->spawnProjectiles(this->player, visualEnemies, this->playerProjectiles);
+                }
+                for (Enemy& enemy : this->enemies) {
+                    if (enemy.getState() == State::SHOOTING) {
+                        std::list<VisualElement*> visualPlayer;
+                        visualPlayer.push_back(this->player);
+                        this->spawnProjectiles(&enemy, visualPlayer, this->enemyProjectiles);
+                    }
+                }
                 projectileSpawnCounter = 0; // Reset the counter
             }
             else {
@@ -114,15 +125,20 @@ namespace Game
            obstacle.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
            obstacle.renderElement();
         }
-        for (Projectile& projectile : this->projectiles) {
-			projectile.update();
-			projectile.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
-			projectile.renderElement();
-		}
+        for (Projectile& projectile : this->playerProjectiles) {
+            projectile.update();
+            projectile.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
+            projectile.renderElement();
+        }
+        for (Projectile& projectile : this->enemyProjectiles) {
+            projectile.update();
+            projectile.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
+            projectile.renderElement();
+        }
 	}
 
     void GameEngine::updateCollisions() {
-        for (Projectile& projectile : this->projectiles) {
+        for (Projectile& projectile : this->playerProjectiles) {
             for (Obstacle& obstacle : this->obstacles) {
 				bool collision = projectile.checkCollision(&obstacle);
                 if (collision) {
@@ -136,7 +152,7 @@ namespace Game
                 player->preventTranposition(&enemy);
                 enemy.preventTranposition(player);
             }
-            for (Projectile& projectile : this->projectiles) {
+            for (Projectile& projectile : this->playerProjectiles) {
 				bool collision = enemy.checkCollision(&projectile);
                 if (collision) {
 					enemy.preventTranposition(&projectile);
@@ -155,35 +171,49 @@ namespace Game
                 }
 			}
 		}
+
+        for (Projectile& projectile : this->enemyProjectiles) {
+            for (Obstacle& obstacle : this->obstacles) {
+                bool collision = projectile.checkCollision(&obstacle);
+                if (collision) {
+                    projectile.preventTranposition(&obstacle);
+                    obstacle.preventTranposition(&projectile);
+                }
+            }
+            if (this->player->checkCollision(&projectile)) {
+				player->preventTranposition(&projectile);
+				projectile.preventTranposition(player);
+			}
+        }
         this->loadElements();
     }
 
-    void GameEngine::spawnProjectiles(VisualElement* selectedElement, std::list <VisualElement*> elementsToFocus) {
+    void GameEngine::spawnProjectiles(VisualElement* selectedElement, std::list <VisualElement*> elementsToFocus, std::list<Projectile>& projectileList) {
         VisualElement* targetEnemy = this->findNextElement(selectedElement, elementsToFocus);
         if (targetEnemy == nullptr) return;
 
         Vector playerPosition = selectedElement->getPosition();
         Vector enemyPosition = targetEnemy->getPosition();
-        Vector playerSize = selectedElement->getSize();
-        float playerSizeX = playerSize.x;
-        float playerSizeY = playerSize.y;
+        Vector SelectedElementSize = selectedElement->getSize();
+        float SelectedElementSizeX = SelectedElementSize.x;
+        float SelectedElementSizeY = SelectedElementSize.y;
 
         // Calcula a direção do projétil
         Vector direction = enemyPosition - playerPosition;
         direction.set_length(0.5); // Define a velocidade do projétil
 
         // Define a posição inicial do projétil no centro do jogador
-        Vector projectilePosition = { playerPosition.x + playerSizeX / 2, playerPosition.y + playerSizeY / 2 };
+        Vector projectilePosition = { playerPosition.x + SelectedElementSizeX / 2, playerPosition.y + SelectedElementSizeY / 2 };
 
         // Ajusta a posição inicial do projétil baseado na direção
         if (direction.x != 0 || direction.y != 0) {
             float angle = atan2(direction.y, direction.x);
-            projectilePosition.x += cos(angle) * (playerSizeX / 2 + 1);
-            projectilePosition.y += sin(angle) * (playerSizeY / 2 + 1);
+            projectilePosition.x += cos(angle) * (SelectedElementSizeX / 2 + 1);
+            projectilePosition.y += sin(angle) * (SelectedElementSizeY / 2 + 1);
         }
 
         Vector projectileSize = { 10, 10 };
-        this->projectiles.emplace_back(Projectile(
+        projectileList.emplace_back(Projectile(
             this->rendererPort,
             this->physicsEngine,
             projectilePosition,
@@ -192,6 +222,7 @@ namespace Game
             10
         ));
     }
+
 
 
     VisualElement* GameEngine::findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elementsToFind)

@@ -24,7 +24,8 @@ namespace Game {
 		PhysicsEngine* physicsEngine = nullptr;
 		std::list <Enemy> enemies;
 		std::list <Obstacle> obstacles;
-		std::list <Projectile> projectiles;
+		std::list <Projectile> playerProjectiles;
+		std::list <Projectile> enemyProjectiles;
 		Player* player = nullptr;
 
 		
@@ -38,7 +39,8 @@ namespace Game {
 		void loadElements();
 		void updateCollisions();
 		VisualElement* findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elements);
-		void spawnProjectiles(VisualElement* element, std::list <VisualElement*> elementsToFocus);
+		void spawnProjectiles(VisualElement* element, std::list <VisualElement*> elementsToFocus, std::list<Projectile>& projectileList);
+
 
 
 		template <typename T>

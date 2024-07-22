@@ -35,3 +35,13 @@ dia 17 e 18 de julho:
    * Remocao momentanea de tiro do aliado apenas quando esta parado
    * Adicao de projeteis a classe game a pedido do professor
    * projeteis iniciam no inimigo mais proximo
+
+dia 19, 20, 21 de julho:
+   * Melhoria na renderizacao dos projeteis
+
+dia 22 de julho:
+   * Melhoria na reproducao dos projeteis
+   * Adicionado projeteis ao inimigo
+   * Melhoria collisao
+   * tiro apenas quando parado
+   * melhoria na componentizacao do Character com condicoes de estado (movendo, parado)
