@@ -48,7 +48,7 @@ namespace Game
 
     void Enemy::onCollision(VisualElement* otherElement)
     {
-        std::cout << "Enemy collision" << std::endl;
+        //std::cout << "Enemy collision" << std::endl;
         if (Projectile* projectile = dynamic_cast<Projectile*>(otherElement)) {
             std::cout << "Enemy take damage" << projectile->damage << std::endl;
 			this->takeDamage(projectile->damage);

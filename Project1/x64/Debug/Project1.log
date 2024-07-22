@@ -6,12 +6,11 @@ C:\projetos\archero_clone\Project1\RendererPort.h(2,1): warning C4067: tokens in
 C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
   (compilando o arquivo fonte 'GameEngine.cpp')
   
-C:\projetos\archero_clone\Project1\GameEngine.cpp(76,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(85,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(86,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(88,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(121,15): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(138,93): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(178,28): warning C4244: 'inicializando': conversão de 'double' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(187,1): warning C4715: 'Game::GameEngine::findNextElement': nem todos os caminhos de controle retornam um valor
+C:\projetos\archero_clone\Project1\GameEngine.cpp(78,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(87,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(88,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(90,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(123,15): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(140,93): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(230,28): warning C4244: 'inicializando': conversão de 'double' para 'float', possível perda de dados
   Project1.vcxproj -> C:\projetos\archero_clone\x64\Debug\Project1.exe
