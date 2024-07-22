@@ -20,7 +20,7 @@ namespace Game {
         std::list <Projectile> projectiles;
         
         void attack() override;
-        void randomizePosition();
+        Vector randomizePosition();
         void onCollision(VisualElement* otherElement) override;
         void update() override;
         void renderProjects();

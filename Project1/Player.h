@@ -18,9 +18,6 @@ namespace Game {
         double temporaryInvincibilityTime = 0;
         double invincibilityTime = 1000;
 
-        int projectileFramesDelay = 300;
-        std::list <Projectile> projectiles;
-
         void attack() override;
 
         void verifyKeyboardCommands();

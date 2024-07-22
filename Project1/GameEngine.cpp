@@ -54,7 +54,6 @@ namespace Game
 
             this->rendererPort->renderPresent();
             this->timeServicePort->updateLastElapsedTimeInSeconds();
-            this->player->projectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
             this->enemies.remove_if([](Enemy& enemy) { return enemy.isDeleted(); });
             this->projectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
             if (projectileSpawnCounter >= projectileSpawnInterval) {
@@ -72,13 +71,13 @@ namespace Game
 
     void GameEngine::createEnemies()
     {
-        //int enemiesCount = 1 + (rand() / 8);
-        int enemiesCount = 1;
+        int enemiesCount = 1 + (rand() / 8);
+        //int enemiesCount = 1;
 
         srand(time(nullptr));
         for (int i = 0; i < enemiesCount; ++i)
         {
-            this->enemies.emplace_back(this->rendererPort, this->physicsEngine);
+            this->enemies.emplace_back(Enemy(this->rendererPort, this->physicsEngine));
             this->enemies.back().renderElement();
         }
     }
@@ -102,50 +101,64 @@ namespace Game
     void GameEngine::loadElements()
     {
 		this->player->update();
-        this->enemies.begin()->update();
-        this->obstacles.begin()->update();
-        this->projectiles.begin()->update();
+        this->player->physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
+        this->player->renderElement();
+
+        for (Enemy& enemy : this->enemies) {
+			enemy.update();
+			enemy.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
+			enemy.renderElement();
+		}
+        for (Obstacle& obstacle : this->obstacles) {
+           obstacle.update();
+           obstacle.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
+           obstacle.renderElement();
+        }
+        for (Projectile& projectile : this->projectiles) {
+			projectile.update();
+			projectile.physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
+			projectile.renderElement();
+		}
 	}
 
     void GameEngine::updateCollisions() {
-        std::list<VisualElement*> elements;
         for (Projectile& projectile : this->projectiles) {
-            elements.push_back(&projectile);
-        }
-        elements.push_back(this->player);
-        for (Enemy& enemy : this->enemies) {
-            elements.push_back(&enemy);
-        }
-        for (Obstacle& obstacle : this->obstacles) {
-            elements.push_back(&obstacle);
-        }
-
-        int n = elements.size();
-        for (auto it1 = elements.begin(); it1 != elements.end(); ++it1) {
-            VisualElement* element = *it1;
-
-            // Verifica colisões com elementos subsequentes
-            for (auto it2 = std::next(it1); it2 != elements.end(); ++it2) {
-                VisualElement* otherElement = *it2;
-                bool collision = element->checkCollision(otherElement);
+            for (Obstacle& obstacle : this->obstacles) {
+				bool collision = projectile.checkCollision(&obstacle);
                 if (collision) {
-                   element->preventTranposition(otherElement);
-                   //otherElement->preventTranposition(element);
-                };
-            }
-
-            // Renderiza o elemento se não estiver marcado para exclusão
-            if (!element->isDeleted()) {
-                element->update();
-                element->physicsUpdate(this->timeServicePort->getLastCurrentTimeInSeconds() - this->timeServicePort->getLastElapsedTimeInSeconds());
-                element->renderElement();
-            }
+					projectile.preventTranposition(&obstacle);
+					obstacle.preventTranposition(&projectile);
+				}
+			}
         }
-        elements.remove_if([](VisualElement* element) { return element->isDeleted(); });
+        for (Enemy& enemy : this->enemies) {
+            if (this->player->checkCollision(&enemy)) {
+                player->preventTranposition(&enemy);
+                enemy.preventTranposition(player);
+            }
+            for (Projectile& projectile : this->projectiles) {
+				bool collision = enemy.checkCollision(&projectile);
+                if (collision) {
+					enemy.preventTranposition(&projectile);
+					projectile.preventTranposition(&enemy);
+				}
+			}
+            for (Obstacle& obstacle : this->obstacles) {
+				bool collision = enemy.checkCollision(&obstacle);
+                if (collision) {
+					enemy.preventTranposition(&obstacle);
+					obstacle.preventTranposition(&enemy);
+				}
+                if (this->player->checkCollision(&obstacle)) {
+                    player->preventTranposition(&obstacle);
+                    obstacle.preventTranposition(player);
+                }
+			}
+		}
+        this->loadElements();
     }
 
     void GameEngine::spawnProjectiles(VisualElement* selectedElement, std::list <VisualElement*> elementsToFocus) {
-        std::cout << "spawnProjectiles" << std::endl;
         VisualElement* targetEnemy = this->findNextElement(selectedElement, elementsToFocus);
         if (targetEnemy == nullptr) return;
 
@@ -155,51 +168,18 @@ namespace Game
         float playerSizeX = playerSize.x;
         float playerSizeY = playerSize.y;
 
-        std::cout << "playerPosition: " << playerPosition.x << " " << playerPosition.y << std::endl;
-        std::cout << "enemyPosition: " << enemyPosition.x << " " << enemyPosition.y << std::endl;
-
         // Calcula a direção do projétil
         Vector direction = enemyPosition - playerPosition;
         direction.set_length(0.5); // Define a velocidade do projétil
 
-        // Define a posição inicial do projétil
-        Vector projectilePosition;
+        // Define a posição inicial do projétil no centro do jogador
+        Vector projectilePosition = { playerPosition.x + playerSizeX / 2, playerPosition.y + playerSizeY / 2 };
 
-        if (enemyPosition.x > playerPosition.x && std::abs(enemyPosition.y - playerPosition.y) <= playerSizeY / 2) {
-            // Direita
-            projectilePosition = { playerPosition.x + playerSizeX + 1, playerPosition.y + playerSizeY / 2 };
-        }
-        else if (enemyPosition.x < playerPosition.x && std::abs(enemyPosition.y - playerPosition.y) <= playerSizeY / 2) {
-            // Esquerda
-            projectilePosition = { playerPosition.x - playerSizeX / 2 - 1, playerPosition.y + playerSizeY / 2 };
-        }
-        else if (enemyPosition.y > playerPosition.y && std::abs(enemyPosition.x - playerPosition.x) <= playerSizeX / 2) {
-            // Abaixo
-            projectilePosition = { playerPosition.x + playerSizeX / 2, playerPosition.y + playerSizeY + 1 };
-        }
-        else if (enemyPosition.y < playerPosition.y && std::abs(enemyPosition.x - playerPosition.x) <= playerSizeX / 2) {
-            // Acima
-            projectilePosition = { playerPosition.x + playerSizeX / 2, playerPosition.y - playerSizeY / 2 - 1 };
-        }
-        else if (enemyPosition.x > playerPosition.x && enemyPosition.y > playerPosition.y) {
-            // Diagonal Inferior Direita
-            projectilePosition = { playerPosition.x + playerSizeX + 1, playerPosition.y + playerSizeY + 1 };
-        }
-        else if (enemyPosition.x < playerPosition.x && enemyPosition.y > playerPosition.y) {
-            // Diagonal Inferior Esquerda
-            projectilePosition = { playerPosition.x - playerSizeX / 2 - 1, playerPosition.y + playerSizeY + 1 };
-        }
-        else if (enemyPosition.x > playerPosition.x && enemyPosition.y < playerPosition.y) {
-            // Diagonal Superior Direita
-            projectilePosition = { playerPosition.x + playerSizeX + 1, playerPosition.y - playerSizeY / 2 - 1 };
-        }
-        else if (enemyPosition.x < playerPosition.x && enemyPosition.y < playerPosition.y) {
-            // Diagonal Superior Esquerda
-            projectilePosition = { playerPosition.x - playerSizeX / 2 - 1, playerPosition.y - playerSizeY / 2 - 1 };
-        }
-        else {
-            // Caso não se encaixe em nenhuma das condições acima, crie no centro do jogador
-            projectilePosition = { playerPosition.x + playerSizeX / 2, playerPosition.y + playerSizeY / 2 };
+        // Ajusta a posição inicial do projétil baseado na direção
+        if (direction.x != 0 || direction.y != 0) {
+            float angle = atan2(direction.y, direction.x);
+            projectilePosition.x += cos(angle) * (playerSizeX / 2 + 1);
+            projectilePosition.y += sin(angle) * (playerSizeY / 2 + 1);
         }
 
         Vector projectileSize = { 10, 10 };
@@ -211,7 +191,6 @@ namespace Game
             direction,
             10
         ));
-        std::cout << "projectilePosition: " << projectilePosition.x << " " << projectilePosition.y << std::endl;
     }
 
 

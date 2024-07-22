@@ -72,29 +72,29 @@ void Player::update() {
 	}
 }
 
-void Player::spawnProjects() {
-    if (this->projectileFramesDelay > 0) {
-        this->projectileFramesDelay--;
-    }
-    else {
-        // fazer assim depois, mas fazer no Game Object
-        //VisualElement* inimigo;
-       // Vector projectVelocity2 = inimigo->getPosition() - this->position;
-       // projectVelocity2.set_length(0.5); // seta a velocidade do projetil
-
-
-        Vector projectilePosition = { this->position.x + 25, this->position.y - 20 };
-        Vector projectileSize = { 10, 10 };
-        Vector projectileVelocity = { 0.5, 0.5 };
-        this->projectiles.emplace_back(Projectile(
-            this->rendererPort,
-            this->physicsEngine,
-            projectilePosition,
-            projectileSize,
-            projectileVelocity,
-            10
-        ));
-        projectileFramesDelay = 300;
-    }
-}
+//void Player::spawnProjects() {
+//    if (this->projectileFramesDelay > 0) {
+//        this->projectileFramesDelay--;
+//    }
+//    else {
+//        // fazer assim depois, mas fazer no Game Object
+//        //VisualElement* inimigo;
+//       // Vector projectVelocity2 = inimigo->getPosition() - this->position;
+//       // projectVelocity2.set_length(0.5); // seta a velocidade do projetil
+//
+//
+//        Vector projectilePosition = { this->position.x + 25, this->position.y - 20 };
+//        Vector projectileSize = { 10, 10 };
+//        Vector projectileVelocity = { 0.5, 0.5 };
+//        this->projectiles.emplace_back(Projectile(
+//            this->rendererPort,
+//            this->physicsEngine,
+//            projectilePosition,
+//            projectileSize,
+//            projectileVelocity,
+//            10
+//        ));
+//        projectileFramesDelay = 300;
+//    }
+//}
 
