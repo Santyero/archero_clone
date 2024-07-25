@@ -45,3 +45,8 @@ dia 22 de julho:
    * Melhoria collisao
    * tiro apenas quando parado
    * melhoria na componentizacao do Character com condicoes de estado (movendo, parado)
+
+dia 23, 24 de julho:
+   * Remocao de codigos nao utilizados
+   * Melhoria na diracao dos projeteis em diracao ao inimigo (seja em direcao ao player e inimigo)
+   

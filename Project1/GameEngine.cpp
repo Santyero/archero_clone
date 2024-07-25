@@ -83,7 +83,6 @@ namespace Game
     void GameEngine::createEnemies()
     {
         int enemiesCount = 1 + (rand() / 8);
-        //int enemiesCount = 1;
 
         srand(time(nullptr));
         for (int i = 0; i < enemiesCount; ++i)
@@ -187,26 +186,17 @@ namespace Game
         VisualElement* targetEnemy = this->findNextElement(selectedElement, elementsToFocus);
         if (targetEnemy == nullptr) return;
 
-        Vector playerPosition = selectedElement->getPosition();
+        Vector SelectedElementPosition = selectedElement->getPosition();
         Vector enemyPosition = targetEnemy->getPosition();
         Vector SelectedElementSize = selectedElement->getSize();
         float SelectedElementSizeX = SelectedElementSize.x;
         float SelectedElementSizeY = SelectedElementSize.y;
 
-        // Calcula a direção do projétil
-        Vector direction = enemyPosition - playerPosition;
-        direction.set_length(0.5); // Define a velocidade do projétil
+        Vector direction = enemyPosition - SelectedElementPosition;
 
-        // Define a posição inicial do projétil no centro do jogador
-        Vector projectilePosition = { playerPosition.x + SelectedElementSizeX / 2, playerPosition.y + SelectedElementSizeY / 2 };
+        Vector projectilePosition = { SelectedElementPosition.x + SelectedElementSizeX / 2, SelectedElementPosition.y + SelectedElementSizeY / 2 };
 
-        // Ajusta a posição inicial do projétil baseado na direção
-        if (direction.x != 0 || direction.y != 0) {
-            float angle = atan2(direction.y, direction.x);
-            projectilePosition.x += cos(angle) * (SelectedElementSizeX / 2 + 1);
-            projectilePosition.y += sin(angle) * (SelectedElementSizeY / 2 + 1);
-        }
-
+        direction.set_length(0.5);
         Vector projectileSize = { 10, 10 };
         projectileList.emplace_back(Projectile(
             this->rendererPort,
@@ -216,6 +206,10 @@ namespace Game
             direction,
             10
         ));
+        std::cout << "<<<<<<<<<<<<<<<<<<<<<<" << std::endl;
+        std::cout << "INIMIGO" << enemyPosition << std::endl;
+        std::cout << "DIRECAO" << direction << std::endl;
+        std::cout << "POSICAO" << projectilePosition << std::endl;
     }
 
 

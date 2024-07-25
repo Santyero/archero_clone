@@ -8,8 +8,7 @@ namespace Game {
 	class Projectile: public VisualElement {
 	private:
 		PhysicsEngine* physicsEngine = nullptr;
-		
-		void updatePosition();
+
 	public:
 		Projectile(
 			RendererPort* rendererPort_,

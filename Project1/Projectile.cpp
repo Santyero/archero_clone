@@ -23,16 +23,7 @@ namespace Game {
 		this->damage = damage;
 	}
 
-	void Projectile::updatePosition() {
-		if (this->position.y > Config::scenePosition.y + Config::sceneSize.y or this->position.y < Config::scenePosition.y - Config::sceneSize.y) {
-			this->destroy();
-		}
-		this->position.y -= this->physicsEngine->calcDisplacement(this->velocity.x);
-	}
-
-	void Projectile::update() {
-		this->updatePosition();
-	}
+	void Projectile::update() {}
 
 	void Projectile::onCollision(VisualElement* otherElement) {
 		/*if (dynamic_cast<Projectile*>(otherElement) || dynamic_cast<Player*>(otherElement)) {
