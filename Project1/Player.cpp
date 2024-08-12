@@ -3,13 +3,19 @@
 #include "Enemy.h"
 
 using namespace Game;
-
-
 Player::Player(
-    RendererPort* rendererPort_, PhysicsEngine* physicsEngine_, Vector position, Vector size
-) : Character(rendererPort_, physicsEngine_, RenderDataDTO{ position, size, {0, 0}, "#00ff00" }) {
+    RendererPort* rendererPort_, PhysicsEngine* physicsEngine_, Vector position, Vector size, SDL_Surface*  player_img, const AnimationConfig& animConfig
+) : Character(rendererPort_, physicsEngine_, RenderDataDTO{ position, size, {0, 0}, "#00ff00", player_img }), animationConfig(animConfig)  {
+    if (player_img == nullptr) {
+        std::cerr << "Unable to load image! SDL_image Error: " << IMG_GetError() << std::endl;
+        throw std::runtime_error("Ocorreu um erro!");
+    }
+    
     this->setMaxHealth(100);
     this->setLife(100);
+
+  
+    this->setFrames(animationConfig.idleFrames);
 }
 
 void Player::attack() {
@@ -20,9 +26,11 @@ void Player::verifyKeyboardCommands() {
     if (not currentKeyStates[SDL_SCANCODE_UP] and not currentKeyStates[SDL_SCANCODE_RIGHT] and not currentKeyStates[SDL_SCANCODE_DOWN] and not currentKeyStates[SDL_SCANCODE_LEFT] and not currentKeyStates[SDL_SCANCODE_RIGHT]) {
         this->stop();
         this->currentState = SHOOTING;
+        this->setFrames(animationConfig.idleFrames);
     }
     else {
         this->currentState = MOVING;
+        this->setFrames(animationConfig.runningFrames);
     }
     if (currentKeyStates[SDL_SCANCODE_UP]) {
         this->goUp();
@@ -75,12 +83,12 @@ void Player::onTakeDamage() {
 
 
 void Player::update() {
-    if (this->isInvincible && SDL_GetTicks() - this->temporaryInvincibilityTime > this->invincibilityTime) {
+     if (this->isInvincible && SDL_GetTicks() - this->temporaryInvincibilityTime > this->invincibilityTime) {
         if (this->getLife() > 0) {
-			this->hexColor = "ffff00";
-		}
-		this->isInvincible = false;
-	}
+            this->hexColor = "ffff00";
+        }
+        this->isInvincible = false;
+    }
 }
 
 

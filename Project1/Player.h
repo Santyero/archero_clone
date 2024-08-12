@@ -6,12 +6,13 @@
 #include <vector>
 #include <iostream>
 #include <list>
+#include "AnimationConfig.h"
 
 namespace Game {
     class Player : public Character {
     public:
         Player() = default;
-        Player(RendererPort* adapter, PhysicsEngine* physicsEngine_, Vector position, Vector size);
+        Player(RendererPort* adapter, PhysicsEngine* physicsEngine_, Vector position, Vector size, SDL_Surface* player_img, const AnimationConfig& animConfig);
 
         std::vector<Skill*> activeSkills;
         bool isInvincible = false;
@@ -24,7 +25,8 @@ namespace Game {
         void onCollision(VisualElement* otherElement) override;
         void update() override;
         void onTakeDamage() override;
-        void spawnProjects();
+    private:
+        AnimationConfig animationConfig;
     };
 }
 

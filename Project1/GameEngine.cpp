@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL_image.h>
 #include <stdlib.h>
 #include <iostream>
 #include <list>
@@ -22,9 +23,45 @@ namespace Game
     void GameEngine::startGame()
     {
         SDL_bool done = SDL_FALSE;
+        SDL_Init(SDL_INIT_VIDEO);
 
-        this->player = new Game::Player(this->rendererPort, this->physicsEngine, { Config::windowSize.x / 2 - 25, Config::sceneSize.y - 110 }, { 50,50 });
+        if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+            std::cerr << "SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << std::endl;
+            throw std::runtime_error("Ocorreu um erro!");
+        }
+        
+        SDL_Surface* player_img = IMG_Load("Idle_and_running.png");
+
+        if (player_img == NULL) {
+			std::cerr << "Unable to load image! SDL_image Error: " << IMG_GetError() << std::endl;
+			throw std::runtime_error("Ocorreu um erro!");
+		}
+
+        AnimationConfig playerAnimConfig;
+        playerAnimConfig.idleFrames = {
+            {0, 0, 64, 64},
+            {64, 0, 64, 64}
+        };
+
+        playerAnimConfig.runningFrames = {
+            {0, 64, 64, 64},
+            {64, 64, 64, 64},
+            {128, 64, 64, 64},
+            {192, 64, 64, 64},
+            {256, 64, 64, 64},
+            {320, 64, 64, 64},
+            {384, 64, 64, 64},
+            {448, 64, 64, 64}
+        };
+
+        playerAnimConfig.shootingFrames = {
+            {0, 128, 64, 64},
+            {64, 128, 64, 64}
+        };
+
+        this->player = new Game::Player(this->rendererPort, this->physicsEngine, { Config::windowSize.x / 2 - 25, Config::sceneSize.y - 110 }, { 50,50 }, player_img, playerAnimConfig);
         Scene scene = Scene(this->rendererPort);
+        
         int projectileSpawnCounter = 0;
         int projectileSpawnInterval = 200;
            
@@ -33,6 +70,7 @@ namespace Game
 
         this->timeServicePort->updateLastCurrentTimeInSeconds();
         this->timeServicePort->updateLastElapsedTimeInSeconds();
+
 
         while (!done)
         {
@@ -77,6 +115,7 @@ namespace Game
             }
         }
 
+        SDL_FreeSurface(player_img);
         this->rendererPort->destroy();
     }
 

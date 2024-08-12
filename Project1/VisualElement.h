@@ -2,6 +2,8 @@
 #include "RendererPort.h"
 #include "RenderDataDTO.h"
 #include "math-vector.h"
+#include <vector>
+#include <SDL_image.h>
 
 namespace Game
 {
@@ -15,17 +17,28 @@ namespace Game
 		Vector size;
 		Vector position;
 		Vector velocity;
+		SDL_Surface* image = nullptr;
+		SDL_Rect srcRect;
+		int animationFrame = 0;
+		int animationSpeed = 100; // Velocidade da animação em milissegundos por frame
+		Uint32 lastAnimationTime = 0;
+		std::vector<SDL_Rect> frames; // Quadros de animação
 	public:
 		VisualElement(RendererPort *adapter, const RenderDataDTO &renderDataDTOParam);
 
 		void renderElement()
 		{
+			updateAnimation();
+			//SDL_Rect srcRect = { 0, 0, 64, 64 };
 			this->rendererPort->renderElement(RenderDataDTO{
 					this->position,
 					this->size,
 					this->velocity,
-					this->hexColor
+					this->hexColor,
+					this->image,
+					this->srcRect
 			});
+
 		}
 
 		virtual void onCollision(VisualElement* otherElement) = 0;
@@ -123,5 +136,7 @@ namespace Game
 		void destroy() {
 			this->deleted = true;
 		}
+		void setFrames(const std::vector<SDL_Rect>& newFrames);
+		void updateAnimation();
 	};
 }

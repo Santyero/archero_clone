@@ -42,7 +42,7 @@ Jogo de geração de cenários e spawn de inimigos, onde o objetivo do jogador �
 # Sprites Utilizados
 
 - **Tyny Swords**: https://pixelfrog-assets.itch.io/tiny-swords
-
+- **generic-oldwest-pack**: https://bakudas.itch.io/generic-oldwest-pack
 # Protótipo
 
 https://www.figma.com/file/wAUblnHCA9l1T7gwmqFjPM/Archero-Clone?type=design&node-id=2%3A9&mode=design&t=3nY0EnRGzEhCgmUZ-1

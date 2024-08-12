@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iomanip>
 #include <vector>
+#include <SDL_image.h>
 
 using namespace Game;
 
@@ -49,6 +50,20 @@ void SDLRendererAdapter::renderElement  (const RenderDataDTO& renderDataDTO) {
         renderDataDTO.size.x,
         renderDataDTO.size.y
     };
-    SDL_SetRenderDrawColor(this->sdlRenderer, this->redColor, this->greenColor, this->blueColor, this->alphaColor);
-    SDL_RenderFillRect(this->sdlRenderer, &fillRect);
+    SDL_Texture* texture = nullptr;
+
+    if (renderDataDTO.image != nullptr) {
+        texture = SDL_CreateTextureFromSurface(this->sdlRenderer, renderDataDTO.image);
+        if (texture == nullptr) {
+            std::cerr << "Unable to create texture from surface! SDL Error: " << SDL_GetError() << std::endl;
+            return;
+        }
+        SDL_RenderCopy(this->sdlRenderer, texture, &renderDataDTO.srcRect, &fillRect);
+        SDL_DestroyTexture(texture);
+    }
+    else {
+        SDL_SetRenderDrawColor(this->sdlRenderer, this->redColor, this->greenColor, this->blueColor, this->alphaColor);
+        SDL_RenderFillRect(this->sdlRenderer, &fillRect);
+    }
+    //SDL_RenderPresent(this->sdlRenderer);
 }
