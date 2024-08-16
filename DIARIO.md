@@ -10,36 +10,36 @@ dia 10/07:
 dia 12/07:
   Corecao de estrutura com posicoes baseados em vetores ao inves de atributo ( recomendacao eduardo)
 
-dia 14 e 13 de julho:
+?dia 13 e 14 de julho:
   Continuacao da correcao de estrutua 
    * correcao de tamanhos
    * correcao da aprersentacao de paredes 
    * correcao do tamanho dos inimigos
 
-dia 14 de julho:
+?dia 14 de julho:
    * Correcao no fluxo de informacoes
    * mudancao de projeteis para o player
    * organizado codigo
    * melhoria collisao 
    - Problema na exusao do sistema com as novas mudancas
 
-dia 15 de julho:
+?dia 15 de julho:
    * Correcao da criacao de player, parede e projeteis, permitindo funcionamento do sistema comoanteriormente, entretanto com a nova estrutura
 
-dia 16 de julho: 
+?dia 16 de julho: 
    * Movimentacao aleatoria e pausada do inimigo
    * Adicao de morte do inimigo
    * melhoria na renderizacao dos projeteis
 
-dia 17 e 18 de julho:
+?dia 17 e 18 de julho:
    * Remocao momentanea de tiro do aliado apenas quando esta parado
    * Adicao de projeteis a classe game a pedido do professor
    * projeteis iniciam no inimigo mais proximo
 
-dia 19, 20, 21 de julho:
+?dia 19, 20, 21 de julho:
    * Melhoria na renderizacao dos projeteis
 
-dia 22 de julho:
+?dia 22 de julho:
    * Melhoria na reproducao dos projeteis
    * Adicionado projeteis ao inimigo
    * Melhoria collisao

@@ -1,6 +1,5 @@
 # Integrantes
-
-Jonatas da Silva de Oliveira
+Santyero Mesquita Borges dos Santos
 
 # Nome do Projeto
 
@@ -12,11 +11,11 @@ Jogo de geração de cenários e spawn de inimigos, onde o objetivo do jogador �
 
 # Complexidades
 
-- Geração aleatória de cenário
+- Geração aleatória de cenário (deixado de lado por conta do tempo de desenvolvimento)
 - Spawn de inimigos aleatórios
 - Disparo automático do inimigo para o inimigo mais próximo
 - Só disparar enquanto estiver parado
-- Power-ups a subir de nível
+- Power-ups a subir de nível (deixado de lado por conta do tempo de desenvolvimento)
 - Colisão com inimigos, projeteis e armadilhas
 
 # Arquitetura a ser utilizada
