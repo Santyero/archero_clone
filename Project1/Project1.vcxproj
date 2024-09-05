@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationService.cpp" />
     <ClCompile Include="ConfigLoader.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="SDLRendererAdapter.cpp" />
     <ClCompile Include="SDLTimeServiceAdapter.h" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TimeServicePort.h" />
     <ClCompile Include="VisualElement.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -191,6 +193,7 @@
     <ClInclude Include="RenderDataDTO.h" />
     <ClInclude Include="SDLRendererAdapter.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="VisualElement.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

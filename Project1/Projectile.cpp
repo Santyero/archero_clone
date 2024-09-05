@@ -7,13 +7,18 @@
 namespace Game {
 	Projectile::Projectile(
 		RendererPort* rendererPort_,
+		TextureManager* textureManager,
+		const std::string& textureId,
 		PhysicsEngine* physicsEngine_,
 		Vector position,
 		Vector size,
 		Vector velocity,
 		float damage
 	) : VisualElement(
-		rendererPort_, RenderDataDTO{
+		rendererPort_,
+		textureManager,
+		textureId,
+		RenderDataDTO{
 			position,
 			size,
 			velocity,

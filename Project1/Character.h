@@ -7,8 +7,6 @@
 #include "PhysicsEngine.h"
 
 namespace Game {
-
-    enum State { MOVING, SHOOTING };
     class Character : public VisualElement {
     private:
         int maxHealth = 0;
@@ -28,9 +26,7 @@ namespace Game {
         PhysicsEngine* physicsEngine = nullptr;
 
     public:
-        State currentState = MOVING;
-
-        Character(RendererPort* adapter, PhysicsEngine* physicsEngine_, const RenderDataDTO& renderDataDTOParam);
+        Character(RendererPort* adapter, TextureManager* textureManager, const std::string& textureId, PhysicsEngine* physicsEngine_, const RenderDataDTO& renderDataDTOParam);
 
         virtual void attack() = 0;
 
@@ -53,7 +49,7 @@ namespace Game {
         void takeDamage(float damage);
 
         float getLife();
-        State getState();
+        AnimationState getState();
 
     };
 }

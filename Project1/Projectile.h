@@ -12,6 +12,8 @@ namespace Game {
 	public:
 		Projectile(
 			RendererPort* rendererPort_,
+			TextureManager* textureManager, 
+			const std::string& textureId,
 			PhysicsEngine* physicsEngine_,
 			Vector position,
 			Vector size,

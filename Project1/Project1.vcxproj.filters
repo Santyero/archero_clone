@@ -114,6 +114,12 @@
     <ClCompile Include="ConfigLoader.cpp">
       <Filter>Arquivos de Origem\application</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationService.cpp">
+      <Filter>Arquivos de Origem\domain\engines</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Arquivos de Origem\domain\engines</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -177,6 +183,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="ConfigLoader.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

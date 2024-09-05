@@ -2,141 +2,66 @@
 #include "RendererPort.h"
 #include "RenderDataDTO.h"
 #include "math-vector.h"
-#include <vector>
+#include "TextureManager.h"
 #include <SDL_image.h>
+#include <string>
 
 namespace Game
 {
-	using Vector = Mylib::Math::Vector<float, 2>;
-	class VisualElement
-	{
-	protected:
-		RendererPort *rendererPort;
-		std::string hexColor;
-		bool deleted = false;
-		Vector size;
-		Vector position;
-		Vector velocity;
-		SDL_Surface* image = nullptr;
-		SDL_Rect srcRect;
-		int animationFrame = 0;
-		int animationSpeed = 100; // Velocidade da animação em milissegundos por frame
-		Uint32 lastAnimationTime = 0;
-		std::vector<SDL_Rect> frames; // Quadros de animação
-	public:
-		VisualElement(RendererPort *adapter, const RenderDataDTO &renderDataDTOParam);
+    enum class AnimationState {
+        IDLE,
+        RUNNING,
+        SHOOTING
+    };
 
-		void renderElement()
-		{
-			updateAnimation();
-			//SDL_Rect srcRect = { 0, 0, 64, 64 };
-			this->rendererPort->renderElement(RenderDataDTO{
-					this->position,
-					this->size,
-					this->velocity,
-					this->hexColor,
-					this->image,
-					this->srcRect
-			});
+    using Vector = Mylib::Math::Vector<float, 2>;
 
-		}
+    class VisualElement
+    {
+    protected:
+        RendererPort* rendererPort;
+        TextureManager* textureManager;
+        std::string textureId;
+        std::string hexColor;
+        bool deleted = false;
+        Vector size;
+        Vector position;
+        Vector velocity;
 
-		virtual void onCollision(VisualElement* otherElement) = 0;
-		virtual void update() = 0;
-		bool checkCollision(VisualElement* otherElement) {
+        AnimationState currentState = AnimationState::IDLE;
+        size_t currentFrame = 0;
+        Uint32 lastAnimationUpdate = 0;
+        Uint32 animationSpeed = 100;
 
-			Vector otherElementPosition = otherElement->getPosition();
-			Vector otherElementSize = otherElement->getSize();
+    public:
+        VisualElement(RendererPort* adapter, TextureManager* textureManager, const std::string& textureId, const RenderDataDTO& renderDataDTOParam);
+        virtual ~VisualElement() = default;
 
-			if (this->position.x < otherElementPosition.x + otherElementSize.x &&
-				this->position.x + this->size.x > otherElementPosition.x &&
-				this->position.y < otherElementPosition.y + otherElementSize.y &&
-				this->size.y + this->position.y > otherElementPosition.y) {
-				return true;
-			}
-			return false;
-		}
+        void setAnimationState(AnimationState state);
 
-		void preventTranposition(VisualElement* otherElement) {
-			Vector otherElementPosition = otherElement->getPosition();
-			Vector otherElementSize = otherElement->getSize();
+        virtual void renderElement();
+        virtual void update();
+        virtual void onCollision(VisualElement* otherElement) = 0;
 
-			float overlapLeft = (this->position.x + this->size.y) - otherElementPosition.x;
-			float overlapRight = (otherElementPosition.x + otherElementSize.y) - this->position.x;
-			float overlapTop = (this->position.y + this->size.x) - otherElementPosition.y;
-			float overlapBottom = (otherElementPosition.y + otherElementSize.x) - this->position.y;
+        bool checkCollision(VisualElement* otherElement);
+        void preventTranposition(VisualElement* otherElement);
 
-			float minOverlapX = std::min(overlapLeft, overlapRight);
-			float minOverlapY = std::min(overlapTop, overlapBottom);
+        Vector getPosition() const { return this->position; }
+        Vector getSize() const { return this->size; }
+        Vector getVelocity() const { return this->velocity; }
 
-			if (minOverlapX < minOverlapY) {
-				if (overlapLeft < overlapRight) {
-					this->position.x -= overlapLeft;
-				}
-				else {
-					this->position.x += overlapRight;
-				}
-			}
-			else {
-				if (overlapTop < overlapBottom) {
-					this->position.y -= overlapTop;
-				}
-				else {
-					this->position.y += overlapBottom;
-				}
-			}
+        void setVelocity(const Vector& velocity) { this->velocity = velocity; }
+        void setPosition(const Vector& position) { this->position = position; }
+        void setSize(const Vector& size) { this->size = size; }
+        void setHexColor(const std::string& hexColor) { this->hexColor = hexColor; }
 
-			this->onCollision(otherElement);
-		}
+        void physicsUpdate(float deltaTime);
 
-		Vector getPosition()
-		{
-			return this->position;
-		}
+        bool isDeleted() const { return this->deleted; }
+        void destroy() { this->deleted = true; }
 
-		Vector getSize()
-		{
-			return this->size;
-		}
-
-		Vector getVelocity()
-		{
-			return this->velocity;
-		}
-
-		void setVelocity(Vector velocity)
-		{
-			this->velocity = velocity;
-		}
-
-		void setPosition(Vector position)
-		{
-			this->position = position;
-		}
-
-		void setSize(Vector size)
-		{
-			this->size = size;
-		}
-
-		void setHexColor(std::string hexColor)
-		{
-			this->hexColor = hexColor;
-		}
-
-		void physicsUpdate(float deltaTime)
-		{
-			this->position += this->velocity * deltaTime;
-		}
-		
-		bool isDeleted() {
-			return this->deleted;
-		}
-
-		void destroy() {
-			this->deleted = true;
-		}
-		void setFrames(const std::vector<SDL_Rect>& newFrames);
-		void updateAnimation();
-	};
+    protected:
+        void updateAnimation();
+        std::string getCurrentAnimationState() const;
+    };
 }

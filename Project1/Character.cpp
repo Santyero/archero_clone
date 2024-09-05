@@ -4,8 +4,8 @@
 namespace Game
 {
 	Character::Character(
-		RendererPort* rendererPort_, PhysicsEngine* physicsEngine_, const RenderDataDTO& renderDataDTOParam
-	) : VisualElement(rendererPort_, renderDataDTOParam), physicsEngine(physicsEngine_) {}
+		RendererPort* rendererPort_, TextureManager* textureManager, const std::string& textureId, PhysicsEngine* physicsEngine_, const RenderDataDTO& renderDataDTOParam
+	) : VisualElement(rendererPort_, textureManager, textureId, renderDataDTOParam), physicsEngine(physicsEngine_) {}
 
 	void Character::goDown() {
 		this->velocity.y = 0.1;
@@ -67,7 +67,7 @@ namespace Game
 		return this->life;
 	}
 
-	State Character::getState() {
+	AnimationState Character::getState() {
 		return this->currentState;
 	}
 }

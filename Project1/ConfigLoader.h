@@ -1,7 +1,10 @@
 #pragma once
 #include "AnimationConfig.h"
 
-class ConfigLoader {
-public:
-    static AnimationConfig loadPlayerAnimationConfig();
-};
+namespace Game
+{
+    class ConfigLoader {
+    public:
+        static AnimationConfig loadPlayerAnimationConfig();
+    };
+}

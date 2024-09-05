@@ -13,7 +13,7 @@ namespace Game {
     class Enemy : public Character {
 
     public:
-        Enemy(RendererPort* adapter, PhysicsEngine* physicsEngine_);
+        Enemy(RendererPort* adapter, TextureManager* textureManager, const std::string& textureId, PhysicsEngine* physicsEngine_);
         double currentSpeedPoints = 0.1;
         int projectileFramesDelay = 100;
         std::list <Projectile> projectiles;

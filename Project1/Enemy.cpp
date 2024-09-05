@@ -9,8 +9,8 @@
 
 namespace Game
 {
-    Enemy::Enemy(RendererPort* rendererPort_, PhysicsEngine* physicsEngine_) : Character(
-        rendererPort_, physicsEngine_, RenderDataDTO{ this->randomizePosition(), {50,50}, {0,0}, "#ff9933"}
+    Enemy::Enemy(RendererPort* rendererPort_, TextureManager* textureManager, const std::string& textureId, PhysicsEngine* physicsEngine_) : Character(
+        rendererPort_, textureManager, textureId, physicsEngine_, RenderDataDTO{ this->randomizePosition(), {50,50}, {0,0}, "#ff9933"}
     ) {
         //this->randomizePosition();
         this->moveDuration = 1000 + rand() % 2000;
@@ -19,7 +19,7 @@ namespace Game
 
     void Enemy::attack()
     {
-        std::cout << "Player attack" << std::endl;
+        //std::cout << "Player attack" << std::endl;
     }
 
     Vector Enemy::randomizePosition()
@@ -109,9 +109,9 @@ namespace Game
     void Enemy::update()
     {
         Uint32 currentTime = SDL_GetTicks();
-        if (currentState == MOVING) {
+        if (this->getState() == AnimationState::RUNNING or this->getState() == AnimationState::IDLE) {
             if (currentTime - moveStartTime > moveDuration) {
-                currentState = SHOOTING;
+                this->setAnimationState(AnimationState::SHOOTING);
                 shootStartTime = currentTime;
                 return;
             }
@@ -146,10 +146,10 @@ namespace Game
                 break;
             }
         }
-        else if (this->currentState == SHOOTING) {
+        else if (this->getState() == AnimationState::SHOOTING) {
             this->stop();
             if (currentTime - shootStartTime > shootDuration) {
-                this->currentState = MOVING;
+                this->setAnimationState(AnimationState::RUNNING);
 				moveStartTime = currentTime;
 				return;
 			}

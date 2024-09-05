@@ -1,38 +1,105 @@
 #include "VisualElement.h"
 #include "math-vector.h"
+#include <algorithm>
 
 namespace Game
 {
-    VisualElement::VisualElement(
-        RendererPort* adapter, const RenderDataDTO& renderDataDTO
-    ) : rendererPort(adapter) {
-        this->position = renderDataDTO.position;
-
-        this->size = renderDataDTO.size;
-        this->velocity = renderDataDTO.velocity;
-        this->hexColor = renderDataDTO.hexColor;
-        this->image = renderDataDTO.image;
+    VisualElement::VisualElement(RendererPort* adapter, TextureManager* textureManager, const std::string& textureId, const RenderDataDTO& renderDataDTO)
+        : rendererPort(adapter),
+        textureManager(textureManager),
+        textureId(textureId),
+        position(renderDataDTO.position),
+        size(renderDataDTO.size),
+        velocity(renderDataDTO.velocity),
+        hexColor(renderDataDTO.hexColor),
+        currentState(AnimationState::IDLE)
+    {
     }
 
-    void VisualElement::setFrames(const std::vector<SDL_Rect>& newFrames) {
-        this->frames = newFrames;
+    void VisualElement::setAnimationState(AnimationState state) {
+        if (this->currentState != state) {
+            this->currentState = state;
+            this->currentFrame = 0;
+            this->lastAnimationUpdate = SDL_GetTicks();
+        }
+    }
+
+    void VisualElement::renderElement() {
+        SDL_Rect destRect = {
+            static_cast<int>(position.x),
+            static_cast<int>(position.y),
+            static_cast<int>(size.x),
+            static_cast<int>(size.y)
+        };
+
+        SDL_Texture* texture = textureManager->getTexture(textureId, getCurrentAnimationState(), currentFrame);
+
+        this->rendererPort->renderElement(RenderDataDTO{
+            this->position,
+            this->size,
+            this->velocity,
+            this->hexColor,
+            texture
+            });
+    }
+
+    void VisualElement::update() {
+        updateAnimation();
     }
 
     void VisualElement::updateAnimation() {
-        if (frames.empty()) {
-            std::cerr << "Error: No frames available for animation." << std::endl;
-            return;
-        }
-        
         Uint32 currentTime = SDL_GetTicks();
-        if (currentTime > lastAnimationTime + animationSpeed) {
-            lastAnimationTime = currentTime;
-            animationFrame++;
-            if (animationFrame >= frames.size()) {
-                animationFrame = 0;
+        if (currentTime - lastAnimationUpdate > animationSpeed) {
+            size_t frameCount = textureManager->getFrameCount(textureId, getCurrentAnimationState());
+            if (frameCount > 0) {
+                currentFrame = (currentFrame + 1) % frameCount;
             }
-            srcRect = frames[animationFrame];
+            lastAnimationUpdate = currentTime;
         }
     }
 
+    std::string VisualElement::getCurrentAnimationState() const {
+        switch (currentState) {
+        case AnimationState::IDLE: return "idle";
+        case AnimationState::RUNNING: return "running";
+        case AnimationState::SHOOTING: return "shooting";
+        default: return "idle";
+        }
+    }
+
+    bool VisualElement::checkCollision(VisualElement* otherElement) {
+        Vector otherElementPosition = otherElement->getPosition();
+        Vector otherElementSize = otherElement->getSize();
+
+        return (this->position.x < otherElementPosition.x + otherElementSize.x &&
+            this->position.x + this->size.x > otherElementPosition.x &&
+            this->position.y < otherElementPosition.y + otherElementSize.y &&
+            this->size.y + this->position.y > otherElementPosition.y);
+    }
+
+    void VisualElement::preventTranposition(VisualElement* otherElement) {
+        Vector otherElementPosition = otherElement->getPosition();
+        Vector otherElementSize = otherElement->getSize();
+
+        float overlapLeft = (this->position.x + this->size.x) - otherElementPosition.x;
+        float overlapRight = (otherElementPosition.x + otherElementSize.x) - this->position.x;
+        float overlapTop = (this->position.y + this->size.y) - otherElementPosition.y;
+        float overlapBottom = (otherElementPosition.y + otherElementSize.y) - this->position.y;
+
+        float minOverlapX = std::min(overlapLeft, overlapRight);
+        float minOverlapY = std::min(overlapTop, overlapBottom);
+
+        if (minOverlapX < minOverlapY) {
+            this->position.x += (overlapLeft < overlapRight) ? -overlapLeft : overlapRight;
+        }
+        else {
+            this->position.y += (overlapTop < overlapBottom) ? -overlapTop : overlapBottom;
+        }
+
+        this->onCollision(otherElement);
+    }
+
+    void VisualElement::physicsUpdate(float deltaTime) {
+        this->position += this->velocity * deltaTime;
+    }
 }

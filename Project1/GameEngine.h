@@ -9,6 +9,7 @@
 #include "PhysicsEngine.h"
 #include "Obstacle.h"
 #include <list>
+#include "TextureManager.h"
 
 class Player;
 
@@ -27,6 +28,7 @@ namespace Game {
 		std::list <Projectile> playerProjectiles;
 		std::list <Projectile> enemyProjectiles;
 		Player* player = nullptr;
+		std::unique_ptr<TextureManager> textureManager;
 
 		
 	public:
@@ -34,6 +36,7 @@ namespace Game {
 
 		void createWall();
 		void createEnemies();
+		void loadTextures();
 
 		void startGame();
 		void loadElements();

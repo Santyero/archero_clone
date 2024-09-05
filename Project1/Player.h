@@ -7,12 +7,15 @@
 #include <iostream>
 #include <list>
 #include "AnimationConfig.h"
+#include "TextureManager.h"
 
 namespace Game {
     class Player : public Character {
     public:
         Player() = default;
-        Player(RendererPort* adapter, PhysicsEngine* physicsEngine_, Vector position, Vector size, SDL_Surface* player_img, const AnimationConfig& animConfig);
+        Player(RendererPort* adapter, TextureManager* textureManager,
+            const std::string& textureId, PhysicsEngine* physicsEngine_,
+            Vector position, Vector size);
 
         std::vector<Skill*> activeSkills;
         bool isInvincible = false;
@@ -20,13 +23,18 @@ namespace Game {
         double invincibilityTime = 1000;
 
         void attack() override;
-
         void verifyKeyboardCommands();
         void onCollision(VisualElement* otherElement) override;
         void update() override;
         void onTakeDamage() override;
+
     private:
-        AnimationConfig animationConfig;
+        TextureManager* textureManager;
+        std::string textureId;
+        int currentFrame = 0;
+        AnimationInfo animationInfo;
+
+        std::string getCurrentAnimationState() const;
+        //int getCurrentFrameIndex() const;
     };
 }
-

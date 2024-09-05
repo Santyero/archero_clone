@@ -3,7 +3,11 @@
 
 namespace Game
 {
-	Scene::Scene(RendererPort* adapter) : VisualElement(adapter, RenderDataDTO{
+	Scene::Scene(RendererPort* adapter, TextureManager* textureManager, const std::string& textureId): VisualElement(
+		adapter,
+		textureManager, 
+		textureId,
+		RenderDataDTO{
 		Config::scenePosition,
 		Config::sceneSize,
 		{0, 0},

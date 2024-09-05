@@ -11,7 +11,6 @@ namespace Game {
 		Vector size;
 		Vector velocity;
 		std::string_view hexColor;
-		SDL_Surface* image;
-		SDL_Rect srcRect;
+		SDL_Texture* texture;
 	};
 }
