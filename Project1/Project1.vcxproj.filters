@@ -120,6 +120,9 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Arquivos de Origem\domain\engines</Filter>
     </ClCompile>
+    <ClCompile Include="MixerManager.cpp">
+      <Filter>Arquivos de Origem\domain\engines</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -188,6 +191,9 @@
     <ClInclude Include="TextureManager.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="MixerManager.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project1.rc">
@@ -198,5 +204,13 @@
     <Image Include="..\..\..\Users\Santyero\Downloads\ArcherHero\Final\Idle_and_running.png">
       <Filter>Arquivos de Recurso</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="music.mp3">
+      <Filter>Arquivos de Recurso</Filter>
+    </Media>
+    <Media Include="bow_shoot.mp3">
+      <Filter>Arquivos de Recurso</Filter>
+    </Media>
   </ItemGroup>
 </Project>

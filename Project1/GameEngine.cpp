@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_mixer.h>
 #include <stdlib.h>
 #include <iostream>
 #include <list>
@@ -11,21 +12,24 @@
 #include "Projectile.h"
 #include "config.h"
 #include <memory>
+#include "MixerManager.h"
 
 
 namespace Game
 {
-
     GameEngine::GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_)
         : window(window_), rendererPort(rendererPort_), timeServicePort(timeServicePort_)
     {
         this->textureManager = std::make_unique<TextureManager>(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer());
+        this->mixerManager = std::make_unique<MixerManager>();
         this->physicsEngine = new PhysicsEngine(this->timeServicePort);
     }
 
     void GameEngine::startGame()
     {
+
         SDL_bool done = SDL_FALSE;
+		Mix_Init(MIX_INIT_MP3);
         SDL_Init(SDL_INIT_VIDEO);
 
         if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
@@ -34,6 +38,10 @@ namespace Game
         }
         
 		this->loadTextures();
+        this->loadAudio();
+
+		mixerManager->playMusic("background", -1);
+
         AnimationInfo playerAnimInfo;
         playerAnimInfo.idleFrames.resize(textureManager->getFrameCount("player", "idle"));
         playerAnimInfo.runningFrames.resize(textureManager->getFrameCount("player", "running"));
@@ -226,6 +234,7 @@ namespace Game
         Vector projectileSize = { 10, 10 };
         projectileList.emplace_back(this->rendererPort, this->textureManager.get(), "projectile",
             this->physicsEngine, projectilePosition, projectileSize, direction, 10);
+        mixerManager->playSound("player_shoot");
         //std::cout << "<<<<<<<<<<<<<<<<<<<<<<" << std::endl;
         //std::cout << "INIMIGO" << enemyPosition << std::endl;
         //std::cout << "DIRECAO" << direction << std::endl;
@@ -282,5 +291,17 @@ namespace Game
         textureManager->loadTextures("player", "Idle_and_running.png", playerAnimInfo);
     }
 
+    void GameEngine::loadAudio() {
+        mixerManager->loadMusic("background", "music.mp3");
+        mixerManager->loadSound("player_shoot", "bow_shoot.wav");
+        //mixerManager->loadSound("enemy_hit", "path/to/enemy_hit.wav");
+    }
+
+    GameEngine::~GameEngine() {
+        // Limpeza de recursos, se necessário
+        delete physicsEngine;
+        delete player;
+        // Não é necessário deletar rendererPort e timeServicePort se eles são gerenciados externamente
+    }
 
 }
