@@ -204,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Users\Santyero\Downloads\ArcherHero\Final\Idle_and_running.png" />
+    <Image Include="archer.png" />
+    <Image Include="Dynamite.png" />
+    <Image Include="TNT_Red.png" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bow_shoot.mp3" />

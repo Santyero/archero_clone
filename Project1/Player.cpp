@@ -8,7 +8,7 @@ Player::Player(RendererPort* adapter, TextureManager* textureManager,
     const std::string& textureId, PhysicsEngine* physicsEngine_,
     Vector position, Vector size) : Character(
 		adapter, textureManager, textureId, physicsEngine_,
-        RenderDataDTO{ position, size, {0, 0}, "#00ff00" }
+        RenderDataDTO{ position, size, {0, 0}, "" }
     ) {
     this->setMaxHealth(100);
     this->setLife(100);
@@ -22,10 +22,9 @@ void Player::verifyKeyboardCommands() {
     const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
     if (not currentKeyStates[SDL_SCANCODE_UP] and not currentKeyStates[SDL_SCANCODE_RIGHT] and not currentKeyStates[SDL_SCANCODE_DOWN] and not currentKeyStates[SDL_SCANCODE_LEFT] and not currentKeyStates[SDL_SCANCODE_RIGHT]) {
         this->stop();
-        this->setAnimationState(AnimationState::SHOOTING);
     }
     else {
-        this->setAnimationState(AnimationState::RUNNING);
+		this->setAnimationState(AnimationState::WALK);
     }
     if (currentKeyStates[SDL_SCANCODE_UP]) {
         this->goUp();
@@ -80,13 +79,4 @@ void Player::update() {
         this->isInvincible = false;
     }
     VisualElement::update(); // Chama o método update da classe base
-}
-
-std::string Player::getCurrentAnimationState() const {
-    switch (this->currentState) {
-    case AnimationState::IDLE: return "idle";
-    case AnimationState::RUNNING: return "running";
-    case AnimationState::SHOOTING: return "shooting";
-    default: return "idle";
-    }
 }

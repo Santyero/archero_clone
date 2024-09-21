@@ -31,7 +31,7 @@ namespace Game
             static_cast<int>(size.x),
             static_cast<int>(size.y)
         };
-
+        bool flipHorizontally = velocity.x < 0;
         SDL_Texture* texture = textureManager->getTexture(textureId, getCurrentAnimationState(), currentFrame);
 
         this->rendererPort->renderElement(RenderDataDTO{
@@ -39,8 +39,9 @@ namespace Game
             this->size,
             this->velocity,
             this->hexColor,
-            texture
-            });
+            texture,
+            flipHorizontally,
+        });
     }
 
     void VisualElement::update() {
@@ -61,8 +62,12 @@ namespace Game
     std::string VisualElement::getCurrentAnimationState() const {
         switch (currentState) {
         case AnimationState::IDLE: return "idle";
-        case AnimationState::RUNNING: return "running";
-        case AnimationState::SHOOTING: return "shooting";
+		case AnimationState::WALK: return "walk";
+		case AnimationState::SHOOT: return "shoot";
+		case AnimationState::SHOOT_TOP: return "shootTop";
+		case AnimationState::SHOOT_ANGULAR_TOP: return "shootAngularTop";
+		case AnimationState::SHOOT_ANGULAR_BOTTOM: return "shootAngularBottom";
+		case AnimationState::SHOOT_BOTTOM: return "shootBottom";
         default: return "idle";
         }
     }

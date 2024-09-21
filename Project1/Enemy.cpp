@@ -109,12 +109,13 @@ namespace Game
     void Enemy::update()
     {
         Uint32 currentTime = SDL_GetTicks();
-        if (this->getState() == AnimationState::RUNNING or this->getState() == AnimationState::IDLE) {
+        if (this->getState() == AnimationState::IDLE) {
             if (currentTime - moveStartTime > moveDuration) {
-                this->setAnimationState(AnimationState::SHOOTING);
+                this->setAnimationState(AnimationState::SHOOT);
                 shootStartTime = currentTime;
                 return;
             }
+			this->setAnimationState(AnimationState::WALK);
             switch (direction) {
             case RIGHT:
                 this->goRight();
@@ -146,10 +147,16 @@ namespace Game
                 break;
             }
         }
-        else if (this->getState() == AnimationState::SHOOTING) {
+        else if (
+            this->getState() == AnimationState::SHOOT ||
+            this->getState() == AnimationState::SHOOT_ANGULAR_BOTTOM ||
+			this->getState() == AnimationState::SHOOT_ANGULAR_TOP ||
+			this->getState() == AnimationState::SHOOT_BOTTOM ||
+			this->getState() == AnimationState::SHOOT_TOP
+        ) {
             this->stop();
             if (currentTime - shootStartTime > shootDuration) {
-                this->setAnimationState(AnimationState::RUNNING);
+                this->setAnimationState(AnimationState::IDLE);
 				moveStartTime = currentTime;
 				return;
 			}

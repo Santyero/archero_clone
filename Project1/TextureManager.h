@@ -10,8 +10,12 @@ namespace Game {
 
     struct AnimationInfo {
         std::vector<SDL_Rect> idleFrames;
-        std::vector<SDL_Rect> runningFrames;
-        std::vector<SDL_Rect> shootingFrames;
+		std::vector<SDL_Rect> walkFrames;
+        std::vector<SDL_Rect> shootFrame;
+        std::vector<SDL_Rect> shootTopFrames;
+        std::vector<SDL_Rect> shootAngularTopFrames;
+		std::vector<SDL_Rect> shootAngularBottomFrames;
+		std::vector<SDL_Rect> shootBottomFrames;
     };
 
     class TextureManager {

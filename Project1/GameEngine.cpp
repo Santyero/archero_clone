@@ -42,11 +42,6 @@ namespace Game
 
 		mixerManager->playMusic("background", -1);
 
-        AnimationInfo playerAnimInfo;
-        playerAnimInfo.idleFrames.resize(textureManager->getFrameCount("player", "idle"));
-        playerAnimInfo.runningFrames.resize(textureManager->getFrameCount("player", "running"));
-        playerAnimInfo.shootingFrames.resize(textureManager->getFrameCount("player", "shooting"));
-
         this->player = new Game::Player(
             this->rendererPort,
             this->textureManager.get(),
@@ -93,12 +88,12 @@ namespace Game
             this->enemyProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
             if (projectileSpawnCounter >= projectileSpawnInterval) {
                 std::list<VisualElement*> visualEnemies = convertListToVisualElements(this->enemies);
-                if (this->player->getState() == AnimationState::SHOOTING)
+                if (this->player->getVelocity().x == 0 || this->player->getVelocity().y == 0)
                 {
                     this->spawnProjectiles(this->player, visualEnemies, this->playerProjectiles);
                 }
                 for (Enemy& enemy : this->enemies) {
-                    if (enemy.getState() == AnimationState::SHOOTING) {
+                    if (enemy.getVelocity().x == 0 || enemy.getVelocity().y == 0) {
                         std::list<VisualElement*> visualPlayer;
                         visualPlayer.push_back(this->player);
                        this->spawnProjectiles(&enemy, visualPlayer, this->enemyProjectiles);
@@ -234,11 +229,8 @@ namespace Game
         Vector projectileSize = { 10, 10 };
         projectileList.emplace_back(this->rendererPort, this->textureManager.get(), "projectile",
             this->physicsEngine, projectilePosition, projectileSize, direction, 10);
+        selectedElement->setAnimationState(AnimationState::SHOOT);
         mixerManager->playSound("player_shoot");
-        //std::cout << "<<<<<<<<<<<<<<<<<<<<<<" << std::endl;
-        //std::cout << "INIMIGO" << enemyPosition << std::endl;
-        //std::cout << "DIRECAO" << direction << std::endl;
-        //std::cout << "POSICAO" << projectilePosition << std::endl;
     }
 
     VisualElement* GameEngine::findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elementsToFind)
@@ -269,26 +261,29 @@ namespace Game
     void GameEngine::loadTextures()
     {
         AnimationInfo playerAnimInfo;
-        playerAnimInfo.idleFrames = {
-            {0, 0, 64, 64},
-            {64, 0, 64, 64}
-        };
-        playerAnimInfo.runningFrames = {
-            {0, 64, 64, 64},
-            {64, 64, 64, 64},
-            {128, 64, 64, 64},
-            {192, 64, 64, 64},
-            {256, 64, 64, 64},
-            {320, 64, 64, 64},
-            {384, 64, 64, 64},
-            {448, 64, 64, 64}
-        };
-        playerAnimInfo.shootingFrames = {
-            {0, 128, 64, 64},
-            {64, 128, 64, 64}
-        };
 
-        textureManager->loadTextures("player", "Idle_and_running.png", playerAnimInfo);
+        for (size_t i = 0; i < 6; i++)
+        {
+			int x = 60 + 190 * i;
+			playerAnimInfo.idleFrames.push_back({ x, 50, 85, 97 });
+            playerAnimInfo.walkFrames.push_back({ x, 240, 85, 97 });
+        }
+
+        for (size_t i = 0; i < 8; i++)
+        {
+            int x = 60 + 190 * i;
+            playerAnimInfo.shootTopFrames.push_back({ x, 430, 85, 97 });
+            playerAnimInfo.shootAngularTopFrames.push_back({ x, 820, 85, 97 });
+            playerAnimInfo.shootFrame.push_back({ x, 1210, 85, 97 });
+            playerAnimInfo.shootAngularBottomFrames.push_back({ x, 1400, 85, 97 });
+            playerAnimInfo.shootBottomFrames.push_back({ x, 1590, 85, 97 });
+        }
+
+		AnimationInfo enemyAnimInfo;
+
+
+
+        textureManager->loadTextures("player", "archer.png", playerAnimInfo);
     }
 
     void GameEngine::loadAudio() {

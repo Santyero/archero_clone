@@ -45,7 +45,6 @@ namespace Game {
     }
 
     void SDLRendererAdapter::renderElement(const RenderDataDTO& renderDataDTO) {
-        this->setRGBAColors(renderDataDTO.hexColor);
         SDL_Rect destRect = {
             static_cast<int>(renderDataDTO.position.x),
             static_cast<int>(renderDataDTO.position.y),
@@ -54,9 +53,11 @@ namespace Game {
         };
 
         if (renderDataDTO.texture != nullptr) {
-            SDL_RenderCopy(this->sdlRenderer, renderDataDTO.texture, nullptr, &destRect);
+            SDL_RendererFlip flip = renderDataDTO.flipHorizontally ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+            SDL_RenderCopyEx(this->sdlRenderer, renderDataDTO.texture, nullptr, &destRect, 0, NULL, flip);
         }
         else {
+            this->setRGBAColors(renderDataDTO.hexColor);
             SDL_SetRenderDrawColor(this->sdlRenderer, this->redColor, this->greenColor, this->blueColor, this->alphaColor);
             SDL_RenderFillRect(this->sdlRenderer, &destRect);
         }

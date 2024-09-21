@@ -34,7 +34,7 @@ namespace Game {
         int currentFrame = 0;
         AnimationInfo animationInfo;
 
-        std::string getCurrentAnimationState() const;
+        //std::string getCurrentAnimationState() const;
         //int getCurrentFrameIndex() const;
     };
 }

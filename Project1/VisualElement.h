@@ -9,9 +9,13 @@
 namespace Game
 {
     enum class AnimationState {
-        IDLE,
-        RUNNING,
-        SHOOTING
+		IDLE,
+		WALK,
+		SHOOT,
+		SHOOT_TOP,
+		SHOOT_ANGULAR_TOP,
+		SHOOT_ANGULAR_BOTTOM,
+		SHOOT_BOTTOM
     };
 
     using Vector = Mylib::Math::Vector<float, 2>;

@@ -12,5 +12,6 @@ namespace Game {
 		Vector velocity;
 		std::string_view hexColor;
 		SDL_Texture* texture;
+		bool flipHorizontally;
 	};
 }
