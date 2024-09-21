@@ -63,6 +63,28 @@ namespace Game {
         }
     }
 
+    void SDLRendererAdapter::renderHealthBar(const Vector& position, const Vector& size, float healthPercentage) {
+        // Barra de fundo (vermelha)
+        SDL_Rect backgroundRect = {
+            static_cast<int>(position.x),
+            static_cast<int>(position.y),
+            static_cast<int>(size.x),
+            static_cast<int>(size.y)
+        };
+        SDL_SetRenderDrawColor(this->sdlRenderer, 255, 0, 0, 255);
+        SDL_RenderFillRect(this->sdlRenderer, &backgroundRect);
+
+        // Barra de vida atual (verde)
+        SDL_Rect healthRect = {
+            static_cast<int>(position.x),
+            static_cast<int>(position.y),
+            static_cast<int>(size.x * healthPercentage),
+            static_cast<int>(size.y)
+        };
+        SDL_SetRenderDrawColor(this->sdlRenderer, 0, 255, 0, 255);
+        SDL_RenderFillRect(this->sdlRenderer, &healthRect);
+    }
+
     /*void SDLRendererAdapter::renderPresent() {
         SDL_RenderPresent(this->sdlRenderer);
     }

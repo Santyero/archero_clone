@@ -53,8 +53,10 @@ namespace Game
 
         Scene scene(this->rendererPort, this->textureManager.get(), "scene");
         
-        int projectileSpawnCounter = 0;
-        int projectileSpawnInterval = 200;
+        int enemyProjectileSpawnCounter = 0;
+        int enemySpawnInterval = 1000;
+		int plaeyrProjectileSpawnCounter = 0;
+        int playerSpawnInterval = 500;
            
         this->createEnemies();
         this->createWall();
@@ -73,7 +75,18 @@ namespace Game
                     done = SDL_TRUE;
                 }
             }
+
+
             this->timeServicePort->updateLastCurrentTimeInSeconds();
+
+            if (this->enemies.empty()) {
+                if (timerChangeLevel == 0) {
+                    timerChangeLevel = this->timeServicePort->getCurrentTimeInSeconds();
+                } else if (timerChangeLevel + 10000 <= this->timeServicePort->getCurrentTimeInSeconds()) {
+                    this->changeLevel();
+					timerChangeLevel = 0;
+                }
+            }
             
             scene.renderElement();
 
@@ -86,31 +99,36 @@ namespace Game
             this->enemies.remove_if([](Enemy& enemy) { return enemy.isDeleted(); });
             this->playerProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
             this->enemyProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
-            if (projectileSpawnCounter >= projectileSpawnInterval) {
-                std::list<VisualElement*> visualEnemies = convertListToVisualElements(this->enemies);
-                if (this->player->getVelocity().x == 0 || this->player->getVelocity().y == 0)
-                {
-                    this->spawnProjectiles(this->player, visualEnemies, this->playerProjectiles);
-                }
+            if (enemyProjectileSpawnCounter + enemySpawnInterval <= this->timeServicePort->getCurrentTimeInSeconds()) {
                 for (Enemy& enemy : this->enemies) {
                     if (enemy.getVelocity().x == 0 || enemy.getVelocity().y == 0) {
                         std::list<VisualElement*> visualPlayer;
                         visualPlayer.push_back(this->player);
-                       this->spawnProjectiles(&enemy, visualPlayer, this->enemyProjectiles);
+                       this->spawnProjectiles(&enemy, visualPlayer, this->enemyProjectiles, "enemy");
                     }
                 }
-                projectileSpawnCounter = 0; // Reset the counter
+                enemyProjectileSpawnCounter = this->timeServicePort->getCurrentTimeInSeconds();
             }
-            else {
-                projectileSpawnCounter++;
-            }
+			if (plaeyrProjectileSpawnCounter + playerSpawnInterval <= this->timeServicePort->getCurrentTimeInSeconds()) {
+                std::list<VisualElement*> visualEnemies = convertListToVisualElements(this->enemies);
+                if (this->player->getVelocity().x == 0 || this->player->getVelocity().y == 0)
+                {
+                    if (visualEnemies.size() <= 0) {
+                        this->player->setAnimationState(AnimationState::IDLE);
+                    }
+                    else {
+                        this->spawnProjectiles(this->player, visualEnemies, this->playerProjectiles, "player");
+                    }
+                    plaeyrProjectileSpawnCounter = this->timeServicePort->getCurrentTimeInSeconds();
+                }
+			}
         }
         this->rendererPort->destroy();
     }
 
     void GameEngine::createEnemies()
     {
-        int enemiesCount = 1 + (rand() / 8);
+        int enemiesCount = level;
 
         srand(time(nullptr));
         for (int i = 0; i < enemiesCount; ++i)
@@ -211,7 +229,7 @@ namespace Game
         this->loadElements();
     }
 
-    void GameEngine::spawnProjectiles(VisualElement* selectedElement, std::list <VisualElement*> elementsToFocus, std::list<Projectile>& projectileList) {
+    void GameEngine::spawnProjectiles(VisualElement* selectedElement, std::list <VisualElement*> elementsToFocus, std::list<Projectile>& projectileList, const std::string& projectileType) {
         VisualElement* targetEnemy = this->findNextElement(selectedElement, elementsToFocus);
         if (targetEnemy == nullptr) return;
 
@@ -225,11 +243,29 @@ namespace Game
 
         Vector projectilePosition = { SelectedElementPosition.x + SelectedElementSizeX / 2, SelectedElementPosition.y + SelectedElementSizeY / 2 };
 
+        Vector projectileSize;
+        int projectileSpeed;
+        if (projectileType == "player") {
+            projectileSize = { 30, 30 };
+            projectileSpeed = 10;
+        }
+        else if (projectileType == "enemy") {
+            projectileSize = { 30, 30 };
+            projectileSpeed = 7;
+        }
+
         direction.set_length(0.5);
-        Vector projectileSize = { 10, 10 };
-        projectileList.emplace_back(this->rendererPort, this->textureManager.get(), "projectile",
+        projectileList.emplace_back(this->rendererPort, this->textureManager.get(), projectileType + "_projectile",
             this->physicsEngine, projectilePosition, projectileSize, direction, 10);
         selectedElement->setAnimationState(AnimationState::SHOOT);
+
+        //if (projectileType == "player") {
+        //    mixerManager->playSound("player_shoot");
+        //}
+        //else if (projectileType == "enemy") {
+        //    mixerManager->playSound("enemy_shoot");  // Certifique-se de carregar esse som
+        //}
+
         mixerManager->playSound("player_shoot");
     }
 
@@ -258,32 +294,57 @@ namespace Game
             
 	}
 
-    void GameEngine::loadTextures()
-    {
-        AnimationInfo playerAnimInfo;
-
-        for (size_t i = 0; i < 6; i++)
-        {
-			int x = 60 + 190 * i;
-			playerAnimInfo.idleFrames.push_back({ x, 50, 85, 97 });
-            playerAnimInfo.walkFrames.push_back({ x, 240, 85, 97 });
-        }
-
-        for (size_t i = 0; i < 8; i++)
-        {
+    void GameEngine::loadAnimationFrames(std::vector<SDL_Rect>& targetFrames, int startY, int numFrames, int frameHeight, int frameWidth) {
+        for (size_t i = 0; i < numFrames; i++) {
             int x = 60 + 190 * i;
-            playerAnimInfo.shootTopFrames.push_back({ x, 430, 85, 97 });
-            playerAnimInfo.shootAngularTopFrames.push_back({ x, 820, 85, 97 });
-            playerAnimInfo.shootFrame.push_back({ x, 1210, 85, 97 });
-            playerAnimInfo.shootAngularBottomFrames.push_back({ x, 1400, 85, 97 });
-            playerAnimInfo.shootBottomFrames.push_back({ x, 1590, 85, 97 });
+            targetFrames.push_back({ x, startY, frameHeight, frameWidth });
         }
+    }
 
-		AnimationInfo enemyAnimInfo;
-
-
-
+    void GameEngine::setupPlayerAnimations() {
+        AnimationInfo playerAnimInfo;
+        loadAnimationFrames(playerAnimInfo.idleFrames, 50, 6, 85, 97);   // Idle
+        loadAnimationFrames(playerAnimInfo.walkFrames, 240, 6, 85, 97); // Walk
+        loadAnimationFrames(playerAnimInfo.shootTopFrames, 430, 8, 85, 97); // Shoot top
+        loadAnimationFrames(playerAnimInfo.shootAngularTopFrames, 820, 8, 85, 97);   // Shoot angular top
+        loadAnimationFrames(playerAnimInfo.shootFrame, 1210, 8, 85, 97);  // Shoot
+        loadAnimationFrames(playerAnimInfo.shootAngularBottomFrames , 1400, 8, 85, 97);  // Shoot angular bottom
+        loadAnimationFrames(playerAnimInfo.shootBottomFrames, 1590, 8, 85, 97);  // Shoot bottom
         textureManager->loadTextures("player", "archer.png", playerAnimInfo);
+    }
+
+    void GameEngine::setupEnemyAnimations() {
+        AnimationInfo enemyAnimInfo;
+        loadAnimationFrames(enemyAnimInfo.idleFrames, 50, 6, 85, 97);     // Idle and Walk
+        loadAnimationFrames(enemyAnimInfo.walkFrames, 240, 6, 85, 97);    // Walk
+        loadAnimationFrames(enemyAnimInfo.shootFrame, 430, 7, 85, 97);    // Shoot
+        textureManager->loadTextures("enemy", "TNT_Red.png", enemyAnimInfo);
+    }
+
+    void GameEngine::setupProjectiles() {
+        AnimationInfo playerProjectile, enemyProjectile;
+        playerProjectile.idleFrames.push_back({ 0, 25, 85, 20 });
+		//loadAnimationFrames(enemyProjectile.idleFrames, 50, 6, 85, 97);
+		enemyProjectile.idleFrames.push_back({ 50, 6, 85, 97});
+        textureManager->loadTextures("player_projectile", "Arrow.png", playerProjectile);
+        textureManager->loadTextures("enemy_projectile", "Dynamite.png", enemyProjectile);
+    }
+
+    void GameEngine::setutpScene() {
+		AnimationInfo sceneAnimInfo;
+		sceneAnimInfo.idleFrames.push_back({ 20, 90, 100, 100 });
+		textureManager->loadTextures("scene", "scene.png", sceneAnimInfo);
+
+        AnimationInfo obstacleAnimInfo;
+        obstacleAnimInfo.idleFrames.push_back({ 10, 100, 100, 100 });
+		textureManager->loadTextures("obstacle", "obstacle.png", obstacleAnimInfo);
+    }
+
+    void GameEngine::loadTextures() {
+        setupPlayerAnimations();
+        setupEnemyAnimations();
+        setupProjectiles();
+		setutpScene();
     }
 
     void GameEngine::loadAudio() {
@@ -299,4 +360,9 @@ namespace Game
         // Não é necessário deletar rendererPort e timeServicePort se eles são gerenciados externamente
     }
 
+	void GameEngine::changeLevel() {
+		level++;
+
+		createEnemies();
+	}
 }

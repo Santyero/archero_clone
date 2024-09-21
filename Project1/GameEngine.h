@@ -4,19 +4,18 @@
 
 #include "Window.h"
 #include "Enemy.h"
+#include "Player.h"
+#include "Projectile.h"
 #include "TimeServicePort.h"
 #include "RendererPort.h"
 #include "PhysicsEngine.h"
 #include "Obstacle.h"
 #include "TextureManager.h"
-#include "MixerManager.h"  // Adicione esta linha
+#include "MixerManager.h"  // Sistema de áudio
 #include <list>
 #include <memory>
 
-class Player;
-
 namespace Game {
-    class Player;
 
     class GameEngine
     {
@@ -31,23 +30,32 @@ namespace Game {
         std::list<Projectile> enemyProjectiles;
         Player* player = nullptr;
         std::unique_ptr<TextureManager> textureManager;
-        std::unique_ptr<MixerManager> mixerManager;  // Adicione esta linha
+        std::unique_ptr<MixerManager> mixerManager;
+		int level = 1;
+        int timerChangeLevel = 0;
+
+        void loadAnimationFrames(std::vector<SDL_Rect>& targetFrames, int startY, int numFrames, int frameHeight, int frameWidth);
+        void setupPlayerAnimations();
+        void setupEnemyAnimations();
+        void setupProjectiles();
+        void setutpScene();
 
     public:
         GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_);
-        ~GameEngine();  // Adicione um destrutor
+        ~GameEngine();
 
         void createWall();
         void createEnemies();
         void loadTextures();
-        void loadAudio();  // Adicione este método
+        void loadAudio();  // Carregar arquivos de áudio
         void startGame();
         void loadElements();
         void updateCollisions();
         VisualElement* findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elements);
-        void spawnProjectiles(VisualElement* element, std::list<VisualElement*> elementsToFocus, std::list<Projectile>& projectileList);
+        void spawnProjectiles(VisualElement* element, std::list<VisualElement*> elementsToFocus, std::list<Projectile>& projectileList, const std::string& projectileType);
+		void changeLevel();
 
-        MixerManager* getMixerManager() { return mixerManager.get(); }  // Adicione este método
+        MixerManager* getMixerManager() { return mixerManager.get(); }  // Acessar gerenciador de áudio
 
         template <typename T>
         std::list<VisualElement*> convertListToVisualElements(const std::list<T>& elements) {
@@ -59,6 +67,7 @@ namespace Game {
             return visualElements;
         }
     };
+
 }
 
 #endif // GAME_H

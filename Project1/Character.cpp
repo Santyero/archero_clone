@@ -44,9 +44,9 @@ namespace Game
 		this->baseSpeedAtackPoints = baseSpeedAtackPoints;
 	}
 
-	void Character::setMaxHealth(int maxHealth) {
-		this->maxHealth = maxHealth;
-		this->currentHealth = maxHealth;
+	void Character::setMaxHealth(int max) {
+		maxHealth = max;
+		if (life > maxHealth) life = maxHealth;
 	}
 
 	void Character::setLife(float life) {
@@ -58,7 +58,7 @@ namespace Game
 	}
 
 	void Character::takeDamage(float damage) {
-		this->life -= damage;
+		life = std::max(0.0f, life - damage);
 		std::cout << "Life: " << this->life << std::endl;
 		this->onTakeDamage();
 	}
@@ -69,5 +69,47 @@ namespace Game
 
 	AnimationState Character::getState() {
 		return this->currentState;
+	}
+
+	void Character::renderElement() {
+		VisualElement::renderElement();
+
+		float healthPercentage = life / maxHealth;
+		std::cout << "Health percentage: " << healthPercentage << std::endl;
+
+		Vector healthBarPosition = {
+			position.x,
+			position.y + size.y + 5
+		};
+		Vector healthBarSize = {
+			size.x,
+			5
+		};
+
+		// Barra de fundo (vermelha)
+		RenderDataDTO backgroundBar = {
+			healthBarPosition,
+			healthBarSize,
+			{0, 0},
+			"#FF0000",  // Vermelho
+			nullptr,
+			false
+		};
+		rendererPort->renderElement(backgroundBar);
+
+		// Barra de vida atual (verde)
+		Vector currentHealthSize = {
+			healthBarSize.x * healthPercentage,
+			healthBarSize.y
+		};
+		RenderDataDTO healthBar = {
+			healthBarPosition,
+			currentHealthSize,
+			{0, 0},
+			"#00FF00",  // Verde
+			nullptr,
+			false
+		};
+		rendererPort->renderElement(healthBar);
 	}
 }

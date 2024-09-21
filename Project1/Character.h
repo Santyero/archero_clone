@@ -9,7 +9,7 @@
 namespace Game {
     class Character : public VisualElement {
     private:
-        int maxHealth = 0;
+        int maxHealth = 100;
         int baseAttackPoints = 0;
         int baseDefensePoints = 0;
         int baseSpeedPoints = 0;
@@ -50,6 +50,7 @@ namespace Game {
 
         float getLife();
         AnimationState getState();
+        void renderElement() override;
 
     };
 }

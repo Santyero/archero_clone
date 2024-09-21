@@ -15,6 +15,8 @@ namespace Game
         //this->randomizePosition();
         this->moveDuration = 1000 + rand() % 2000;
         this->shootDuration = 500 + rand() % 1000;
+        this->setMaxHealth(100);
+        this->setLife(100);
     }
 
     void Enemy::attack()
@@ -109,7 +111,7 @@ namespace Game
     void Enemy::update()
     {
         Uint32 currentTime = SDL_GetTicks();
-        if (this->getState() == AnimationState::IDLE) {
+        if (this->getState() == AnimationState::WALK or this->getState() == AnimationState::IDLE) {
             if (currentTime - moveStartTime > moveDuration) {
                 this->setAnimationState(AnimationState::SHOOT);
                 shootStartTime = currentTime;

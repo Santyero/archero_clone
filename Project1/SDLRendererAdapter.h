@@ -35,5 +35,7 @@ namespace Game {
 		SDL_Renderer* getRenderer() override {
 			return this->sdlRenderer;
 		}
+
+		void renderHealthBar(const Vector& position, const Vector& size, float healthPercentage);
 	};
 }

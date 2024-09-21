@@ -213,6 +213,15 @@
     <Image Include="TNT_Red.png">
       <Filter>Arquivos de Recurso</Filter>
     </Image>
+    <Image Include="Arrow.png">
+      <Filter>Arquivos de Recurso</Filter>
+    </Image>
+    <Image Include="obstacle.png">
+      <Filter>Arquivos de Recurso</Filter>
+    </Image>
+    <Image Include="scene.png">
+      <Filter>Arquivos de Recurso</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="music.mp3">
