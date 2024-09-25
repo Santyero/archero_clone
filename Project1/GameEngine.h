@@ -12,6 +12,7 @@
 #include "Obstacle.h"
 #include "TextureManager.h"
 #include "MixerManager.h"  // Sistema de áudio
+#include "HUD.h"
 #include <list>
 #include <memory>
 
@@ -33,6 +34,7 @@ namespace Game {
         std::unique_ptr<MixerManager> mixerManager;
 		int level = 1;
         int timerChangeLevel = 0;
+        std::unique_ptr<HUD> hud;
 
         void loadAnimationFrames(std::vector<SDL_Rect>& targetFrames, int startY, int numFrames, int frameHeight, int frameWidth);
         void setupPlayerAnimations();
@@ -54,6 +56,7 @@ namespace Game {
         VisualElement* findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elements);
         void spawnProjectiles(VisualElement* element, std::list<VisualElement*> elementsToFocus, std::list<Projectile>& projectileList, const std::string& projectileType);
 		void changeLevel();
+        void verifyRenderNewEnemies();
 
         MixerManager* getMixerManager() { return mixerManager.get(); }  // Acessar gerenciador de áudio
 

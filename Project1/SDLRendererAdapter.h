@@ -37,5 +37,12 @@ namespace Game {
 		}
 
 		void renderHealthBar(const Vector& position, const Vector& size, float healthPercentage);
+
+		//hub		
+		void renderTexture(SDL_Texture* texture, const SDL_Rect* srcrect, const SDL_Rect* dstrect) override;
+		void setTextureColorMod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b) override;
+		void setTextureAlphaMod(SDL_Texture* texture, Uint8 alpha) override;
+		void renderSimpleText(const std::string& text, int x, int y, SDL_Color color) override;
+		bool getCharPixel(char c, int x, int y) override;
 	};
 }

@@ -75,7 +75,7 @@ namespace Game
 		VisualElement::renderElement();
 
 		float healthPercentage = life / maxHealth;
-		std::cout << "Health percentage: " << healthPercentage << std::endl;
+		//std::cout << "Health percentage: " << healthPercentage << std::endl;
 
 		Vector healthBarPosition = {
 			position.x,

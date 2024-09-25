@@ -64,6 +64,8 @@ namespace Game
         this->timeServicePort->updateLastCurrentTimeInSeconds();
         this->timeServicePort->updateLastElapsedTimeInSeconds();
 
+        this->hud = std::make_unique<HUD>(rendererPort, textureManager.get());
+
 
         while (!done)
         {
@@ -76,17 +78,9 @@ namespace Game
                 }
             }
 
-
             this->timeServicePort->updateLastCurrentTimeInSeconds();
 
-            if (this->enemies.empty()) {
-                if (timerChangeLevel == 0) {
-                    timerChangeLevel = this->timeServicePort->getCurrentTimeInSeconds();
-                } else if (timerChangeLevel + 10000 <= this->timeServicePort->getCurrentTimeInSeconds()) {
-                    this->changeLevel();
-					timerChangeLevel = 0;
-                }
-            }
+			this->verifyRenderNewEnemies();
             
             scene.renderElement();
 
@@ -94,6 +88,8 @@ namespace Game
 
             this->updateCollisions();
 
+
+            this->hud->renderElement();
             this->rendererPort->renderPresent();
             this->timeServicePort->updateLastElapsedTimeInSeconds();
             this->enemies.remove_if([](Enemy& enemy) { return enemy.isDeleted(); });
@@ -101,7 +97,7 @@ namespace Game
             this->enemyProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
             if (enemyProjectileSpawnCounter + enemySpawnInterval <= this->timeServicePort->getCurrentTimeInSeconds()) {
                 for (Enemy& enemy : this->enemies) {
-                    if (enemy.getVelocity().x == 0 || enemy.getVelocity().y == 0) {
+                    if (enemy.getVelocity().x == 0 && enemy.getVelocity().y == 0) {
                         std::list<VisualElement*> visualPlayer;
                         visualPlayer.push_back(this->player);
                        this->spawnProjectiles(&enemy, visualPlayer, this->enemyProjectiles, "enemy");
@@ -111,7 +107,7 @@ namespace Game
             }
 			if (plaeyrProjectileSpawnCounter + playerSpawnInterval <= this->timeServicePort->getCurrentTimeInSeconds()) {
                 std::list<VisualElement*> visualEnemies = convertListToVisualElements(this->enemies);
-                if (this->player->getVelocity().x == 0 || this->player->getVelocity().y == 0)
+                if (this->player->getVelocity().x == 0 && this->player->getVelocity().y == 0)
                 {
                     if (visualEnemies.size() <= 0) {
                         this->player->setAnimationState(AnimationState::IDLE);
@@ -188,6 +184,12 @@ namespace Game
 				}
 			}
         }
+		for (Obstacle& obstacle : this->obstacles) {
+			if (this->player->checkCollision(&obstacle)) {
+				player->preventTranposition(&obstacle);
+				obstacle.preventTranposition(player);
+			}
+		}
         for (Enemy& enemy : this->enemies) {
             if (this->player->checkCollision(&enemy)) {
                 player->preventTranposition(&enemy);
@@ -206,10 +208,6 @@ namespace Game
 					enemy.preventTranposition(&obstacle);
 					obstacle.preventTranposition(&enemy);
 				}
-                if (this->player->checkCollision(&obstacle)) {
-                    player->preventTranposition(&obstacle);
-                    obstacle.preventTranposition(player);
-                }
 			}
 		}
 
@@ -246,27 +244,34 @@ namespace Game
         Vector projectileSize;
         int projectileSpeed;
         if (projectileType == "player") {
+            mixerManager->playSound("player_shoot");
             projectileSize = { 30, 30 };
             projectileSpeed = 10;
         }
         else if (projectileType == "enemy") {
-            projectileSize = { 30, 30 };
+            mixerManager->playSound("enemy_shoot");
+            projectileSize = { 50, 50 };
             projectileSpeed = 7;
+            // 70% de chance de atirar na direção do jogador com imprecisão
+            if (rand() % 100 < 70) {
+                // Adiciona uma pequena imprecisão
+                float angle = (rand() % 40 - 20) * 3.14159f / 180.0f; // ângulo entre -20 e 20 graus
+                float cosAngle = cos(angle);
+                float sinAngle = sin(angle);
+                float newX = direction.x * cosAngle - direction.y * sinAngle;
+                float newY = direction.x * sinAngle + direction.y * cosAngle;
+                direction = Vector(newX, newY);
+            }
+            else {
+                // 30% de chance de atirar em uma direção completamente aleatória
+                direction = Vector(rand() % 200 - 100, rand() % 200 - 100);
+            }
         }
 
         direction.set_length(0.5);
         projectileList.emplace_back(this->rendererPort, this->textureManager.get(), projectileType + "_projectile",
             this->physicsEngine, projectilePosition, projectileSize, direction, 10);
         selectedElement->setAnimationState(AnimationState::SHOOT);
-
-        //if (projectileType == "player") {
-        //    mixerManager->playSound("player_shoot");
-        //}
-        //else if (projectileType == "enemy") {
-        //    mixerManager->playSound("enemy_shoot");  // Certifique-se de carregar esse som
-        //}
-
-        mixerManager->playSound("player_shoot");
     }
 
     VisualElement* GameEngine::findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elementsToFind)
@@ -345,11 +350,18 @@ namespace Game
         setupEnemyAnimations();
         setupProjectiles();
 		setutpScene();
+
+        AnimationInfo bannerInfo;
+        bannerInfo.idleFrames.push_back({ 0, 0, 256, 128 });
+        if (!textureManager->loadTextures("hud_banner", "banner_horizontal.png", bannerInfo)) {
+            std::cerr << "Falha ao carregar a textura do banner do HUD" << std::endl;
+        }
     }
 
     void GameEngine::loadAudio() {
         mixerManager->loadMusic("background", "music.mp3");
         mixerManager->loadSound("player_shoot", "bow_shoot.wav");
+        mixerManager->loadSound("enemy_shoot", "throw.wav");
         //mixerManager->loadSound("enemy_hit", "path/to/enemy_hit.wav");
     }
 
@@ -364,5 +376,19 @@ namespace Game
 		level++;
 
 		createEnemies();
+		this->player->setLife(100);
+        this->hud->setLevel(level);
+	}
+
+	void GameEngine::verifyRenderNewEnemies() {
+        if (this->enemies.empty()) {
+            if (timerChangeLevel == 0) {
+                timerChangeLevel = this->timeServicePort->getCurrentTimeInSeconds();
+            }
+            else if (timerChangeLevel + 10000 <= this->timeServicePort->getCurrentTimeInSeconds()) {
+                this->changeLevel();
+                timerChangeLevel = 0;
+            }
+        }
 	}
 }
