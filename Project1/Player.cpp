@@ -14,9 +14,7 @@ Player::Player(RendererPort* adapter, TextureManager* textureManager,
     this->setLife(100);
 }
 
-void Player::attack() {
-    // Implementação do ataque
-}
+void Player::attack() {}
 
 void Player::verifyKeyboardCommands() {
     const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
@@ -78,5 +76,5 @@ void Player::update() {
         }
         this->isInvincible = false;
     }
-    VisualElement::update(); // Chama o método update da classe base
+    VisualElement::update();
 }

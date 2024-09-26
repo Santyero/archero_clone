@@ -1,4 +1,5 @@
 #include "HUD.h"
+#include <iostream>
 
 namespace Game {
     HUD::HUD(RendererPort* rendererPort, TextureManager* textureManager)
@@ -18,7 +19,6 @@ namespace Game {
 
     void HUD::renderElement() {
         // Renderizar o banner
-
         SDL_Texture* bannerTexture = textureManager->getTexture(bannerTextureId, "idle", 0);
         if (!bannerTexture) {
             std::cerr << "Textura do banner não encontrada!" << std::endl;
@@ -31,14 +31,13 @@ namespace Game {
             static_cast<int>(size.x),
             static_cast<int>(size.y)
         };
-
         rendererPort->renderTexture(bannerTexture, NULL, &destRect);
 
         std::string levelText = "Level: " + std::to_string(currentLevel);
-        SDL_Color textColor = { 255, 0, 0, 255 };
+        SDL_Color textColor = { 255, 255, 255, 255 };
         rendererPort->renderSimpleText(levelText,
-            static_cast<int>(position.x + 20),
-            static_cast<int>(position.y + 50),
+            static_cast<int>(position.x) + 20,
+            static_cast<int>(position.y) + 15,
             textColor);
     }
 

@@ -239,8 +239,13 @@
     <Media Include="bow_shoot.mp3">
       <Filter>Arquivos de Recurso</Filter>
     </Media>
-    <Media Include="throw.mp3">
+    <Media Include="throw.wav">
       <Filter>Arquivos de Recurso</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="font.ttf">
+      <Filter>Arquivos de Recurso</Filter>
+    </Font>
   </ItemGroup>
 </Project>

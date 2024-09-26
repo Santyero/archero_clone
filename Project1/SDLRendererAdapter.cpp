@@ -4,24 +4,33 @@
 #include <iomanip>
 #include <vector>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
+
 
 namespace Game {
 
     SDLRendererAdapter::SDLRendererAdapter(SDL_Window* sdlWindow) {
-        this->sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_ACCELERATED);
-        if (this->sdlRenderer == nullptr) {
-            std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
+        sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_ACCELERATED);
+        if (!sdlRenderer) {
+            throw std::runtime_error("Failed to create SDL renderer");
             SDL_DestroyWindow(sdlWindow);
             SDL_Quit();
             throw std::runtime_error("Ocorreu um erro!");
         }
+
+        if (TTF_Init() == -1) {
+            throw std::runtime_error("SDL_ttf could not initialize");
+        }
+
+        font = TTF_OpenFont("font.ttf", 24);
+        if (!font) {
+            throw std::runtime_error("Failed to load font");
+        }
     }
 
     SDLRendererAdapter::~SDLRendererAdapter() {
-        if (sdlRenderer) {
-            SDL_DestroyRenderer(sdlRenderer);
-        }
+        TTF_CloseFont(font);
+        TTF_Quit();
+        SDL_DestroyRenderer(sdlRenderer);
     }
 
     void SDLRendererAdapter::setRGBAColors(std::string_view hexColor) {
@@ -99,42 +108,27 @@ namespace Game {
     }
 
     void SDLRendererAdapter::renderSimpleText(const std::string& text, int x, int y, SDL_Color color) {
-        SDL_SetRenderDrawColor(sdlRenderer, color.r, color.g, color.b, color.a);
-
-        int charWidth = 8;
-        int charHeight = 12;
-        int spacing = 2;
-
-        for (char c : text) {
-            for (int dy = 0; dy < charHeight; dy++) {
-                for (int dx = 0; dx < charWidth; dx++) {
-                    if (getCharPixel(c, dx, dy)) {
-                        SDL_RenderDrawPoint(sdlRenderer, x + dx, y + dy);
-                    }
-                }
-            }
-            x += charWidth + spacing;
-        }
-    }
-
-    bool SDLRendererAdapter::getCharPixel(char c, int x, int y) {
-        // Defina aqui a forma dos caracteres (pode ser um mapa de bits para cada caractere)
-        // Este é um exemplo simples para o número '1'
-        static const char* one[] = {
-            "  X ",
-            " XX ",
-            "  X ",
-            "  X ",
-            " XXX"
-        };
-
-        if (c == '1' && y < 5 && x < 4) {
-            return one[y][x] == 'X';
+        SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, text.c_str(), color);
+        if (!surfaceMessage) {
+            std::cerr << "Failed to render text surface: " << TTF_GetError() << std::endl;
+            return;
         }
 
-        // Adicione mais caracteres conforme necessário
+        SDL_Texture* message = SDL_CreateTextureFromSurface(sdlRenderer, surfaceMessage);
+        if (!message) {
+            std::cerr << "Failed to create texture from rendered text: " << SDL_GetError() << std::endl;
+            SDL_FreeSurface(surfaceMessage);
+            return;
+        }
 
-        return false;
+        SDL_Rect messageRect;
+        messageRect.x = x;
+        messageRect.y = y;
+        SDL_QueryTexture(message, NULL, NULL, &messageRect.w, &messageRect.h);
+        SDL_RenderCopy(sdlRenderer, message, NULL, &messageRect);
+
+        SDL_FreeSurface(surfaceMessage);
+        SDL_DestroyTexture(message);
     }
 
 } // namespace Game

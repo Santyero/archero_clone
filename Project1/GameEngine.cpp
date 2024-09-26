@@ -247,6 +247,7 @@ namespace Game
             mixerManager->playSound("player_shoot");
             projectileSize = { 30, 30 };
             projectileSpeed = 10;
+            selectedElement->setAnimationState(AnimationState::SHOOT);
         }
         else if (projectileType == "enemy") {
             mixerManager->playSound("enemy_shoot");
@@ -271,7 +272,6 @@ namespace Game
         direction.set_length(0.5);
         projectileList.emplace_back(this->rendererPort, this->textureManager.get(), projectileType + "_projectile",
             this->physicsEngine, projectilePosition, projectileSize, direction, 10);
-        selectedElement->setAnimationState(AnimationState::SHOOT);
     }
 
     VisualElement* GameEngine::findNextElement(VisualElement* selectedElement, std::list<VisualElement*> elementsToFind)

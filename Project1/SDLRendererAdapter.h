@@ -5,6 +5,7 @@
 #include "RendererPort.h"
 #include "RenderDataDTO.h"
 #include <unordered_map>
+#include <SDL_ttf.h>
 
 namespace Game {
 	class SDLRendererAdapter : public RendererPort {
@@ -16,6 +17,7 @@ namespace Game {
 		Uint8 alphaColor = 0;
 		std::unordered_map<int, SDL_Texture*> textures;
 		int nextTextureId;
+		TTF_Font* font;
 
 		void setRGBAColors(std::string_view hexColor);
 	public:
@@ -43,6 +45,5 @@ namespace Game {
 		void setTextureColorMod(SDL_Texture* texture, Uint8 r, Uint8 g, Uint8 b) override;
 		void setTextureAlphaMod(SDL_Texture* texture, Uint8 alpha) override;
 		void renderSimpleText(const std::string& text, int x, int y, SDL_Color color) override;
-		bool getCharPixel(char c, int x, int y) override;
 	};
 }

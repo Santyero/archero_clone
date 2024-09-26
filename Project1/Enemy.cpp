@@ -113,11 +113,11 @@ namespace Game
         Uint32 currentTime = SDL_GetTicks();
         if (this->getState() == AnimationState::WALK or this->getState() == AnimationState::IDLE) {
             if (currentTime - moveStartTime > moveDuration) {
+                std::cout << "Walk" << std::endl;
                 this->setAnimationState(AnimationState::SHOOT);
                 shootStartTime = currentTime;
                 return;
             }
-			this->setAnimationState(AnimationState::WALK);
             switch (direction) {
             case RIGHT:
                 this->goRight();
@@ -158,12 +158,13 @@ namespace Game
         ) {
             this->stop();
             if (currentTime - shootStartTime > shootDuration) {
-                this->setAnimationState(AnimationState::IDLE);
-				moveStartTime = currentTime;
-				return;
-			}
+                std::cout << "Enemy shoot" << std::endl;
+                this->setAnimationState(AnimationState::WALK);
+			    moveStartTime = currentTime;
+			    return;
+		    }
 		}
-
+        VisualElement::update();
     }
 
     void Enemy::onTakeDamage() {

@@ -1,88 +1,9 @@
 ﻿  Verificando fontes para dependências de módulo...
-  GameEngine.cpp
+  Player.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'GameEngine.cpp')
+  (compilando o arquivo fonte 'Player.cpp')
   
 C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
-  (compilando o arquivo fonte 'GameEngine.cpp')
+  (compilando o arquivo fonte 'Player.cpp')
   
-C:\projetos\archero_clone\Project1\GameEngine.cpp(129,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(138,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(139,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(141,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(172,89): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(267,69): warning C4244: 'argumento': conversão de 'int' para 'const float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(267,49): warning C4244: 'argumento': conversão de 'int' para 'const float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(289,28): warning C4244: 'inicializando': conversão de 'double' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(304,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75): warning C4244: 'argumento': conversão de '_Ty' para 'float', possível perda de dados
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75): warning C4244:         ]
-  (compilando o arquivo fonte 'GameEngine.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75):
-      o contexto de instanciação do modelo (o mais antigo primeiro) é
-          C:\projetos\archero_clone\Project1\GameEngine.cpp(272,24):
-          consulte a referência à instanciação 'Game::Projectile &std::list<Game::Projectile,std::allocator<Game::Projectile>>::emplace_back<Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&)' do modelo que está sendo compilada
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\list(996,29):
-          consulte a referência à instanciação 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&)' do modelo que está sendo compilada
-          with
-          [
-              _Ty=Game::Projectile,
-              _Alloc=std::allocator<Game::Projectile>
-          ]
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\list(1021,44):
-          consulte a referência à instanciação 'std::_List_node_emplace_op2<std::allocator<std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>>>::_List_node_emplace_op2<Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(_Alnode &,Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&)' do modelo que está sendo compilada
-          with
-          [
-              _Ty=Game::Projectile,
-              _Alloc=std::allocator<Game::Projectile>,
-              _Alnode=std::allocator<std::_List_node<Game::Projectile,std::_Default_allocator_traits<std::allocator<Game::Projectile>>::void_pointer>>
-          ]
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\list(585,25):
-          consulte a referência à instanciação 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(_Alloc &,_Objty *const ,Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&)' do modelo que está sendo compilada
-          with
-          [
-              _Alloc=std::allocator<std::_List_node<Game::Projectile,std::_Default_allocator_traits<std::allocator<Game::Projectile>>::void_pointer>>,
-              _Ty=Game::Projectile,
-              _Objty=Game::Projectile
-          ]
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(698,14):
-          consulte a referência à instanciação '_Ty *std::construct_at<_Objty,Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(_Ty *const ,Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&) noexcept(<expr>)' do modelo que está sendo compilada
-          with
-          [
-              _Ty=Game::Projectile,
-              _Objty=Game::Projectile
-          ]
-  
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(390,90): warning C4244: 'argumento': conversão de '_Ty' para 'float', possível perda de dados
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(390,90): warning C4244:         with
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(390,90): warning C4244:         [
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(390,90): warning C4244:             _Ty=int
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(390,90): warning C4244:         ]
-  (compilando o arquivo fonte 'GameEngine.cpp')
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(390,90):
-      o contexto de instanciação do modelo (o mais antigo primeiro) é
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\list(585,25):
-          consulte a referência à instanciação 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(_Alloc &,_Objty *const ,Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&)' do modelo que está sendo compilada
-          with
-          [
-              _Alloc=std::allocator<std::_List_node<Game::Projectile,std::_Default_allocator_traits<std::allocator<Game::Projectile>>::void_pointer>>,
-              _Ty=Game::Projectile,
-              _Objty=Game::Projectile
-          ]
-          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xmemory(698,14):
-          consulte a referência à instanciação '_Ty *std::construct_at<_Objty,Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(_Ty *const ,Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&) noexcept(false)' do modelo que está sendo compilada
-          with
-          [
-              _Ty=Game::Projectile,
-              _Objty=Game::Projectile
-          ]
-  
-  Hud.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Hud.cpp')
-  
-  Gerando Código...
   Project1.vcxproj -> C:\projetos\archero_clone\x64\Debug\Project1.exe
