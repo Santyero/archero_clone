@@ -4,7 +4,7 @@
 namespace Game {
     HUD::HUD(RendererPort* rendererPort, TextureManager* textureManager)
         : VisualElement(rendererPort, textureManager, "hud_banner",
-            RenderDataDTO{ {10, 10}, {200, 50}, {0, 0}, "#FFFFFF" }),
+            RenderDataDTO{ {10, 10}, {250, 100}, {0, 0}, "#FFFFFF" }),
         currentLevel(1),
         textureManager(textureManager),
         bannerTextureId("hud_banner") {

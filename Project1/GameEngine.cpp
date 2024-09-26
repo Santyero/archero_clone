@@ -352,7 +352,7 @@ namespace Game
 		setutpScene();
 
         AnimationInfo bannerInfo;
-        bannerInfo.idleFrames.push_back({ 0, 0, 256, 128 });
+        bannerInfo.idleFrames.push_back({ 30, 40, 256, 128 });
         if (!textureManager->loadTextures("hud_banner", "banner_horizontal.png", bannerInfo)) {
             std::cerr << "Falha ao carregar a textura do banner do HUD" << std::endl;
         }
