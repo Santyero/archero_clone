@@ -169,6 +169,7 @@
     <ClCompile Include="Origem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="SDLRendererAdapter.cpp" />
     <ClCompile Include="SDLTimeServiceAdapter.h" />
     <ClCompile Include="Skill.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="RenderDataDTO.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="SDLRendererAdapter.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="TextureManager.h" />
@@ -208,6 +210,7 @@
     <Image Include="..\..\..\Users\Santyero\Downloads\ArcherHero\Final\Idle_and_running.png" />
     <Image Include="archer.png" />
     <Image Include="Arrow.png" />
+    <Image Include="Banner_Connection_Left.png" />
     <Image Include="banner_horizontal.png" />
     <Image Include="Dynamite.png" />
     <Image Include="obstacle.png" />

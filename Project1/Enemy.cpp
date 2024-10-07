@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "config.h"
+#include "ScoreManager.h"
 
 
 namespace Game
@@ -170,7 +171,9 @@ namespace Game
     void Enemy::onTakeDamage() {
         std::cout << "Enemy take damage" << this->getLife() << std::endl;
         if (this->getLife() <= 0) {
-            this->hexColor = "#000000";
+            int pointsAwarded = 10 * ScoreManager::getInstance()->getLevel();
+            std::cout << "Point ===" << pointsAwarded << std::endl;
+            ScoreManager::getInstance()->addPoints(pointsAwarded);
             this->destroy();
         }
 	}

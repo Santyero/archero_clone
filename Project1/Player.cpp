@@ -12,6 +12,7 @@ Player::Player(RendererPort* adapter, TextureManager* textureManager,
     ) {
     this->setMaxHealth(100);
     this->setLife(100);
+	this->velocity_base = 0.2;
 }
 
 void Player::attack() {}

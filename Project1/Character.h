@@ -28,6 +28,8 @@ namespace Game {
     public:
         Character(RendererPort* adapter, TextureManager* textureManager, const std::string& textureId, PhysicsEngine* physicsEngine_, const RenderDataDTO& renderDataDTOParam);
 
+
+        float velocity_base = 0.1;
         virtual void attack() = 0;
 
         void goDown();

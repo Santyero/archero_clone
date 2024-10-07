@@ -35,7 +35,7 @@ namespace Game
         AnimationState currentState = AnimationState::IDLE;
         size_t currentFrame = 0;
         Uint32 lastAnimationUpdate = 0;
-        Uint32 animationSpeed = 100;
+        Uint32 frameTime = 100;
 
     public:
         VisualElement(RendererPort* adapter, TextureManager* textureManager, const std::string& textureId, const RenderDataDTO& renderDataDTOParam);

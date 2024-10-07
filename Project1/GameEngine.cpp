@@ -13,6 +13,7 @@
 #include "config.h"
 #include <memory>
 #include "MixerManager.h"
+#include "ScoreManager.h"
 
 
 namespace Game
@@ -88,7 +89,7 @@ namespace Game
 
             this->updateCollisions();
 
-
+            this->hud->update();
             this->hud->renderElement();
             this->rendererPort->renderPresent();
             this->timeServicePort->updateLastElapsedTimeInSeconds();
@@ -356,6 +357,12 @@ namespace Game
         if (!textureManager->loadTextures("hud_banner", "banner_horizontal.png", bannerInfo)) {
             std::cerr << "Falha ao carregar a textura do banner do HUD" << std::endl;
         }
+
+		AnimationInfo hudPointsInfo;
+		hudPointsInfo.idleFrames.push_back({ 30, 40, 256, 128 });
+        if (!textureManager->loadTextures("hud_points", "Banner_Connection_Left.png", hudPointsInfo)) {
+            std::cerr << "Falha ao carregar a textura do banner do HUD" << std::endl;
+        }
     }
 
     void GameEngine::loadAudio() {
@@ -378,6 +385,7 @@ namespace Game
 		createEnemies();
 		this->player->setLife(100);
         this->hud->setLevel(level);
+        ScoreManager::getInstance()->setLevel(level);
 	}
 
 	void GameEngine::verifyRenderNewEnemies() {
@@ -385,7 +393,7 @@ namespace Game
             if (timerChangeLevel == 0) {
                 timerChangeLevel = this->timeServicePort->getCurrentTimeInSeconds();
             }
-            else if (timerChangeLevel + 10000 <= this->timeServicePort->getCurrentTimeInSeconds()) {
+            else if (timerChangeLevel + 5000 <= this->timeServicePort->getCurrentTimeInSeconds()) {
                 this->changeLevel();
                 timerChangeLevel = 0;
             }

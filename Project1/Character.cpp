@@ -8,19 +8,19 @@ namespace Game
 	) : VisualElement(rendererPort_, textureManager, textureId, renderDataDTOParam), physicsEngine(physicsEngine_) {}
 
 	void Character::goDown() {
-		this->velocity.y = 0.1;
+		this->velocity.y = velocity_base;
 	}
 
 	void Character::goUp() {
-		this->velocity.y = -0.1;
+		this->velocity.y = -velocity_base;
 	}
 
 	void Character::goRight() {
-		this->velocity.x = 0.1;
+		this->velocity.x = velocity_base;
 	}
 
 	void Character::goLeft() {
-		this->velocity.x = -0.1;
+		this->velocity.x = -velocity_base;
 
 	}
 

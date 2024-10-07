@@ -126,6 +126,9 @@
     <ClCompile Include="Hud.cpp">
       <Filter>Arquivos de Origem\application</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreManager.cpp">
+      <Filter>Arquivos de Origem\domain\engines</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -200,6 +203,9 @@
     <ClInclude Include="Hud.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project1.rc">
@@ -229,6 +235,9 @@
       <Filter>Arquivos de Recurso</Filter>
     </Image>
     <Image Include="banner_horizontal.png">
+      <Filter>Arquivos de Recurso</Filter>
+    </Image>
+    <Image Include="Banner_Connection_Left.png">
       <Filter>Arquivos de Recurso</Filter>
     </Image>
   </ItemGroup>

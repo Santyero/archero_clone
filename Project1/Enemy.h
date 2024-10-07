@@ -26,7 +26,6 @@ namespace Game {
 
         void onTakeDamage() override;
 
-
     private:
         enum Direction { RIGHT, LEFT, UP, DOWN, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT } direction;
         Uint32 moveStartTime = 0;

@@ -50,7 +50,7 @@ namespace Game
 
     void VisualElement::updateAnimation() {
         Uint32 currentTime = SDL_GetTicks();
-        if (currentTime - lastAnimationUpdate > animationSpeed) {
+        if (currentTime - lastAnimationUpdate > frameTime) {
             size_t frameCount = textureManager->getFrameCount(textureId, getCurrentAnimationState());
             if (frameCount > 0) {
                 currentFrame = (currentFrame + 1) % frameCount;
