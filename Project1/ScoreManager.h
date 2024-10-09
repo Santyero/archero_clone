@@ -15,6 +15,7 @@ namespace Game {
         int getPoints() const;
         int getLevel() const;
         void setLevel(int level);
+		void resetPoints();
 
         ~ScoreManager();
     };

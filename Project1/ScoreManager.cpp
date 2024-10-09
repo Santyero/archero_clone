@@ -28,5 +28,10 @@ namespace Game {
         this->level = level;
     }
 
+	void ScoreManager::resetPoints() {
+		points = 0;
+		level = 1;
+	}
+
     ScoreManager::~ScoreManager() {}
 }

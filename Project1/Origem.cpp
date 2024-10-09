@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
     SDLTimeServiceAdapter* sdlTimeServiceAdapter = new SDLTimeServiceAdapter();
     
     GameEngine game = GameEngine(window, sdlRendererAdapter, sdlTimeServiceAdapter);
-    game.startGame();
+    game.run();
     SDL_DestroyWindow(window.getWindowRef());
     SDL_Quit();
     return 0;

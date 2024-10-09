@@ -28,6 +28,75 @@ namespace Game
         this->physicsEngine = new PhysicsEngine(this->timeServicePort);
     }
 
+    void GameEngine::run() {
+        SDL_bool done = SDL_FALSE;
+        currentState = GameState::MainMenu;
+
+        // Inicialização
+        Mix_Init(MIX_INIT_MP3);
+        SDL_Init(SDL_INIT_VIDEO);
+
+        if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
+            std::cerr << "SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << std::endl;
+            throw std::runtime_error("Ocorreu um erro!");
+        }
+
+        this->loadTextures();
+        this->loadAudio();
+
+        mainMenu = std::make_unique<MainMenu>(rendererPort, textureManager.get());
+
+        mixerManager->playMusic("background", -1);
+
+        while (!done) {
+            SDL_Event event;
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_QUIT) {
+                    done = SDL_TRUE;
+                }
+
+                switch (currentState) {
+                case GameState::MainMenu:
+                    mainMenu->handleInput(event);
+                    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
+                        int selectedOption = mainMenu->getSelectedOption();
+                        if (selectedOption == 0) { // New Game
+                            currentState = GameState::Playing;
+                            startGame(); // Iniciar o jogo
+                        }
+                        else if (selectedOption == 1) { // Exit
+                            done = SDL_TRUE;
+                        }
+                    }
+                    break;
+                case GameState::Playing:
+                    // Lógica de jogo existente
+                    break;
+                case GameState::Paused:
+                    // Lógica de pausa existente
+                    break;
+                }
+            }
+
+            // Renderização
+            switch (currentState) {
+            case GameState::MainMenu:
+                mainMenu->render();
+                break;
+            case GameState::Playing:
+                // Renderização do jogo existente
+                break;
+            case GameState::Paused:
+                // Renderização da pausa existente
+                break;
+            }
+
+            this->rendererPort->renderPresent();
+        }
+
+        this->rendererPort->destroy();
+    }
+
     void GameEngine::startGame()
     {
         SDL_bool done = SDL_FALSE;
@@ -433,6 +502,12 @@ namespace Game
 		hudPointsInfo.idleFrames.push_back({ 30, 40, 256, 128 });
         if (!textureManager->loadTextures("hud_points", "Banner_Connection_Left.png", hudPointsInfo)) {
             std::cerr << "Falha ao carregar a textura do banner do HUD" << std::endl;
+        }
+
+        AnimationInfo mainMenuInfo;
+        mainMenuInfo.idleFrames.push_back({ 0, 0, static_cast<int>(Config::windowSize.x / 1.5), static_cast<int>(Config::windowSize.y / 1.5)  });
+        if (!textureManager->loadTextures("main_menu_background", "main_menu_background.png", mainMenuInfo)) {
+            std::cerr << "Falha ao carregar a textura de fundo do menu principal" << std::endl;
         }
     }
 

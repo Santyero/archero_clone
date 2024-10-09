@@ -160,6 +160,7 @@
     <ClCompile Include="ConfigLoader.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="Hud.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MixerManager.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="ElementsManager.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Hud.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MixerManager.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="PauseMenu.h" />
@@ -217,6 +219,7 @@
     <Image Include="Banner_Connection_Left.png" />
     <Image Include="banner_horizontal.png" />
     <Image Include="Dynamite.png" />
+    <Image Include="main_menu_background.png" />
     <Image Include="obstacle.png" />
     <Image Include="scene.png" />
     <Image Include="TNT_Red.png" />

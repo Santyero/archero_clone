@@ -15,6 +15,7 @@
 #include "HUD.h"
 #include <list>
 #include <memory>
+#include "MainMenu.h"
 
 namespace Game {
 
@@ -35,6 +36,9 @@ namespace Game {
 		int level = 1;
         int timerChangeLevel = 0;
         std::unique_ptr<HUD> hud;
+        std::unique_ptr<MainMenu> mainMenu;
+        enum class GameState { MainMenu, Playing, Paused };
+        GameState currentState;
 
         void loadAnimationFrames(std::vector<SDL_Rect>& targetFrames, int startY, int numFrames, int frameHeight, int frameWidth);
         void setupPlayerAnimations();
@@ -58,6 +62,7 @@ namespace Game {
         void spawnProjectiles(VisualElement* element, std::list<VisualElement*> elementsToFocus, std::list<Projectile>& projectileList, const std::string& projectileType);
 		void changeLevel();
         void verifyRenderNewEnemies();
+        void run();
 
         MixerManager* getMixerManager() { return mixerManager.get(); }  // Acessar gerenciador de áudio
 

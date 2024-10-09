@@ -135,6 +135,9 @@
     <ClCompile Include="GameStateManager.cpp">
       <Filter>Arquivos de Origem\infrastructure</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Arquivos de Origem\infrastructure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -218,6 +221,9 @@
     <ClInclude Include="GameStateManager.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Project1.rc">
@@ -250,6 +256,9 @@
       <Filter>Arquivos de Recurso</Filter>
     </Image>
     <Image Include="Banner_Connection_Left.png">
+      <Filter>Arquivos de Recurso</Filter>
+    </Image>
+    <Image Include="main_menu_background.png">
       <Filter>Arquivos de Recurso</Filter>
     </Image>
   </ItemGroup>
