@@ -1,8 +1,10 @@
 C:\projetos\archero_clone\Project1\AnimationService.cpp;C:\projetos\archero_clone\Project1\x64\Debug\AnimationService.obj
 C:\projetos\archero_clone\Project1\ConfigLoader.cpp;C:\projetos\archero_clone\Project1\x64\Debug\ConfigLoader.obj
+C:\projetos\archero_clone\Project1\GameStateManager.cpp;C:\projetos\archero_clone\Project1\x64\Debug\GameStateManager.obj
 C:\projetos\archero_clone\Project1\Hud.cpp;C:\projetos\archero_clone\Project1\x64\Debug\Hud.obj
 C:\projetos\archero_clone\Project1\MixerManager.cpp;C:\projetos\archero_clone\Project1\x64\Debug\MixerManager.obj
 C:\projetos\archero_clone\Project1\Obstacle.cpp;C:\projetos\archero_clone\Project1\x64\Debug\Obstacle.obj
+C:\projetos\archero_clone\Project1\PauseMenu.cpp;C:\projetos\archero_clone\Project1\x64\Debug\PauseMenu.obj
 C:\projetos\archero_clone\Project1\PhysicsEngine.cpp;C:\projetos\archero_clone\Project1\x64\Debug\PhysicsEngine.obj
 C:\projetos\archero_clone\Project1\Projectile.cpp;C:\projetos\archero_clone\Project1\x64\Debug\Projectile.obj
 C:\projetos\archero_clone\Project1\Scene.cpp;C:\projetos\archero_clone\Project1\x64\Debug\Scene.obj

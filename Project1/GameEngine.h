@@ -41,6 +41,7 @@ namespace Game {
         void setupEnemyAnimations();
         void setupProjectiles();
         void setutpScene();
+        void handlePauseMenuSelection(int selectedOption, SDL_bool& done);
 
     public:
         GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_);

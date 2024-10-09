@@ -14,6 +14,8 @@
 #include <memory>
 #include "MixerManager.h"
 #include "ScoreManager.h"
+#include "PauseMenu.h"
+#include "GameStateManager.h"
 
 
 namespace Game
@@ -28,20 +30,19 @@ namespace Game
 
     void GameEngine::startGame()
     {
-
         SDL_bool done = SDL_FALSE;
-		Mix_Init(MIX_INIT_MP3);
+        Mix_Init(MIX_INIT_MP3);
         SDL_Init(SDL_INIT_VIDEO);
 
         if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
             std::cerr << "SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << std::endl;
             throw std::runtime_error("Ocorreu um erro!");
         }
-        
-		this->loadTextures();
+
+        this->loadTextures();
         this->loadAudio();
 
-		mixerManager->playMusic("background", -1);
+        mixerManager->playMusic("background", -1);
 
         this->player = new Game::Player(
             this->rendererPort,
@@ -53,12 +54,12 @@ namespace Game
         );
 
         Scene scene(this->rendererPort, this->textureManager.get(), "scene");
-        
+
         int enemyProjectileSpawnCounter = 0;
         int enemySpawnInterval = 1000;
-		int plaeyrProjectileSpawnCounter = 0;
+        int playerProjectileSpawnCounter = 0;
         int playerSpawnInterval = 500;
-           
+
         this->createEnemies();
         this->createWall();
 
@@ -67,6 +68,9 @@ namespace Game
 
         this->hud = std::make_unique<HUD>(rendererPort, textureManager.get());
 
+        GameStateManager* gameState = GameStateManager::getInstance();
+        PauseMenu pauseMenu(this->rendererPort, std::make_unique<TextureManager>(*textureManager));
+        bool isPaused = false;
 
         while (!done)
         {
@@ -77,49 +81,116 @@ namespace Game
                 {
                     done = SDL_TRUE;
                 }
-            }
-
-            this->timeServicePort->updateLastCurrentTimeInSeconds();
-
-			this->verifyRenderNewEnemies();
-            
-            scene.renderElement();
-
-            this->player->verifyKeyboardCommands();
-
-            this->updateCollisions();
-
-            this->hud->update();
-            this->hud->renderElement();
-            this->rendererPort->renderPresent();
-            this->timeServicePort->updateLastElapsedTimeInSeconds();
-            this->enemies.remove_if([](Enemy& enemy) { return enemy.isDeleted(); });
-            this->playerProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
-            this->enemyProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
-            if (enemyProjectileSpawnCounter + enemySpawnInterval <= this->timeServicePort->getCurrentTimeInSeconds()) {
-                for (Enemy& enemy : this->enemies) {
-                    if (enemy.getVelocity().x == 0 && enemy.getVelocity().y == 0) {
-                        std::list<VisualElement*> visualPlayer;
-                        visualPlayer.push_back(this->player);
-                       this->spawnProjectiles(&enemy, visualPlayer, this->enemyProjectiles, "enemy");
-                    }
-                }
-                enemyProjectileSpawnCounter = this->timeServicePort->getCurrentTimeInSeconds();
-            }
-			if (plaeyrProjectileSpawnCounter + playerSpawnInterval <= this->timeServicePort->getCurrentTimeInSeconds()) {
-                std::list<VisualElement*> visualEnemies = convertListToVisualElements(this->enemies);
-                if (this->player->getVelocity().x == 0 && this->player->getVelocity().y == 0)
+                else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
                 {
-                    if (visualEnemies.size() <= 0) {
-                        this->player->setAnimationState(AnimationState::IDLE);
+                    gameState->setPaused(!gameState->getIsPaused());
+                    if (gameState->getIsPaused()) {
+                        mixerManager->pauseMusic();
+                        this->timeServicePort->pauseTime();
                     }
                     else {
-                        this->spawnProjectiles(this->player, visualEnemies, this->playerProjectiles, "player");
+                        mixerManager->resumeMusic();
+                        this->timeServicePort->resumeTime();
                     }
-                    plaeyrProjectileSpawnCounter = this->timeServicePort->getCurrentTimeInSeconds();
                 }
-			}
+
+                if (gameState->getIsPaused())
+                {
+                    pauseMenu.handleInput(event);
+
+                    if (event.type == SDL_MOUSEBUTTONDOWN)
+                    {
+                        int mouseX, mouseY;
+                        SDL_GetMouseState(&mouseX, &mouseY);
+                        int clickedOption = pauseMenu.handleMouseClick(mouseX, mouseY);
+                        if (clickedOption != -1)
+                        {
+                            handlePauseMenuSelection(clickedOption,  done);
+                        }
+                    }
+                    else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
+                    {
+                        int selectedOption = pauseMenu.getSelectedOption();
+                        handlePauseMenuSelection(selectedOption,  done);
+                    }
+                }
+                else
+                {
+                    // Processa inputs do jogo apenas quando não estiver pausado
+                    this->player->verifyKeyboardCommands();
+                }
+            }
+
+            if (!gameState->getIsPaused())
+            {
+                this->timeServicePort->updateLastCurrentTimeInSeconds();
+
+                this->verifyRenderNewEnemies();
+
+                this->updateCollisions();
+
+                this->enemies.remove_if([](Enemy& enemy) { return enemy.isDeleted(); });
+                this->playerProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
+                this->enemyProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
+
+                if (enemyProjectileSpawnCounter + enemySpawnInterval <= this->timeServicePort->getCurrentTimeInSeconds()) {
+                    for (Enemy& enemy : this->enemies) {
+                        if (enemy.getVelocity().x == 0 && enemy.getVelocity().y == 0) {
+                            std::list<VisualElement*> visualPlayer;
+                            visualPlayer.push_back(this->player);
+                            this->spawnProjectiles(&enemy, visualPlayer, this->enemyProjectiles, "enemy");
+                        }
+                    }
+                    enemyProjectileSpawnCounter = this->timeServicePort->getCurrentTimeInSeconds();
+                }
+
+                if (playerProjectileSpawnCounter + playerSpawnInterval <= this->timeServicePort->getCurrentTimeInSeconds()) {
+                    std::list<VisualElement*> visualEnemies = convertListToVisualElements(this->enemies);
+                    if (this->player->getVelocity().x == 0 && this->player->getVelocity().y == 0)
+                    {
+                        if (visualEnemies.empty()) {
+                            this->player->setAnimationState(AnimationState::IDLE);
+                        }
+                        else {
+                            this->spawnProjectiles(this->player, visualEnemies, this->playerProjectiles, "player");
+                        }
+                        playerProjectileSpawnCounter = this->timeServicePort->getCurrentTimeInSeconds();
+                    }
+                }
+
+                this->timeServicePort->updateLastElapsedTimeInSeconds();
+
+                // Renderiza o jogo
+                scene.renderElement();
+                this->player->renderElement();
+                for (auto& enemy : this->enemies) {
+                    enemy.renderElement();
+                }
+                for (auto& projectile : this->playerProjectiles) {
+                    projectile.renderElement();
+                }
+                for (auto& projectile : this->enemyProjectiles) {
+                    projectile.renderElement();
+                }
+                for (auto& obstacle : this->obstacles) {
+                    obstacle.renderElement();
+                }
+                this->hud->update();
+                this->hud->renderElement();
+            }
+            else
+            {
+                // Renderiza apenas o menu de pausa
+                pauseMenu.renderElement();
+				player->stop();
+                for (auto& enemy : this->enemies) {
+                    enemy.stop();
+                }
+            }
+
+            this->rendererPort->renderPresent();
         }
+
         this->rendererPort->destroy();
     }
 
@@ -399,4 +470,22 @@ namespace Game
             }
         }
 	}
+
+    void GameEngine::handlePauseMenuSelection(int selectedOption, SDL_bool& done)
+    {
+        GameStateManager* gameState = GameStateManager::getInstance();
+        switch (selectedOption)
+        {
+        case 0: // Resume
+            gameState->setPaused(false);
+            mixerManager->resumeMusic();
+            break;
+        case 1: // Options
+            // Implementar tela de opções
+            break;
+        case 2: // Quit
+            done = SDL_TRUE;
+            break;
+        }
+    }
 }

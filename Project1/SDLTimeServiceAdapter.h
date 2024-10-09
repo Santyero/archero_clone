@@ -8,6 +8,10 @@ namespace Game {
     private:
         int lastElapsedTimeInSeconds = 0;
         int lastCurrentTimeInSeconds = 0;
+        int pauseStartTime = 0;
+        int totalPausedTime = 0;
+        bool isPaused = false;
+
     public:
         SDLTimeServiceAdapter() {
             // Inicialize a SDL se necessário
@@ -18,7 +22,7 @@ namespace Game {
         }
 
         virtual int getCurrentTimeInSeconds() override {
-            return static_cast<int>(SDL_GetTicks());
+            return static_cast<int>(SDL_GetTicks() - totalPausedTime);
         }
 
         virtual int getLastElapsedTimeInSeconds() override{
@@ -35,6 +39,24 @@ namespace Game {
 
         virtual void updateLastCurrentTimeInSeconds() override {
             this->lastCurrentTimeInSeconds = this->getCurrentTimeInSeconds();
+        }
+
+        virtual void pauseTime() override {
+            if (!isPaused) {
+                isPaused = true;
+                pauseStartTime = SDL_GetTicks();
+            }
+        }
+
+        virtual void resumeTime() override {
+            if (isPaused) {
+                isPaused = false;
+                totalPausedTime += SDL_GetTicks() - pauseStartTime;
+            }
+        }
+
+        virtual bool getIsPaused() override {
+            return isPaused;
         }
     };
 }

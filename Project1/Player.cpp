@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include "Player.h"
 #include "Enemy.h"
+#include "GameStateManager.h"
 
 using namespace Game;
 
@@ -18,6 +19,12 @@ Player::Player(RendererPort* adapter, TextureManager* textureManager,
 void Player::attack() {}
 
 void Player::verifyKeyboardCommands() {
+    if (GameStateManager::getInstance()->getIsPaused()) {
+        this->stop();
+        return;
+
+    }
+
     const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
     if (not currentKeyStates[SDL_SCANCODE_UP] and not currentKeyStates[SDL_SCANCODE_RIGHT] and not currentKeyStates[SDL_SCANCODE_DOWN] and not currentKeyStates[SDL_SCANCODE_LEFT] and not currentKeyStates[SDL_SCANCODE_RIGHT]) {
         this->stop();

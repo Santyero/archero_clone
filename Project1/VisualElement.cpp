@@ -1,6 +1,7 @@
 #include "VisualElement.h"
 #include "math-vector.h"
 #include <algorithm>
+#include "GameStateManager.h"
 
 namespace Game
 {
