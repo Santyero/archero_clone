@@ -33,7 +33,7 @@ namespace Game {
         SDL_DestroyRenderer(sdlRenderer);
     }
 
-    void SDLRendererAdapter::setRGBAColors(std::string_view hexColor) {
+    void SDLRendererAdapter::setRGBAColors(std::string hexColor) {
         std::string hex = std::string(hexColor);
         if (!hex.empty() && hex[0] == '#') {
             hex = hex.substr(1);

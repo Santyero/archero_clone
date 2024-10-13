@@ -3,6 +3,8 @@
 #include <vector>
 #include <filesystem>
 
+namespace fs = std::filesystem;
+
 namespace Game {
 
     struct PlayerScore {
@@ -17,7 +19,7 @@ namespace Game {
         int level;
 
         ScoreManager(); // Private constructor
-        std::filesystem::path getScoreFilePath();
+        fs::path getScoreFilePath();
 
     public:
         static ScoreManager* getInstance();

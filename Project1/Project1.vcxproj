@@ -110,6 +110,9 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\projetos\archero_clone\my-lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <Optimization>MaxSpeed</Optimization>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +148,9 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\projetos\archero_clone\my-lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <Optimization>MaxSpeed</Optimization>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -175,7 +181,6 @@
     <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="SDLRendererAdapter.cpp" />
     <ClCompile Include="SDLTimeServiceAdapter.h" />
-    <ClCompile Include="Skill.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TimeServicePort.h" />
     <ClCompile Include="VisualElement.cpp" />
@@ -204,7 +209,6 @@
     <ClInclude Include="RenderDataDTO.h" />
     <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="SDLRendererAdapter.h" />
-    <ClInclude Include="Skill.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="VisualElement.h" />
     <ClInclude Include="Window.h" />

@@ -2,7 +2,6 @@
 #include "Character.h"
 #include "Projectile.h"
 #include "Obstacle.h"
-#include "Skill.h"
 #include <vector>
 #include <iostream>
 #include <list>
@@ -17,7 +16,6 @@ namespace Game {
             const std::string& textureId, PhysicsEngine* physicsEngine_,
             Vector position, Vector size);
 
-        std::vector<Skill*> activeSkills;
         bool isInvincible = false;
         double temporaryInvincibilityTime = 0;
         double invincibilityTime = 1000;

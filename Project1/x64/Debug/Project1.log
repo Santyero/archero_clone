@@ -1,4 +1,25 @@
 ﻿  Verificando fontes para dependências de módulo...
+  Character.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Character.cpp')
+  
+C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
+  (compilando o arquivo fonte 'Character.cpp')
+  
+C:\projetos\archero_clone\Project1\Character.h(32,31): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'Character.cpp')
+  
+C:\projetos\archero_clone\Project1\Character.cpp(49,32): warning C4244: '=': conversão de 'int' para 'float', possível perda de dados
+  Enemy.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Enemy.cpp')
+  
+C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
+  (compilando o arquivo fonte 'Enemy.cpp')
+  
+C:\projetos\archero_clone\Project1\Character.h(32,31): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'Enemy.cpp')
+  
   GameEngine.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
   (compilando o arquivo fonte 'GameEngine.cpp')
@@ -113,6 +134,27 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.3412
               _Objty=Game::Projectile
           ]
   
+  Hud.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Hud.cpp')
+  
+  MainMenu.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'MainMenu.cpp')
+  
+C:\projetos\archero_clone\Project1\MainMenu.cpp(22,59): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\MainMenu.cpp(22,59): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\MainMenu.cpp(22,81): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\MainMenu.cpp(22,81): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\MainMenu.cpp(33,24): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\MainMenu.cpp(34,20): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\MainMenu.cpp(35,20): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\MainMenu.cpp(43,81): warning C4267: 'argumento': conversão de 'size_t' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\MainMenu.cpp(51,72): warning C4267: '=': conversão de 'size_t' para 'int', possível perda de dados
+  Obstacle.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Obstacle.cpp')
+  
   Origem.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
   (compilando o arquivo fonte 'Origem.cpp')
@@ -125,5 +167,48 @@ C:\projetos\archero_clone\Project1\Character.h(32,31): warning C4305: 'inicializ
   
 C:\projetos\archero_clone\Project1\Origem.cpp(16,68): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
 C:\projetos\archero_clone\Project1\Origem.cpp(16,46): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
+  PauseMenu.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'PauseMenu.cpp')
+  
+C:\projetos\archero_clone\Project1\PauseMenu.cpp(24,57): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\PauseMenu.cpp(24,57): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\PauseMenu.cpp(24,79): warning C4838: a conversão de 'const float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\PauseMenu.cpp(24,79): warning C4244: 'inicializando': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\PauseMenu.cpp(40,72): warning C4267: '=': conversão de 'size_t' para 'int', possível perda de dados
+  Player.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Player.cpp')
+  
+C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
+  (compilando o arquivo fonte 'Player.cpp')
+  
+C:\projetos\archero_clone\Project1\Character.h(32,31): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'Player.cpp')
+  
+C:\projetos\archero_clone\Project1\Player.cpp(16,24): warning C4305: '=': truncamento de 'double' para 'float'
+  Projectile.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Projectile.cpp')
+  
+C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
+  (compilando o arquivo fonte 'Projectile.cpp')
+  
+C:\projetos\archero_clone\Project1\Character.h(32,31): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'Projectile.cpp')
+  
+  SDLRendererAdapter.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'SDLRendererAdapter.cpp')
+  
+  Scene.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Scene.cpp')
+  
+  VisualElement.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'VisualElement.cpp')
+  
+C:\projetos\archero_clone\Project1\VisualElement.cpp(36,98): warning C4267: 'argumento': conversão de 'size_t' para 'int', possível perda de dados
   Gerando Código...
   Project1.vcxproj -> C:\projetos\archero_clone\x64\Debug\Project1.exe

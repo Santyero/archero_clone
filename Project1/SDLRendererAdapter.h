@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL.h>
 #include <iostream>
-#include <string_view>
 #include "RendererPort.h"
 #include "RenderDataDTO.h"
 #include <unordered_map>
@@ -19,7 +18,7 @@ namespace Game {
 		int nextTextureId;
 		TTF_Font* font;
 
-		void setRGBAColors(std::string_view hexColor);
+		void setRGBAColors(std::string hexColor);
 	public:
 		SDLRendererAdapter(SDL_Window* sdlWindow);
 		virtual ~SDLRendererAdapter();

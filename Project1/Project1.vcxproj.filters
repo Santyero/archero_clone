@@ -78,9 +78,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Arquivos de Origem\domain\entities</Filter>
     </ClCompile>
-    <ClCompile Include="Skill.cpp">
-      <Filter>Arquivos de Origem\domain\entities</Filter>
-    </ClCompile>
     <ClCompile Include="VisualElement.cpp">
       <Filter>Arquivos de Origem\domain\entities</Filter>
     </ClCompile>
@@ -144,9 +141,6 @@
       <Filter>Arquivos de Cabeçalho\domain\entitites</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Arquivos de Cabeçalho\domain\entitites</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill.h">
       <Filter>Arquivos de Cabeçalho\domain\entitites</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">

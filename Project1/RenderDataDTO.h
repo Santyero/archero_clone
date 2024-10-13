@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include <string_view>
 #include "math-vector.h"
 #include <SDL_image.h>
 
@@ -10,7 +9,7 @@ namespace Game {
 		Vector position;
 		Vector size;
 		Vector velocity;
-		std::string_view hexColor;
+		std::string hexColor;
 		SDL_Texture* texture;
 		bool flipHorizontally;
 	};
