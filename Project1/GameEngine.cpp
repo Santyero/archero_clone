@@ -26,6 +26,17 @@ namespace Game
         this->textureManager = std::make_unique<TextureManager>(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer());
         this->mixerManager = std::make_unique<MixerManager>();
         this->physicsEngine = new PhysicsEngine(this->timeServicePort);
+
+        if (TTF_Init() == -1) {
+            std::cerr << "SDL_ttf não pôde ser inicializado! Erro SDL_ttf: " << TTF_GetError() << std::endl;
+            throw std::runtime_error("Falha ao inicializar SDL_ttf");
+        }
+
+        font = TTF_OpenFont("font.ttf", 24);
+        if (!font) {
+            std::cerr << "Falha ao carregar a fonte! Erro SDL_ttf: " << TTF_GetError() << std::endl;
+            throw std::runtime_error("Falha ao carregar a fonte");
+        }
     }
 
     void GameEngine::run() {
@@ -44,9 +55,7 @@ namespace Game
         this->loadTextures();
         this->loadAudio();
 
-        mainMenu = std::make_unique<MainMenu>(rendererPort, textureManager.get());
-
-        mixerManager->playMusic("background", -1);
+        this->mainMenu = std::make_unique<MainMenu>(rendererPort, textureManager.get());
 
         while (!done) {
             SDL_Event event;
@@ -57,40 +66,22 @@ namespace Game
 
                 switch (currentState) {
                 case GameState::MainMenu:
-                    mainMenu->handleInput(event);
-                    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
-                        int selectedOption = mainMenu->getSelectedOption();
-                        if (selectedOption == 0) { // New Game
-                            currentState = GameState::Playing;
-                            startGame(); // Iniciar o jogo
-                        }
-                        else if (selectedOption == 1) { // Exit
-                            done = SDL_TRUE;
-                        }
-                    }
+                    startMenu(event);
                     break;
                 case GameState::Playing:
-                    // Lógica de jogo existente
+                    GameStateManager::getInstance()->setPaused(false);
+                    startGame();
+                    // Após startGame(), o estado pode ter mudado para MainMenu (após Game Over)
                     break;
                 case GameState::Paused:
-                    // Lógica de pausa existente
+                    // Lógica de pausa, se necessário
+                    break;
+				case GameState::Exit:
+					done = SDL_TRUE;
                     break;
                 }
-            }
 
-            // Renderização
-            switch (currentState) {
-            case GameState::MainMenu:
-                mainMenu->render();
-                break;
-            case GameState::Playing:
-                // Renderização do jogo existente
-                break;
-            case GameState::Paused:
-                // Renderização da pausa existente
-                break;
             }
-
             this->rendererPort->renderPresent();
         }
 
@@ -149,6 +140,7 @@ namespace Game
                 if (event.type == SDL_QUIT)
                 {
                     done = SDL_TRUE;
+                    this->currentState = GameState::Exit;
                 }
                 else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
                 {
@@ -197,6 +189,12 @@ namespace Game
                 this->verifyRenderNewEnemies();
 
                 this->updateCollisions();
+
+                if (player->getLife() <= 0) {
+                    handlePlayerDeath();
+                    done = SDL_TRUE;
+                    break;
+                }
 
                 this->enemies.remove_if([](Enemy& enemy) { return enemy.isDeleted(); });
                 this->playerProjectiles.remove_if([](Projectile& projectile) { return projectile.isDeleted(); });
@@ -260,7 +258,7 @@ namespace Game
             this->rendererPort->renderPresent();
         }
 
-        this->rendererPort->destroy();
+        this->resetGame();
     }
 
     void GameEngine::createEnemies()
@@ -560,7 +558,300 @@ namespace Game
             break;
         case 2: // Quit
             done = SDL_TRUE;
+            this->currentState = GameState::MainMenu;
             break;
         }
     }
+
+    void GameEngine::startMenu(SDL_Event& event) {
+        this->mainMenu->handleInput(event);
+        if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
+            int selectedOption = mainMenu->getSelectedOption();
+            switch (selectedOption) {
+            case 0: // New Game
+                currentState = GameState::Playing;
+                break;
+            case 1: // High Scores
+                showHighScores();
+                break;
+            case 2: // Credits
+                showCredits();
+                break;
+            case 3: // Exit
+                event.type = SDL_QUIT;
+                break;
+            }
+        }
+
+        this->mainMenu->render();
+    }
+
+    void GameEngine::handlePlayerDeath() {
+        std::string playerName = getPlayerName();
+        ScoreManager::getInstance()->saveScore(playerName);
+
+        // Mostrar tela de game over
+        showGameOverScreen();
+    }
+
+    std::string GameEngine::getPlayerName() {
+        std::string playerName;
+        SDL_StartTextInput();
+
+        SDL_Event event;
+        bool done = false;
+
+        while (!done) {
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_QUIT) {
+                    done = true;
+                }
+                else if (event.type == SDL_KEYDOWN) {
+                    if (event.key.keysym.sym == SDLK_RETURN && !playerName.empty()) {
+                        done = true;
+                    }
+                    else if (event.key.keysym.sym == SDLK_BACKSPACE && !playerName.empty()) {
+                        playerName.pop_back();
+                    }
+                }
+                else if (event.type == SDL_TEXTINPUT && playerName.length() < 7) {
+                    playerName += event.text.text;
+                }
+            }
+
+            renderNameInputScreen(playerName);
+        }
+
+        SDL_StopTextInput();
+        return playerName;
+    }
+
+    void GameEngine::renderNameInputScreen(const std::string& playerName) {
+        // Limitar o nome do jogador a 7 caracteres
+        std::string displayName = playerName.substr(0, 7);
+
+        // Se o nome estiver vazio, use um placeholder
+        if (displayName.empty()) {
+            displayName = "_";
+        }
+
+        // Limpar a tela
+        SDL_SetRenderDrawColor(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), 0, 0, 0, 255);
+        SDL_RenderClear(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer());
+
+        // Verificar se a fonte foi carregada
+        if (!font) {
+            std::cerr << "Erro: Fonte não carregada" << std::endl;
+            return;
+        }
+
+        // Renderizar o texto "Enter your name:"
+        SDL_Color textColor = { 255, 255, 255, 255 };
+        SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "Enter your name:", textColor);
+        if (!surfaceMessage) {
+            std::cerr << "Erro ao renderizar texto: " << TTF_GetError() << std::endl;
+            return;
+        }
+
+        SDL_Texture* message = SDL_CreateTextureFromSurface(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), surfaceMessage);
+        if (!message) {
+            std::cerr << "Erro ao criar textura: " << SDL_GetError() << std::endl;
+            SDL_FreeSurface(surfaceMessage);
+            return;
+        }
+
+        int textWidth = surfaceMessage->w;
+        int textHeight = surfaceMessage->h;
+        SDL_Rect messageRect = { (Config::windowSize.x - textWidth) / 2, Config::windowSize.y / 3, textWidth, textHeight };
+        SDL_RenderCopy(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), message, NULL, &messageRect);
+
+        // Renderizar o nome do jogador
+        SDL_Surface* nameSurface = TTF_RenderText_Solid(font, displayName.c_str(), textColor);
+        if (!nameSurface) {
+            std::cerr << "Erro ao renderizar nome do jogador: " << TTF_GetError() << std::endl;
+            SDL_DestroyTexture(message);
+            SDL_FreeSurface(surfaceMessage);
+            return;
+        }
+
+        SDL_Texture* nameTexture = SDL_CreateTextureFromSurface(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), nameSurface);
+        if (!nameTexture) {
+            std::cerr << "Erro ao criar textura do nome: " << SDL_GetError() << std::endl;
+            SDL_FreeSurface(nameSurface);
+            SDL_DestroyTexture(message);
+            SDL_FreeSurface(surfaceMessage);
+            return;
+        }
+
+        int nameWidth = nameSurface->w;
+        int nameHeight = nameSurface->h;
+        SDL_Rect nameRect = { (Config::windowSize.x - nameWidth) / 2, Config::windowSize.y / 2, nameWidth, nameHeight };
+        SDL_RenderCopy(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), nameTexture, NULL, &nameRect);
+
+        // Liberar recursos
+        SDL_FreeSurface(surfaceMessage);
+        SDL_FreeSurface(nameSurface);
+        SDL_DestroyTexture(message);
+        SDL_DestroyTexture(nameTexture);
+
+        // Apresentar a renderização
+        SDL_RenderPresent(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer());
+    }
+
+    void GameEngine::showGameOverScreen() {
+        // Renderizar a tela de game over
+        SDL_SetRenderDrawColor(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), 0, 0, 0, 255);
+        SDL_RenderClear(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer());
+
+        SDL_Color textColor = { 255, 255, 255, 255 };
+
+        // Renderizar "Game Over"
+        SDL_Surface* gameOverSurface = TTF_RenderText_Solid(font, "Game Over", textColor);
+        SDL_Texture* gameOverTexture = SDL_CreateTextureFromSurface(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), gameOverSurface);
+
+        int gameOverWidth = gameOverSurface->w;
+        int gameOverHeight = gameOverSurface->h;
+        SDL_Rect gameOverRect = { (Config::windowSize.x - gameOverWidth) / 2, Config::windowSize.y / 3, gameOverWidth, gameOverHeight };
+        SDL_RenderCopy(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), gameOverTexture, NULL, &gameOverRect);
+
+        // Renderizar a pontuação
+        int score = ScoreManager::getInstance()->getPoints();
+        std::string scoreText = "Score: " + std::to_string(score);
+        SDL_Surface* scoreSurface = TTF_RenderText_Solid(font, scoreText.c_str(), textColor);
+        SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), scoreSurface);
+
+        int scoreWidth = scoreSurface->w;
+        int scoreHeight = scoreSurface->h;
+        SDL_Rect scoreRect = { (Config::windowSize.x - scoreWidth) / 2, Config::windowSize.y / 2, scoreWidth, scoreHeight };
+        SDL_RenderCopy(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), scoreTexture, NULL, &scoreRect);
+
+        rendererPort->renderPresent();
+
+        // Esperar alguns segundos antes de voltar ao menu principal
+        SDL_Delay(1000);
+
+        // Liberar recursos
+        SDL_FreeSurface(gameOverSurface);
+        SDL_DestroyTexture(gameOverTexture);
+        SDL_FreeSurface(scoreSurface);
+        SDL_DestroyTexture(scoreTexture);
+
+
+        // Voltar ao menu principal
+        this->currentState = GameState::MainMenu;
+    }
+
+    void GameEngine::resetGame() {
+        // Limpar listas de inimigos, projéteis, etc.
+        enemies.clear();
+        playerProjectiles.clear();
+        enemyProjectiles.clear();
+        obstacles.clear();
+
+        // Resetar o jogador
+        if (player) {
+            delete player;
+            player = nullptr;
+        }
+
+        // Resetar nível e pontuação
+        level = 1;
+        timerChangeLevel = 0;
+        ScoreManager::getInstance()->resetPoints();
+
+        // Resetar outros estados do jogo conforme necessário
+    }
+
+    void GameEngine::showHighScores() {
+        bool backToMenu = false;
+        std::vector<PlayerScore> highScores = ScoreManager::getInstance()->getHighScores();
+
+        while (!backToMenu) {
+            // Limpar a tela
+            SDL_SetRenderDrawColor(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), 0, 0, 0, 255);
+            SDL_RenderClear(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer());
+
+            // Renderizar o título
+            SDL_Color titleColor = { 255, 255, 0, 255 }; // Amarelo
+            rendererPort->renderSimpleText("High Scores", Config::windowSize.x / 2 - 100, 50, titleColor);
+
+            // Renderizar as pontuações
+            SDL_Color textColor = { 255, 255, 255, 255 }; // Branco
+            int yPos = 100;
+            for (size_t i = 0; i < std::min(highScores.size(), size_t(10)); ++i) {
+                std::string scoreText = std::to_string(i + 1) + ". " + highScores[i].name + ": " + std::to_string(highScores[i].score);
+                rendererPort->renderSimpleText(scoreText, Config::windowSize.x / 2 - 150, yPos, textColor);
+                yPos += 40;
+            }
+
+            // Renderizar instrução para voltar
+            SDL_Color instructionColor = { 150, 150, 150, 255 }; // Cinza
+            rendererPort->renderSimpleText("Press ESC to return to main menu", Config::windowSize.x / 2 - 150, Config::windowSize.y - 50, instructionColor);
+
+            rendererPort->renderPresent();
+
+            // Tratamento de eventos
+            SDL_Event event;
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_QUIT) {
+                    backToMenu = true;
+                }
+                else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+                    backToMenu = true;
+                }
+            }
+        }
+    }
+
+    void GameEngine::showCredits() {
+        bool backToMenu = false;
+
+        while (!backToMenu) {
+            // Limpar a tela
+            SDL_SetRenderDrawColor(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(), 0, 0, 0, 255);
+            SDL_RenderClear(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer());
+
+            // Renderizar o título
+            SDL_Color titleColor = { 255, 255, 0, 255 }; // Amarelo
+            rendererPort->renderSimpleText("Credits", Config::windowSize.x / 2 - 50, 50, titleColor);
+
+            // Renderizar os créditos
+            SDL_Color textColor = { 255, 255, 255, 255 }; // Branco
+            int yPos = 120;
+
+            rendererPort->renderSimpleText("Desenvolvedor:", Config::windowSize.x / 2 - 200, yPos, textColor);
+            yPos += 40;
+            rendererPort->renderSimpleText("Santyero Mesquita Borges dos Santos", Config::windowSize.x / 2 - 180, yPos, textColor);
+            yPos += 80;
+
+            rendererPort->renderSimpleText("Professores:", Config::windowSize.x / 2 - 200, yPos, textColor);
+            yPos += 40;
+            rendererPort->renderSimpleText("Eduardo Henrique Molina da Cruz", Config::windowSize.x / 2 - 180, yPos, textColor);
+            yPos += 40;
+            rendererPort->renderSimpleText("Hélio Toshio Kamakawa", Config::windowSize.x / 2 - 180, yPos, textColor);
+            yPos += 80;
+
+            rendererPort->renderSimpleText("Templates:", Config::windowSize.x / 2 - 200, yPos, textColor);
+            yPos += 40;
+            rendererPort->renderSimpleText("tiny-swords", Config::windowSize.x / 2 - 180, yPos, textColor);
+
+            // Renderizar instrução para voltar
+            SDL_Color instructionColor = { 150, 150, 150, 255 }; // Cinza
+            rendererPort->renderSimpleText("Press ESC to return to main menu", Config::windowSize.x / 2 - 150, Config::windowSize.y - 50, instructionColor);
+
+            rendererPort->renderPresent();
+
+            // Tratamento de eventos
+            SDL_Event event;
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_QUIT) {
+                    backToMenu = true;
+                }
+                else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+                    backToMenu = true;
+                }
+            }
+        }
+    }
+
 }

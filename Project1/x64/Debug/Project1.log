@@ -1,16 +1,4 @@
 ﻿  Verificando fontes para dependências de módulo...
-  Origem.cpp
-C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
-  (compilando o arquivo fonte 'Origem.cpp')
-  
-C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
-  (compilando o arquivo fonte 'Origem.cpp')
-  
-C:\projetos\archero_clone\Project1\Character.h(32,31): warning C4305: 'inicializando': truncamento de 'double' para 'float'
-  (compilando o arquivo fonte 'Origem.cpp')
-  
-C:\projetos\archero_clone\Project1\Origem.cpp(16,68): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\Origem.cpp(16,46): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
   GameEngine.cpp
 C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
   (compilando o arquivo fonte 'GameEngine.cpp')
@@ -21,15 +9,45 @@ C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inici
 C:\projetos\archero_clone\Project1\Character.h(32,31): warning C4305: 'inicializando': truncamento de 'double' para 'float'
   (compilando o arquivo fonte 'GameEngine.cpp')
   
-C:\projetos\archero_clone\Project1\GameEngine.cpp(270,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(279,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(280,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(282,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(313,89): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(409,69): warning C4244: 'argumento': conversão de 'int' para 'const float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(409,49): warning C4244: 'argumento': conversão de 'int' para 'const float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(430,28): warning C4244: 'inicializando': conversão de 'double' para 'float', possível perda de dados
-C:\projetos\archero_clone\Project1\GameEngine.cpp(445,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(268,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(277,33): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(278,29): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(280,19): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(311,89): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(407,69): warning C4244: 'argumento': conversão de 'int' para 'const float', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(407,49): warning C4244: 'argumento': conversão de 'int' para 'const float', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(428,28): warning C4244: 'inicializando': conversão de 'double' para 'float', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(443,19): warning C4267: 'inicializando': conversão de 'size_t' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(665,69): warning C4838: a conversão de 'float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\GameEngine.cpp(665,69): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(665,95): warning C4838: a conversão de 'float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\GameEngine.cpp(665,95): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(688,66): warning C4838: a conversão de 'float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\GameEngine.cpp(688,66): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(688,92): warning C4838: a conversão de 'float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\GameEngine.cpp(688,92): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(714,74): warning C4838: a conversão de 'float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\GameEngine.cpp(714,74): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(714,100): warning C4838: a conversão de 'float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\GameEngine.cpp(714,100): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(725,68): warning C4838: a conversão de 'float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\GameEngine.cpp(725,68): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(725,94): warning C4838: a conversão de 'float' em 'int' requer uma conversão de restrição
+C:\projetos\archero_clone\Project1\GameEngine.cpp(725,94): warning C4244: 'inicializando': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(776,84): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(783,84): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(789,133): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(789,105): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(816,80): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(822,87): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(824,108): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(827,85): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(829,104): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(831,95): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(834,83): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(836,84): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(840,133): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\GameEngine.cpp(840,105): warning C4244: 'argumento': conversão de 'float' para 'int', possível perda de dados
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75): warning C4244: 'argumento': conversão de '_Ty' para 'float', possível perda de dados
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75): warning C4244:         with
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75): warning C4244:         [
@@ -38,7 +56,7 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.3412
   (compilando o arquivo fonte 'GameEngine.cpp')
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\xutility(389,75):
       o contexto de instanciação do modelo (o mais antigo primeiro) é
-          C:\projetos\archero_clone\Project1\GameEngine.cpp(414,24):
+          C:\projetos\archero_clone\Project1\GameEngine.cpp(412,24):
           consulte a referência à instanciação 'Game::Projectile &std::list<Game::Projectile,std::allocator<Game::Projectile>>::emplace_back<Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&)' do modelo que está sendo compilada
           C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include\list(996,29):
           consulte a referência à instanciação 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *std::list<_Ty,_Alloc>::_Emplace<Game::RendererPort*&,Game::TextureManager*,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,Game::PhysicsEngine*&,Game::Vector&,Game::Vector&,Game::Vector&,int>(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *const ,Game::RendererPort *&,Game::TextureManager *&&,std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&,Game::PhysicsEngine *&,Game::Vector &,Game::Vector &,Game::Vector &,int &&)' do modelo que está sendo compilada
@@ -95,5 +113,17 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.3412
               _Objty=Game::Projectile
           ]
   
+  Origem.cpp
+C:\projetos\archero_clone\Project1\RendererPort.h(2,27): warning C4067: tokens inesperados após diretiva de pré-processador - esperado um newline
+  (compilando o arquivo fonte 'Origem.cpp')
+  
+C:\projetos\archero_clone\Project1\PhysicsEngine.h(12,22): warning C4244: 'inicializando': conversão de 'int' para 'float', possível perda de dados
+  (compilando o arquivo fonte 'Origem.cpp')
+  
+C:\projetos\archero_clone\Project1\Character.h(32,31): warning C4305: 'inicializando': truncamento de 'double' para 'float'
+  (compilando o arquivo fonte 'Origem.cpp')
+  
+C:\projetos\archero_clone\Project1\Origem.cpp(16,68): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
+C:\projetos\archero_clone\Project1\Origem.cpp(16,46): warning C4244: 'argumento': conversão de 'const float' para 'int', possível perda de dados
   Gerando Código...
   Project1.vcxproj -> C:\projetos\archero_clone\x64\Debug\Project1.exe

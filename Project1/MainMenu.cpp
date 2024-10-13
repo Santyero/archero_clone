@@ -4,7 +4,7 @@
 namespace Game {
     MainMenu::MainMenu(RendererPort* rendererPort, TextureManager* textureManager)
         : rendererPort(rendererPort), textureManager(textureManager), selectedOption(0) {
-        options = { "New Game", "Exit" };
+        options = { "New Game", "High Scores", "Credits", "Exit" };
         backgroundTexture = textureManager->getTexture("main_menu_background", "idle", 0);
     }
 

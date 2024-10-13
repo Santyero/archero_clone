@@ -16,6 +16,7 @@
 #include <list>
 #include <memory>
 #include "MainMenu.h"
+#include <SDL_ttf.h>
 
 namespace Game {
 
@@ -37,7 +38,7 @@ namespace Game {
         int timerChangeLevel = 0;
         std::unique_ptr<HUD> hud;
         std::unique_ptr<MainMenu> mainMenu;
-        enum class GameState { MainMenu, Playing, Paused };
+        enum class GameState { MainMenu, Playing, Paused, Exit };
         GameState currentState;
 
         void loadAnimationFrames(std::vector<SDL_Rect>& targetFrames, int startY, int numFrames, int frameHeight, int frameWidth);
@@ -46,6 +47,8 @@ namespace Game {
         void setupProjectiles();
         void setutpScene();
         void handlePauseMenuSelection(int selectedOption, SDL_bool& done);
+        TTF_Font* font;
+
 
     public:
         GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_);
@@ -63,6 +66,15 @@ namespace Game {
 		void changeLevel();
         void verifyRenderNewEnemies();
         void run();
+        void resetGame();
+        void startMenu(SDL_Event& event);
+
+        void handlePlayerDeath();
+        std::string getPlayerName();
+        void renderNameInputScreen(const std::string& playerName);
+        void showGameOverScreen();
+        void showHighScores();
+        void showCredits();
 
         MixerManager* getMixerManager() { return mixerManager.get(); }  // Acessar gerenciador de áudio
 

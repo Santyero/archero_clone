@@ -20,5 +20,6 @@ namespace Game {
         void render();
         void handleInput(SDL_Event& event);
         int getSelectedOption() const { return selectedOption; }
+		void setSelectedOption(int option) { selectedOption = option; }
     };
 }
