@@ -135,6 +135,9 @@
     <ClCompile Include="MainMenu.cpp">
       <Filter>Arquivos de Origem\infrastructure</Filter>
     </ClCompile>
+    <ClCompile Include="OptionsMenu.cpp">
+      <Filter>Arquivos de Origem\infrastructure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h">
@@ -191,32 +194,35 @@
     <ClInclude Include="Obstacle.h">
       <Filter>Arquivos de Cabeçalho\domain\entitites</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationConfig.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="ConfigLoader.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="MixerManager.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="Hud.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
+      <Filter>Arquivos de Cabeçalho\domain\engines</Filter>
     </ClInclude>
     <ClInclude Include="ScoreManager.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
+      <Filter>Arquivos de Cabeçalho\domain\engines</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Arquivos de Cabeçalho\domain\engines</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationConfig.h">
+      <Filter>Arquivos de Cabeçalho\domain\engines</Filter>
     </ClInclude>
     <ClInclude Include="PauseMenu.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStateManager.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
+      <Filter>Arquivos de Cabeçalho\infrasctructure\external_libs</Filter>
     </ClInclude>
     <ClInclude Include="MainMenu.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
+      <Filter>Arquivos de Cabeçalho\infrasctructure</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateManager.h">
+      <Filter>Arquivos de Cabeçalho\infrasctructure</Filter>
+    </ClInclude>
+    <ClInclude Include="Hud.h">
+      <Filter>Arquivos de Cabeçalho\application</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigLoader.h">
+      <Filter>Arquivos de Cabeçalho\application</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsMenu.h">
+      <Filter>Arquivos de Cabeçalho\infrasctructure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

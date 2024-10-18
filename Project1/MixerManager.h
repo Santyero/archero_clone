@@ -44,6 +44,8 @@ namespace Game {
         // Define o volume dos efeitos sonoros (0-128)
         void setSoundVolume(int volume);
 
+		void setVolume(int volume);
+
     private:
         using MusicPtr = std::unique_ptr<Mix_Music, decltype(&Mix_FreeMusic)>;
         using SoundPtr = std::unique_ptr<Mix_Chunk, decltype(&Mix_FreeChunk)>;

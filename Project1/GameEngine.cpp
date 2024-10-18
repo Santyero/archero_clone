@@ -26,6 +26,8 @@ namespace Game
         this->textureManager = std::make_unique<TextureManager>(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer());
         this->mixerManager = std::make_unique<MixerManager>();
         this->physicsEngine = new PhysicsEngine(this->timeServicePort);
+        optionsMenu = std::make_unique<OptionsMenu>(rendererPort, textureManager.get(), mixerManager.get(), window.getIsFullscreen());
+
 
         if (TTF_Init() == -1) {
             std::cerr << "SDL_ttf não pôde ser inicializado! Erro SDL_ttf: " << TTF_GetError() << std::endl;
@@ -62,6 +64,7 @@ namespace Game
             while (SDL_PollEvent(&event)) {
                 if (event.type == SDL_QUIT) {
                     done = SDL_TRUE;
+                    return;
                 }
 
                 switch (currentState) {
@@ -554,7 +557,7 @@ namespace Game
             mixerManager->resumeMusic();
             break;
         case 1: // Options
-            // Implementar tela de opções
+            showOptionsMenu();
             break;
         case 2: // Quit
             done = SDL_TRUE;
@@ -571,14 +574,17 @@ namespace Game
             case 0: // New Game
                 currentState = GameState::Playing;
                 break;
-            case 1: // High Scores
+            case 1: // Options
+                showOptionsMenu();
+                break;
+            case 2: // High Scores
                 showHighScores();
                 break;
-            case 2: // Credits
+            case 3: // Credits
                 showCredits();
                 break;
-            case 3: // Exit
-                event.type = SDL_QUIT;
+            case 4: // Exit
+                currentState = GameState::Exit;
                 break;
             }
         }
@@ -853,5 +859,44 @@ namespace Game
             }
         }
     }
+
+    void GameEngine::showOptionsMenu() {
+        bool exitOptions = false;
+        SDL_Event event;
+
+        while (!exitOptions) {
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_QUIT) {
+                    exitOptions = true;
+                    currentState = GameState::Exit;
+                }
+                else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+                    exitOptions = true;
+                }
+                else {
+                    optionsMenu->handleInput(event);
+                    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
+                        if (optionsMenu->getSelectedOption() == 1) {
+                            toggleFullscreen();
+                        }
+                        else if (optionsMenu->getSelectedOption() == 2) {
+                            exitOptions = true;
+                        }
+                    }
+                }
+            }
+
+            optionsMenu->render();
+        }
+    }
+
+    void GameEngine::toggleFullscreen() {
+        window.toggleFullscreen();
+        optionsMenu->toggleFullscreen();
+        // Reajuste o renderer se necessário
+        SDL_RenderSetLogicalSize(static_cast<SDLRendererAdapter*>(rendererPort)->getRenderer(),
+            window.getWidth(), window.getHeight());
+    }
+
 
 }

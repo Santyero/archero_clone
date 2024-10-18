@@ -17,6 +17,7 @@
 #include <memory>
 #include "MainMenu.h"
 #include <SDL_ttf.h>
+#include "OptionsMenu.h"
 
 namespace Game {
 
@@ -49,6 +50,9 @@ namespace Game {
         void handlePauseMenuSelection(int selectedOption, SDL_bool& done);
         TTF_Font* font;
 
+        std::unique_ptr<OptionsMenu> optionsMenu;
+        void showOptionsMenu();
+        void toggleFullscreen();
 
     public:
         GameEngine(Window& window_, RendererPort* rendererPort_, TimeServicePort* timeServicePort_);

@@ -85,6 +85,12 @@ namespace Game {
         Mix_Volume(-1, volume);
     }
 
+    void MixerManager::setVolume(int volume) {
+        int sdlVolume = (volume * MIX_MAX_VOLUME) / 100;
+        Mix_Volume(-1, sdlVolume);  // Define o volume para todos os canais
+        Mix_VolumeMusic(sdlVolume);
+    }
+
     void MixerManager::throwSDLMixerError(const std::string& message) {
         //throw std::runtime_error(message + " SDL_mixer Error: " + Mix_GetError());
         std::cout << message << " SDL_mixer Error: " << Mix_GetError() << std::endl;

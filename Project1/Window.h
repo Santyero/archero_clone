@@ -11,10 +11,15 @@ namespace Game {
 		SDL_Window* windowRef = nullptr;
 		int width;
 		int height;
+		bool isFullscreen;
 	public:
 		Window(int width, int height);
 
 		void createWindow();
+		void toggleFullscreen();
+		bool getIsFullscreen() const { return isFullscreen; }
+		int getWidth() const { return width; }
+		int getHeight() const { return height; }
 
 		SDL_Window* getWindowRef();
 	};
